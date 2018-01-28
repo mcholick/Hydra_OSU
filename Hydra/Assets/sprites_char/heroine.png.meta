@@ -1,21 +1,33 @@
 fileFormatVersion: 2
-guid: f336c9f2e1c631641afe5a580f034c10
-timeCreated: 1516934671
+guid: 756438de15d689347a90f80c429ccc7e
+timeCreated: 1517175733
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: heroine_0
-    21300002: heroine_1
-    21300004: heroine_2
-    21300006: heroine_3
-    21300008: heroine_4
-    21300010: heroine_5
-    21300012: heroine_6
-    21300014: heroine_7
-    21300016: heroine_8
-    21300018: heroine_9
-    21300020: heroine_10
-    21300022: heroine_11
+    21300000: heroine 1_0
+    21300002: heroine 1_1
+    21300004: heroine 1_2
+    21300006: heroine 1_3
+    21300008: heroine 1_4
+    21300010: heroine 1_5
+    21300012: heroine 1_6
+    21300014: heroine 1_7
+    21300016: heroine 1_8
+    21300018: heroine 1_9
+    21300020: heroine 1_10
+    21300022: heroine 1_11
+    21300024: heroine_0
+    21300026: heroine_1
+    21300028: heroine_2
+    21300030: heroine_3
+    21300032: heroine_4
+    21300034: heroine_5
+    21300036: heroine_6
+    21300038: heroine_7
+    21300040: heroine_8
+    21300042: heroine_9
+    21300044: heroine_10
+    21300046: heroine_11
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -69,20 +81,20 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,7 +108,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -110,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 96
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -124,7 +136,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 96
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -137,8 +149,8 @@ TextureImporter:
       name: heroine_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 96
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -151,8 +163,8 @@ TextureImporter:
       name: heroine_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 128
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -165,8 +177,8 @@ TextureImporter:
       name: heroine_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 160
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -179,8 +191,8 @@ TextureImporter:
       name: heroine_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 192
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -193,8 +205,8 @@ TextureImporter:
       name: heroine_7
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 224
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -207,8 +219,8 @@ TextureImporter:
       name: heroine_8
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 256
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -221,7 +233,7 @@ TextureImporter:
       name: heroine_9
       rect:
         serializedVersion: 2
-        x: 0
+        x: 288
         y: 0
         width: 32
         height: 32
@@ -235,7 +247,7 @@ TextureImporter:
       name: heroine_10
       rect:
         serializedVersion: 2
-        x: 32
+        x: 320
         y: 0
         width: 32
         height: 32
@@ -249,7 +261,7 @@ TextureImporter:
       name: heroine_11
       rect:
         serializedVersion: 2
-        x: 64
+        x: 352
         y: 0
         width: 32
         height: 32
