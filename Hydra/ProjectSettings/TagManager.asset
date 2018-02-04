@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-<<<<<<< HEAD
-  - key
-=======
-  - ShowOnPause
->>>>>>> 2886edbe4647a9c3edc63a0fb78fb8f77cd2af3f
+  tags: []
   layers:
   - Default
   - TransparentFX
