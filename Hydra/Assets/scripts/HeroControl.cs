@@ -12,16 +12,22 @@ public class HeroControl : MonoBehaviour {
 
     private Animator anim;
 
-    private Collision2D collision;
+    private Rigidbody2D rigbod;
 
     // Use this for initialization
     void Start() {
         anim = GetComponent<Animator>();
+        rigbod = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update() {
-        float adjustedSpeed = speed;  //used to make sure player can't go faster diagonally
+        float moveHori = Input.GetAxisRaw("Horizontal");
+        float moveVert = Input.GetAxisRaw("Vertical");
+        Vector2 movement = new Vector2(moveHori, moveVert);
+        transform.Translate(new Vector2(moveHori, moveVert) * speed * Time.deltaTime);
+        
+        
 
 
         //vertical movement
@@ -38,10 +44,6 @@ public class HeroControl : MonoBehaviour {
                 anim.SetBool("MovedDown", true);
                 anim.SetBool("MovedUp", false);
             }
-
-            if (Input.GetAxisRaw("Horizontal") != 0)
-                adjustedSpeed = Mathf.Sqrt(speed);
-            transform.Translate(0, adjustedSpeed * Input.GetAxisRaw("Vertical") / 100, 0);
         }
         //horizontal movement
         if (Input.GetAxisRaw("Horizontal") != 0) {
@@ -53,23 +55,18 @@ public class HeroControl : MonoBehaviour {
                 anim.SetBool("MovedLeft", true);
                 anim.SetBool("MovedRight", false);
             }
-            if (Input.GetAxisRaw("Vertical") != 0)
-                adjustedSpeed = Mathf.Sqrt(speed);
-            transform.Translate(adjustedSpeed * Input.GetAxisRaw("Horizontal") / 100, 0, 0);
         }
 
         //set anim floats for walking animations
         anim.SetFloat("MovingX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
-
-        //create controls for collecting and storing collectibles
-        if (Input.GetKeyDown("space")){
-            if (collision.gameObject.CompareTag("key")) {
-                print("You Just Collected ");
-
-            }
-        }
     }
 
+    void OnTriggerEnter2D(Collider2D other){
+        if (Input.GetKeyDown("space")) {
+            print("Collectible Activated");
+
+        }
+    }
 
 }
