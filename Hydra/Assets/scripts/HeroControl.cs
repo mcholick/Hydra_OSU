@@ -63,6 +63,13 @@ public class HeroControl : MonoBehaviour {
         //set anim floats for walking animations
         anim.SetFloat("MovingX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
+
+        //this is added for simply a test
+        if (invCount >= 2) {
+            Destroy(GameObject.Find("cat"));
+            Destroy(GameObject.Find("drunkard"));
+            Destroy(GameObject.Find("farmer"));
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other){
