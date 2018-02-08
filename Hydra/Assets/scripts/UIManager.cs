@@ -8,12 +8,15 @@ using UnityEngine;
  */
 public class UIManager : MonoBehaviour {
      GameObject[] pauseObjects;
+     GameObject[] characterMenu;
 	// Use this for initialization
 	void Start () {
           Time.timeScale = 1;
           pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
+          characterMenu = GameObject.FindGameObjectsWithTag("characterMenu");
           hidePaused();
-	}
+          hideCharacterMenuOnClick();
+     }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,14 +25,7 @@ public class UIManager : MonoBehaviour {
           {
                if (Time.timeScale == 1)
                {
-                    Time.timeScale = 0;
                     showPaused();
-               }
-               else if (Time.timeScale == 0)
-               {
-                    Debug.Log("High");
-                    Time.timeScale = 1;
-                    hidePaused();
                }
           }
 	}
@@ -38,13 +34,32 @@ public class UIManager : MonoBehaviour {
      {
           foreach(GameObject g in pauseObjects)
           {
-               g.SetActive(true);
+               Time.timeScale = 0;
+               g.SetActive(true);   
           }
      }
 
      public void hidePaused()
      {
           foreach(GameObject g in pauseObjects)
+          {
+               Time.timeScale = 1;
+               g.SetActive(false);
+          }
+     }
+
+     //function so on button click show character menu from pause screen
+     public void showCharacterMenuOnClick()
+     {
+          foreach(GameObject g in characterMenu)
+          {
+               g.SetActive(true);
+          }
+     }
+
+     public void hideCharacterMenuOnClick()
+     {
+          foreach (GameObject g in characterMenu)
           {
                g.SetActive(false);
           }

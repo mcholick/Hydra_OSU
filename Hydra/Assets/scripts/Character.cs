@@ -12,22 +12,26 @@ using UnityEngine;
 public class Character {
 
      public string name;
-     public int health;
+     public int maxhealth;
+     public int currenthealth;
      public int strength;
      public int dexterity;
      public int wisdom;
      public int piety;
      public int resistance;
 
-     public Character (string n)
+
+     public Character (string n , int h , int s, int d, int w, int p, int r)
      {
+
           this.name = n;
-          this.health = 10;
-          this.strength = 5;
-          this.dexterity = 5;
-          this.wisdom = 5;
-          this.piety = 5;
-          this.resistance = 0;
+          this.maxhealth = h;
+          this.currenthealth = h;
+          this.strength = s;
+          this.dexterity = d;
+          this.wisdom = w;
+          this.piety = p;
+          this.resistance = r;
 
      }
 
