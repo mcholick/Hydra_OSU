@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class KeyBehavior : MonoBehaviour {
     public System.String keyName;
-
     // Use this for initialization
     void Start () {
  
