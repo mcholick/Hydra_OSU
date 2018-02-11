@@ -1,36 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HeroControl : MonoBehaviour {
 
     public float speed; //controls hero's pace
 
-    private string[] Inventory = new string[10];//holds hero's stuff
-    int invCount = 0;
+    private List<System.String> Inventory;//holds hero's stuff
 
     private CircleCollider2D hitbox;  //used for collecting and interacting with close objects
 
     private Animator anim;
 
-    //private Rigidbody2D rigbod;
-
-    private string invText = "Inventory:"; //display inventory on screen;
+    private Collision2D collision;
 
     // Use this for initialization
     void Start() {
         anim = GetComponent<Animator>();
-        //rigbod = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update() {
-        float moveHori = Input.GetAxisRaw("Horizontal");
-        float moveVert = Input.GetAxisRaw("Vertical");
-        transform.Translate(new Vector2(moveHori, moveVert) * speed * Time.deltaTime);
-        
-        
+        float adjustedSpeed = speed;  //used to make sure player can't go faster diagonally
 
 
         //vertical movement
@@ -47,6 +38,10 @@ public class HeroControl : MonoBehaviour {
                 anim.SetBool("MovedDown", true);
                 anim.SetBool("MovedUp", false);
             }
+
+            if (Input.GetAxisRaw("Horizontal") != 0)
+                adjustedSpeed = Mathf.Sqrt(speed);
+            transform.Translate(0, adjustedSpeed * Input.GetAxisRaw("Vertical") / 100, 0);
         }
         //horizontal movement
         if (Input.GetAxisRaw("Horizontal") != 0) {
@@ -58,11 +53,15 @@ public class HeroControl : MonoBehaviour {
                 anim.SetBool("MovedLeft", true);
                 anim.SetBool("MovedRight", false);
             }
+            if (Input.GetAxisRaw("Vertical") != 0)
+                adjustedSpeed = Mathf.Sqrt(speed);
+            transform.Translate(adjustedSpeed * Input.GetAxisRaw("Horizontal") / 100, 0, 0);
         }
 
         //set anim floats for walking animations
         anim.SetFloat("MovingX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
+<<<<<<< HEAD
 
         //this is added for simply a test
         if (invCount >= 2) {
@@ -71,31 +70,17 @@ public class HeroControl : MonoBehaviour {
             Destroy(GameObject.Find("farmer"));
         }
     }
+=======
+>>>>>>> c942511a7e97aaf642520bc37d8101edf5452d6a
 
-    void OnCollisionEnter2D(Collision2D other){
-        string keyname;
-        
+        //create controls for collecting and storing collectibles
+        if (Input.GetKeyDown("space")){
+            if (collision.gameObject.CompareTag("key")) {
+                print("You Just Collected ");
 
-        if (other.gameObject.CompareTag("key")) {
-            keyname = other.gameObject.GetComponent<Text>().text;
-            print("Collectible Activated");
-            //print(keyname);
-            invText = invText + "\n" + keyname;
-            Inventory[invCount] = keyname;
-            invCount++;
-            print("Inventory contains:");
-            for(int i = 0; i< invCount; i++)
-                print(Inventory[i]);
-            
-            Destroy(other.gameObject);
-
+            }
         }
     }
 
-    private void OnGUI(){
-        Rect pos = new Rect(10, 10, 200, 3000);
-        GUI.Label(pos, invText);
-
-    }
 
 }
