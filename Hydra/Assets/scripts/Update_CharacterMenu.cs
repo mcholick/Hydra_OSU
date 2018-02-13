@@ -14,9 +14,10 @@ public class Update_CharacterMenu : MonoBehaviour {
      public Text wisdom;
      public Text piety;
      public Text resistance;
+     private string char_type;
 
-	// Update is called once per frame
-	void Update () {
+     // Update is called once per frame
+     void Update () {
           //check to see if player
           if (partyMember == 0)
           {
@@ -36,21 +37,22 @@ public class Update_CharacterMenu : MonoBehaviour {
           {
                spr.enabled = true;
                char_name.text = Game.current.party[0].name;
+               char_type = Game.current.party[0].charactertype;
                
                //---------------------IMPORTANT: Change if statment names if you changed them in Game.cs--------------------------------------------------
-               if(char_name.text == "Shifty Sheep")
+               if(char_type == "sheep")
                {
                     spr.sprite= Resources.Load("sheep", typeof(Sprite)) as Sprite;
                }
-               else if(char_name.text == "Farmer Frank")
+               else if(char_type == "farmer")
                {
                     spr.sprite =Resources.Load("farmer", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Clumsy Cat")
+               else if (char_type == "cat")
                {
                     spr.sprite = Resources.Load("cat", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Drunkard Dan")
+               else if (char_type == "drunkard")
                {
                     spr.sprite = Resources.Load("drunkard", typeof(Sprite)) as Sprite;
                }
@@ -67,27 +69,29 @@ public class Update_CharacterMenu : MonoBehaviour {
           else if ((partyMember == 2) && (Game.current.party[1] != null))
           {
                char_name.text = Game.current.party[1].name;
+               char_type = Game.current.party[1].charactertype;
+
                spr.enabled = true;
                //---------------------IMPORTANT: Change if statment names if you changed them in Game.cs--------------------------------------------------
-               if (char_name.text == "Shifty Sheep")
+               if (char_type == "sheep")
                {
                     spr.sprite = Resources.Load("sheep", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Farmer Frank")
+               else if (char_type == "farmer")
                {
                     spr.sprite = Resources.Load("farmer", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Clumsy Cat")
+               else if (char_type == "cat")
                {
                     spr.sprite = Resources.Load("cat", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Drunkard Dan")
+               else if (char_type == "drunkard")
                {
                     spr.sprite = Resources.Load("drunkard", typeof(Sprite)) as Sprite;
                }
                //---------------------END OF IMPORTANT--------------------------------------------------------------------------------------------------
 
-               
+
                health.text = "Health: " + (Game.current.party[1].currenthealth).ToString() + " / " + (Game.current.party[1].maxhealth).ToString();
                strength.text = "Strength: " + (Game.current.party[1].strength).ToString();
                dexterity.text = "Dexterity: " + (Game.current.party[1].dexterity).ToString();
@@ -100,26 +104,27 @@ public class Update_CharacterMenu : MonoBehaviour {
           {
 
                char_name.text = Game.current.party[2].name;
+               char_type = Game.current.party[2].charactertype;
                spr.enabled = true;
                //---------------------IMPORTANT: Change if statment names if you changed them in Game.cs--------------------------------------------------
-               if (char_name.text == "Shifty Sheep")
+               if (char_type == "sheep")
                {
                     spr.sprite = Resources.Load("sheep", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Farmer Frank")
+               else if (char_type == "farmer")
                {
                     spr.sprite = Resources.Load("farmer", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Clumsy Cat")
+               else if (char_type == "cat")
                {
                     spr.sprite = Resources.Load("cat", typeof(Sprite)) as Sprite;
                }
-               else if (char_name.text == "Drunkard Dan")
+               else if (char_type == "drunkard")
                {
                     spr.sprite = Resources.Load("drunkard", typeof(Sprite)) as Sprite;
                }
                //---------------------END OF IMPORTANT--------------------------------------------------------------------------------------------------
-               
+
                health.text = "Health: " + (Game.current.party[2].currenthealth).ToString() + " / " + (Game.current.party[2].maxhealth).ToString();
                strength.text = "Strength: " + (Game.current.party[2].strength).ToString();
                dexterity.text = "Dexterity: " + (Game.current.party[2].dexterity).ToString();

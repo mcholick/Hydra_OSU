@@ -1,0 +1,15 @@
+When updating a sprite
+-------------------------- 
+
+1. Please overwrite the old sprite with the updated sprite
+
+2. Please make sure it has the same name as the old one!
+
+3. These sprites are referenced in the Character Menu and in the Battle Scene
+
+WIP: Temp sprites used
+--------------------------
+jelly
+bear
+rat
+

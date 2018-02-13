@@ -11,6 +11,7 @@ using UnityEngine;
  [System.Serializable]
 public class Character {
 
+     public string charactertype;
      public string name;
      public int maxhealth;
      public int currenthealth;
@@ -21,9 +22,9 @@ public class Character {
      public int resistance;
 
 
-     public Character (string n , int h , int s, int d, int w, int p, int r)
+     public Character (string ct,string n , int h , int s, int d, int w, int p, int r)
      {
-
+          this.charactertype = ct;
           this.name = n;
           this.maxhealth = h;
           this.currenthealth = h;
