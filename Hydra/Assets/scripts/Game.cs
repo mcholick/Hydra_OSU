@@ -14,13 +14,14 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Game {
 
-     public static Game current;
-     public Character player;
-     public Character farmer;
-     public Character sheep;
-     public Character cat;
-     public Character drunkard;
-     public Character[] party;
+    public static Game current;
+    public Character player;
+    public Character farmer;
+    public Character sheep;
+    public Character cat;
+    public Character drunkard;
+    public Character[] party;
+    public string[] inventory;  //dm
 
 
      public Game()
@@ -31,6 +32,7 @@ public class Game {
           sheep = new Character("Shifty Sheep",15,2,8,9,1,3);
           cat = new Character("Clumsy Cat",15,3,8,2,8,3);
           drunkard = new Character("Drunkard Dan",30,10,4,1,0,5);
+          inventory = new string[4];  //dm
 
           //initalize array to hold party
           //max 4 party members and player is one of them
@@ -40,6 +42,6 @@ public class Game {
           party[2] = null;
 
 
-     }
+    }
 
 }

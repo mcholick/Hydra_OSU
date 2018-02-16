@@ -74,18 +74,20 @@ public class HeroControl : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other){
         string keyname;
-        
+
 
         if (other.gameObject.CompareTag("key")) {
             keyname = other.gameObject.GetComponent<Text>().text;
             print("Collectible Activated");
             //print(keyname);
             invText = invText + "\n" + keyname;
-            Inventory[invCount] = keyname;
+            //inventory[invCount] = keyname;
             invCount++;
             print("Inventory contains:");
-            for(int i = 0; i< invCount; i++)
+            for (int i = 0; i < invCount; i++){
                 print(Inventory[i]);
+
+            }
             
             Destroy(other.gameObject);
 
