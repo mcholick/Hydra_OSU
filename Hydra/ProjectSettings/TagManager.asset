@@ -7,6 +7,17 @@ TagManager:
   - ShowOnPause
   - key
   - characterMenu
+  - Physical_Attack_Menu
+  - Attack_Menu
+  - Magic_Attack_Menu
+  - Battle_UI_Main
+  - Heal_Menu
+  - Intimidate_Menu
+  - Talk_Menu
+  - Charm_Menu
+  - Bribe_Menu
+  - Select_Menu
+  - Effects_Text
   layers:
   - Default
   - TransparentFX
