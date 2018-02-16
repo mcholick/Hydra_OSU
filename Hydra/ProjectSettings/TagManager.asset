@@ -61,6 +61,9 @@ TagManager:
   - name: Hero
     uniqueID: 679314391
     locked: 0
+  - name: worldStuff
+    uniqueID: 1582173807
+    locked: 0
   - name: UI
     uniqueID: 1341258741
     locked: 0
