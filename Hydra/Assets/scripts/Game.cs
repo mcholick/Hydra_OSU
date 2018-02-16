@@ -13,17 +13,6 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class Game {
-<<<<<<< HEAD
-
-    public static Game current;
-    public Character player;
-    public Character farmer;
-    public Character sheep;
-    public Character cat;
-    public Character drunkard;
-    public Character[] party;
-    public string[] inventory;  //dm
-=======
      
      public static Game current;
 
@@ -57,20 +46,10 @@ public class Game {
      public Character boss;
      public Character[] party;
      public Character[] enemyParty;
->>>>>>> fea49bcb4017699f23143c614d13cd87d7b49b2a
 
 
      public Game()
      {
-<<<<<<< HEAD
-          //-------------IMPORTANT NOTE: if you change any of the character names, please update if statment names in Update_CharacterMenu!
-          player = new Character("Hero",20,5,5,5,5,0);
-          farmer = new Character("Farmer Frank", 25,10,6,1,1,2);
-          sheep = new Character("Shifty Sheep",15,2,8,9,1,3);
-          cat = new Character("Clumsy Cat",15,3,8,2,8,3);
-          drunkard = new Character("Drunkard Dan",30,10,4,1,0,5);
-          inventory = new string[4];  //dm
-=======
           //-------------IMPORTANT NOTE: if you change any of the charactertype names (first Character element), please update if statment names in Update_CharacterMenu.cs, and Battle_Mechanics.cs!----------------------
           player = new Character("heroine", "Hero",20,5,5,5,5,0);
           farmer = new Character("farmer","Farmer Frank", 25,10,6,1,1,2);
@@ -99,7 +78,6 @@ public class Game {
 
 
           //-----------------------------------------------------------------------------SEE IMPORTANT NOTE about character names
->>>>>>> fea49bcb4017699f23143c614d13cd87d7b49b2a
 
           //initalize array to hold party
           //max 4 party members and player is one of them
@@ -121,6 +99,6 @@ public class Game {
           //Set boss if fight has boss in it
           boss = null;
 
-    }
+     }
 
 }
