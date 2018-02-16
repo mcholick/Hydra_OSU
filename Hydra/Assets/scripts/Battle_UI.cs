@@ -50,7 +50,7 @@ public class Battle_UI : MonoBehaviour
           hideCharm();
           hideBribe();
           hideSelect();
-          hideEffectText();
+         // hideEffectText();
 
      }
 

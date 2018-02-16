@@ -35,5 +35,17 @@ public class Character {
           this.resistance = r;
 
      }
-
+     //clone copy for battles
+     public Character(Character c)
+     {
+          this.charactertype = c.charactertype;
+          this.name = c.name;
+          this.maxhealth = c.maxhealth;
+          this.currenthealth = c.currenthealth;
+          this.strength = c.strength;
+          this.dexterity = c.dexterity;
+          this.wisdom = c.wisdom;
+          this.piety = c.piety;
+          this.resistance = c.resistance;
+     }
 }

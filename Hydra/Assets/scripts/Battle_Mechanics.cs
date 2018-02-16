@@ -8,19 +8,32 @@ public class Battle_Mechanics : MonoBehaviour {
      public Battle_UI uiHandler;
      bool buttonClicked;
      private bool battleOver;
+     private bool charSelected;
+     private Character selected;
 
      //Characters-------------------------------
      private Character hero;
      private Character party1;
      private Character party2;
      private Character party3;
+     public Text heroText;
+     public Text party1Text;
+     public Text party2Text;
+     public Text party3Text;
+
 
      private Character b;
+     public Text btext;
+
 
      private Character enemy1;
      private Character enemy2;
      private Character enemy3;
      private Character enemy4;
+     public Text enemy1Text;
+     public Text enemy2Text;
+     public Text enemy3Text;
+     public Text enemy4Text;
 
      //----------LOGIC: based on D&D, turn order based on dexterity stat---------
      //List to store characters, to then sort by dext largest to smallest
@@ -48,17 +61,6 @@ public class Battle_Mechanics : MonoBehaviour {
      public Image turn_6;
      public Image turn_7;
      private Sprite tempPic;
-
-     //For Health Text, to update----------------
-     public Text health_player;
-     public Text health_party1;
-     public Text health_party2;
-     public Text health_party3;
-     public Text health_enemy1;
-     public Text health_enemy2;
-     public Text health_enemy3;
-     public Text health_enemy4;
-     public Text health_b;
 
      //buttons to get player input---------------
      public Button melee1;
@@ -122,6 +124,7 @@ public class Battle_Mechanics : MonoBehaviour {
      public Text playerDamageText;
      public Text playerHealText;
      public Text playerOtherText;
+     public Text battleOverText;
 
      // Use this for initialization
      void Start () {
@@ -138,55 +141,57 @@ public class Battle_Mechanics : MonoBehaviour {
           enemy4 = null;
           orderedChars = new List<Character>();
 
+
           //init hero
-          hero = Game.current.player;
+          hero = new Character(Game.current.player);
           orderedChars.Add(hero);
 
-          
+
           //check for player party members
           if (Game.current.party[0] != null)
           {
-               party1 = Game.current.party[0];
+               party1 = new Character(Game.current.party[0]);
                orderedChars.Add(party1);
+               
           }
 
           if (Game.current.party[1] != null)
           {
-               party2 = Game.current.party[1];
+               party2 = new Character(Game.current.party[1]);
                orderedChars.Add(party2);
           }
 
           if(Game.current.party[2] != null)
           {
-               party3 = Game.current.party[2];
+               party3 = new Character(Game.current.party[2]);
                orderedChars.Add(party3);
           }
 
           //check for boss
           if(Game.current.boss != null)
           {
-               b = Game.current.boss;
+               b = new Character(Game.current.boss);
                orderedChars.Add(b);
           }
 
           if(Game.current.enemyParty[0] != null)
           {
-               enemy1 = Game.current.enemyParty[0];
+               enemy1 = new Character(Game.current.enemyParty[0]);
                orderedChars.Add(enemy1);
           }
           if (Game.current.enemyParty[1] != null)
           {
-               enemy2 = Game.current.enemyParty[1];
+               enemy2 = new Character(Game.current.enemyParty[1]);
                orderedChars.Add(enemy2);
           }
           if (Game.current.enemyParty[2] != null)
           {
-               enemy3 = Game.current.enemyParty[2];
+               enemy3 = new Character(Game.current.enemyParty[2]);
                orderedChars.Add(enemy3);
           }
           if (Game.current.enemyParty[3] != null)
           {
-               enemy4 = Game.current.enemyParty[3];
+               enemy4 = new Character(Game.current.enemyParty[3]);
                orderedChars.Add(enemy4);
           }
 
@@ -207,6 +212,14 @@ public class Battle_Mechanics : MonoBehaviour {
           }
 
           //---------------------------------------Turn Order display-----------------------------------
+          turn_2.enabled = false;
+          turn_3.enabled = false;
+          turn_4.enabled = false;
+          turn_5.enabled = false;
+          turn_6.enabled = false;
+          turn_7.enabled = false;
+
+
           turn_current.sprite = Resources.Load(orderedChars[0].charactertype, typeof(Sprite)) as Sprite;
           currentTurn = orderedChars[0];
 
@@ -217,32 +230,38 @@ public class Battle_Mechanics : MonoBehaviour {
           }
           if(orderedChars.Count >= 3)
           {
+               turn_2.enabled = true;
                turn_2.sprite = Resources.Load(orderedChars[2].charactertype, typeof(Sprite)) as Sprite;
                next2 = orderedChars[2];
 
           }
           if (orderedChars.Count >= 4)
           {
+               turn_3.enabled = true;
                turn_3.sprite = Resources.Load(orderedChars[3].charactertype, typeof(Sprite)) as Sprite;
                next3 = orderedChars[3];
           }
           if (orderedChars.Count >= 5)
           {
+               turn_4.enabled = true;
                turn_4.sprite = Resources.Load(orderedChars[4].charactertype, typeof(Sprite)) as Sprite;
                next4 = orderedChars[4];
           }
           if (orderedChars.Count >= 6)
           {
+               turn_5.enabled = true;
                turn_5.sprite = Resources.Load(orderedChars[5].charactertype, typeof(Sprite)) as Sprite;
                next5 = orderedChars[5];
           }
           if (orderedChars.Count >= 7)
           {
+               turn_6.enabled = true;
                turn_6.sprite = Resources.Load(orderedChars[6].charactertype, typeof(Sprite)) as Sprite;
                next6 = orderedChars[6];
           }
           if (orderedChars.Count >= 8)
           {
+               turn_7.enabled = true;
                turn_7.sprite = Resources.Load(orderedChars[7].charactertype, typeof(Sprite)) as Sprite;
                next7 = orderedChars[7];
           }
@@ -260,7 +279,8 @@ public class Battle_Mechanics : MonoBehaviour {
           while (battleOver == false)
           {
                Debug.Log("Battle Phase");
-
+              
+               battleOverText.enabled = false;
                //is it the players turn or not---------------------------
                if (currentTurn.charactertype == "heroine" || currentTurn.charactertype == "farmer" || currentTurn.charactertype == "sheep" || currentTurn.charactertype == "cat" || currentTurn.charactertype == "drunkard")
                {
@@ -274,6 +294,8 @@ public class Battle_Mechanics : MonoBehaviour {
 
                     }
                     //Debug.Log("did player turn happen?");
+                    yield return new WaitForSeconds(1);
+                    checkbattleOver(1);
                }
                
                //enemy turn-----------------------------------------
@@ -283,7 +305,11 @@ public class Battle_Mechanics : MonoBehaviour {
                     enemyTurn(currentTurn);
                     //pause 2 seconds for enemy turn
                     yield return new WaitForSeconds(2);
+                    checkbattleOver(2);
                }
+
+               
+
 
                //------turn has been taken, update turn order-----------------
                temp = currentTurn;
@@ -344,9 +370,13 @@ public class Battle_Mechanics : MonoBehaviour {
                     turn_7.sprite = tempPic;
                }
                //----------------------------- turn order has been updated-----
-
+               playerHealText.enabled = false;
+               playerDamageText.enabled = false;
+               playerOtherText.enabled = false;
           }
-          Debug.Log("Left Battle Phase");
+          Debug.Log("Battle OVER");
+          yield return new WaitForSeconds(3);
+          //Load Map scene?
      }
 
      //-----WIP ------------------------------------------
@@ -455,13 +485,13 @@ public class Battle_Mechanics : MonoBehaviour {
 
 
           //Bribe = Dex based
-          percentChance = (wis / 5) * 100;
+          percentChance = (dex / 5) * 100;
           bribe1chance.text = " Chance: " + (percentChance) + "%";
 
-          percentChance = (wis / 10) * 100;
+          percentChance = (dex / 10) * 100;
           bribe2chance.text = " Chance: " + (percentChance) + "%";
 
-          percentChance = (wis / 25) * 100;
+          percentChance = (dex / 25) * 100;
           bribe3chance.text = " Chance: " + (percentChance) + "%";
 
 
@@ -469,14 +499,16 @@ public class Battle_Mechanics : MonoBehaviour {
           //Dex based?
           
           //not a boss fight player CAN run
-          if (Game.current.boss == null)
+          if (b == null)
           {
+               runaway.gameObject.SetActive(true);
                percentChance = (dex / 20) * 100;
                runawaychance.text = " Chance: " + (percentChance) + "%";
           }
           else
           {
-               runawaychance.text = "NO CHANCE OF ESCAPE!";
+               runaway.gameObject.SetActive(false);
+               runawaychance.text = " No Chance of Escape! ";
           }
 
      }
@@ -487,33 +519,33 @@ public class Battle_Mechanics : MonoBehaviour {
      {
           //Debug.Log("choice");
           melee1.onClick.RemoveAllListeners();
-          melee1.onClick.AddListener(delegate { melee(1); });
+          melee1.onClick.AddListener(delegate { StartCoroutine(melee(1)); });
 
           melee2.onClick.RemoveAllListeners();
-          melee2.onClick.AddListener(delegate { melee(2); });
+          melee2.onClick.AddListener(delegate { StartCoroutine(melee(2)); });
 
           melee3.onClick.RemoveAllListeners();
-          melee3.onClick.AddListener(delegate { melee(3); });
+          melee3.onClick.AddListener(delegate { StartCoroutine(melee(3)); });
 
      
           magic1.onClick.RemoveAllListeners();
-          magic1.onClick.AddListener(delegate { magic(1); });
+          magic1.onClick.AddListener(delegate { StartCoroutine(magic(1)); });
    
           magic2.onClick.RemoveAllListeners();
-          magic2.onClick.AddListener(delegate { magic(2); });
+          magic2.onClick.AddListener(delegate { StartCoroutine(magic(2)); });
    
           magic3.onClick.RemoveAllListeners();
-          magic3.onClick.AddListener(delegate { magic(3); });
+          magic3.onClick.AddListener(delegate { StartCoroutine(magic(3)); });
 
 
           heal1.onClick.RemoveAllListeners();
-          heal1.onClick.AddListener(delegate { heal(1); });
+          heal1.onClick.AddListener(delegate { StartCoroutine(heal(1)); });
 
           heal2.onClick.RemoveAllListeners();
-          heal2.onClick.AddListener(delegate { heal(2); });
+          heal2.onClick.AddListener(delegate { StartCoroutine(heal(2)); });
 
           heal3.onClick.RemoveAllListeners();
-          heal3.onClick.AddListener(delegate { heal(3); });
+          heal3.onClick.AddListener(delegate { StartCoroutine(heal(3)); });
 
 
           runaway.onClick.RemoveAllListeners();
@@ -521,51 +553,269 @@ public class Battle_Mechanics : MonoBehaviour {
 
 
           intimidate1.onClick.RemoveAllListeners();
-          intimidate1.onClick.AddListener(delegate { intimidate(1); });
+          intimidate1.onClick.AddListener(delegate { StartCoroutine(intimidate(1)); });
 
           intimidate2.onClick.RemoveAllListeners();
-          intimidate2.onClick.AddListener(delegate { intimidate(2); });
+          intimidate2.onClick.AddListener(delegate { StartCoroutine(intimidate(2)); });
  
           intimidate3.onClick.RemoveAllListeners();
-          intimidate3.onClick.AddListener(delegate { intimidate(3); });
+          intimidate3.onClick.AddListener(delegate { StartCoroutine(intimidate(3)); });
 
 
           charm1.onClick.RemoveAllListeners();
-          charm1.onClick.AddListener(delegate { charm(1); });
+          charm1.onClick.AddListener(delegate { StartCoroutine(charm(1)); });
    
           charm2.onClick.RemoveAllListeners();
-          charm2.onClick.AddListener(delegate { charm(2); });
+          charm2.onClick.AddListener(delegate { StartCoroutine(charm(2)); });
    
           charm3.onClick.RemoveAllListeners();
-          charm3.onClick.AddListener(delegate { charm(3); });
+          charm3.onClick.AddListener(delegate { StartCoroutine(charm(3)); });
 
      
           bribe1.onClick.RemoveAllListeners();
-          bribe1.onClick.AddListener(delegate { bribe(1); });
+          bribe1.onClick.AddListener(delegate { StartCoroutine(bribe(1)); });
     
           bribe2.onClick.RemoveAllListeners();
-          bribe2.onClick.AddListener(delegate { bribe(2); });
+          bribe2.onClick.AddListener(delegate { StartCoroutine(bribe(2)); });
 
           bribe3.onClick.RemoveAllListeners();
-          bribe3.onClick.AddListener(delegate { bribe(3); });
+          bribe3.onClick.AddListener(delegate { StartCoroutine(bribe(3)); });
 
      }
 
-     //--------------------WIP------------------------
-     void melee(int a)
+     IEnumerator melee(int a)
      {
-          if(a == 1)
+          int dex = currentTurn.dexterity;
+          int str = currentTurn.strength;
+
+          if (a == 1)
           {
+               //have player select enemy
+               playerSelect(2);
+               while(charSelected == false)
+               {
+                    yield return null; 
+               }
+
+               int damage = str;
+               float percentChance = (dex / 5) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+               Debug.Log(success);
+
+               //HIT!
+               if(success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if(b != null)
+                    {
+                         if(b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
+
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         Debug.Log("0");
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                    if (enemy2 != null)
+                    {
+                         Debug.Log("1");
+                         if (enemy2.name == selected.name)
+                         {
+                              Debug.Log("2");
+
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                    if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                   if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("melee1");
           }
           else if (a == 2)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = str * 2;
+               float percentChance = (dex / 10) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+               Debug.Log(success);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage +" damage to " + b.name;
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                    if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                    if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                    if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("melee2");
           }
           else//a = 3
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+               int damage = str * 5;
+               float percentChance = (dex / 25) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+               Debug.Log(success);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                    if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                    if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                    if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("melee3");
           }
@@ -573,20 +823,234 @@ public class Battle_Mechanics : MonoBehaviour {
      }
 
      //magic
-     void magic(int a)
+     IEnumerator magic(int a)
      {
+          int dex = currentTurn.dexterity;
+          //int str = currentTurn.strength;
+          int wis = currentTurn.wisdom;
+          // int pie = currentTurn.piety;
+
+
           if (a == 1)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = wis;
+               float percentChance = (dex / 5) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                    if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                    if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                    if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("magic1");
           }
           else if (a == 2)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = wis * 2;
+               float percentChance = (dex / 10) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                   if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("magic2");
           }
           else//a = 3
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+               int damage = wis * 5;
+               float percentChance = (dex / 25) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              b.currenthealth = b.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.currenthealth = enemy1.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.currenthealth = enemy2.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.currenthealth = enemy3.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.currenthealth = enemy4.currenthealth - damage;
+                              playerDamageText.enabled = true;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy4.name;
+                         }
+                    }
+
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("magic3");
           }
@@ -594,62 +1058,710 @@ public class Battle_Mechanics : MonoBehaviour {
      }
 
      //heal
-     void heal(int a)
+     //------------Check for bugs
+     IEnumerator heal(int a)
      {
+          int pie = currentTurn.piety;
+
           if (a == 1)
           {
+               Debug.Log("healself...");
+               int heal = pie;
+               //figure out WHO is current turn
+               if (hero.name == currentTurn.name)
+             {
+                    if((hero.currenthealth + heal) > hero.maxhealth)
+                    {
+                         hero.currenthealth = hero.maxhealth;
+                         playerHealText.enabled = true;
+                         playerHealText.text = currentTurn.name + " is at max health";
+                    }
+                    else
+                    {
+                         hero.currenthealth = hero.currenthealth + heal;
+                         playerHealText.enabled = true;
+                         playerHealText.text = currentTurn.name + " healed for " + heal;
+                    }
+
+               }
+               
+               if (party1 != null)
+               {
+                    if (party1.name == currentTurn.name)
+                    {
+                         if((party1.currenthealth + heal) > party1.maxhealth)
+                         {
+                              party1.currenthealth = party1.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " is at max health";
+
+                         }
+                         else
+                         {
+                              party1.currenthealth = party1.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed for " + heal;
+                         }
+                        
+                    }
+               }
+               if (party2 != null)
+               {
+                    if (party2.name == currentTurn.name)
+                    {
+                         if((party2.currenthealth + heal) > party2.maxhealth)
+                         {
+                              party2.currenthealth = party2.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " is at max health";
+                         }
+                         else
+                         {
+                              party2.currenthealth = party2.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed for " + heal;
+                         }
+                         
+                    }
+               }
+               if (party3 != null)
+               {
+                    if (party3.name == currentTurn.name)
+                    {
+                         if ((party3.currenthealth + heal) > party3.maxhealth)
+                         {
+                              party3.currenthealth = party3.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " is at max health";
+                         }
+                         else
+                         {
+                              party3.currenthealth = party3.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed for " + heal;
+                         }
+                       
+                    }
+               }
                buttonClicked = true;
-               Debug.Log("heal1");
+               Debug.Log("healself");
           }
+          //something wrong in heal ally------------------------------------------------------------!!!!!!
           else if (a == 2)
           {
+               int heal = pie;
+               //have player select ally
+               playerSelect(1);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+               //figure out WHO is selected
+               if (hero.name == selected.name)
+               {
+                    if(hero.maxhealth < (hero.currenthealth + heal))
+                    {
+                         hero.currenthealth = hero.maxhealth;
+                         playerHealText.enabled = true;
+                         playerHealText.text = hero.name + " is at max health";
+                    }
+                    else
+                    {
+                         hero.currenthealth = hero.currenthealth + heal;
+                         playerHealText.enabled = true;
+                         playerHealText.text = currentTurn.name + " healed " + hero.name + "for" + heal;
+                    }
+                    
+               }
+
+               if (party1 != null)
+               {
+                    if (party1.name == selected.name)
+                    {
+                         if (party1.maxhealth < (party1.currenthealth + heal))
+                         {
+                              party1.currenthealth = party1.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = party1.name + " is at max health";
+                         }
+                         else
+                         {
+                              party1.currenthealth = party1.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed " + party1.name + "for" + heal;
+                         }
+                         
+                    }
+               }
+               if (party2 != null)
+               {
+                    if (party2.name == selected.name)
+                    {
+                         if (party2.maxhealth < (party2.currenthealth + heal))
+                         {
+                              party2.currenthealth = party2.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = party2.name + " is at max health";
+                         }
+                         else
+                         {
+                              party2.currenthealth = party2.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed " + party2.name + "for" + heal;
+                         }
+                    }
+               }
+               if (party3 != null)
+               {
+                    if (party3.maxhealth < (party3.currenthealth + heal))
+                    {
+                         party3.currenthealth = party3.maxhealth;
+                         playerHealText.enabled = true;
+                         playerHealText.text = party3.name + " is at max health";
+                    }
+                    else
+                    {
+                         party3.currenthealth = party3.currenthealth + heal;
+                         playerHealText.enabled = true;
+                         playerHealText.text = currentTurn.name + " healed " + party3.name + "for" + heal;
+                    }
+               }
                buttonClicked = true;
-               Debug.Log("heal2");
+               Debug.Log("healally");
           }
           else//a = 3
           {
+               
+               int heal = (int)(Mathf.Floor(pie / 4) * 2);
+               playerHealText.enabled = true;
+               playerHealText.text = currentTurn.name + " healed each party member for" + heal;
+
+               if (hero.maxhealth < (hero.currenthealth + heal))
+               {
+                    hero.currenthealth = hero.maxhealth;
+               }
+               else
+               {
+                    hero.currenthealth = hero.currenthealth + heal;
+               }
+
+               if (party1 != null)
+               {
+                    if(party1.maxhealth < (party1.currenthealth + heal))
+                    {
+                         party1.currenthealth = party1.maxhealth;
+                    }
+                    else
+                    {
+                         party1.currenthealth = party1.currenthealth + heal;
+                    }
+                   
+               }
+             if (party2 != null)
+               {
+                    if (party2.maxhealth < (party2.currenthealth + heal))
+                    {
+                         party2.currenthealth = party2.maxhealth;
+                    }
+                    else
+                    {
+                         party2.currenthealth = party2.currenthealth + heal;
+                    }
+               }
+               if (party3 != null)
+               {
+                    if (party3.maxhealth < (party3.currenthealth + heal))
+                    {
+                         party3.currenthealth = party3.maxhealth;
+                    }
+                    else
+                    {
+                         party3.currenthealth = party3.currenthealth + heal;
+                    }
+               }
                buttonClicked = true;
-               Debug.Log("heal3");
+               Debug.Log("healgroup");
           }
 
      }
 
      //intimidate
-     void intimidate(int a)
+     //---------------Check for bugs
+     IEnumerator intimidate(int a)
      {
+          //lower enemy str
+          int str = currentTurn.strength;
+
           if (a == 1)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 1;
+               float percentChance = (str / 5) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Strength was" + b.strength);
+                              b.strength = b.strength - damage;
+                              Debug.Log("Strength is now" + b.strength);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " strength by " + damage;
+
+                         }
+                    }
+                    if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.strength = enemy1.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " strength by " + damage;
+                         }
+                    }
+                    if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.strength = enemy2.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.strength = enemy3.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.strength = enemy4.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
+                         }
+                    }
+                    
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("intimidate1");
           }
           else if (a == 2)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 2;
+               float percentChance = (str / 10) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Strength was" + b.strength);
+                              b.strength = b.strength - damage;
+                              Debug.Log("Strength is now" + b.strength);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.strength = enemy1.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.strength = enemy2.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.strength = enemy3.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.strength = enemy4.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
+                         }
+                    }
+                   
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("intimidate2");
           }
           else//a = 3
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 3;
+               float percentChance = (str / 25) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Strength was" + b.strength);
+                              b.strength = b.strength - damage;
+                              Debug.Log("Strength is now" + b.strength);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.strength = enemy1.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.strength = enemy2.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.strength = enemy3.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.strength = enemy4.strength - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
+                         }
+                    }
+                    
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("intimidate3");
           }
-
+          
      }
 
      //charm
-     void charm(int a)
+     //---------------Check for bugs
+     IEnumerator charm(int a)
      {
+          //lower enemy wis
+          int wis = currentTurn.wisdom;
+
           if (a == 1)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 1;
+               float percentChance = (wis / 5) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Wisdom was" + b.wisdom);
+                              b.wisdom = b.wisdom - damage;
+                              Debug.Log("Wisdom is now" + b.wisdom);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.wisdom = enemy1.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.wisdom = enemy2.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.wisdom = enemy3.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.wisdom = enemy4.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
+                         }
+                    }
+                   
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("charm1");
           }
           else if (a == 2)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 2;
+               float percentChance = (wis / 10) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Wisdom was" + b.wisdom);
+                              b.wisdom = b.wisdom - damage;
+                              Debug.Log("Wisdom is now" + b.wisdom);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.wisdom = enemy1.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.wisdom = enemy2.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.wisdom = enemy3.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.wisdom = enemy4.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
+                         }
+                    }
+                    
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("charm2");
           }
           else//a = 3
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 3;
+               float percentChance = (wis / 25) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("Wisdom was" + b.wisdom);
+                              b.wisdom =b.wisdom - damage;
+                              Debug.Log("Wisdom is now" + b.wisdom);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.wisdom = enemy1.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.wisdom = enemy2.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.wisdom = enemy3.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.wisdom = enemy4.wisdom - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
+                         }
+                    }
+                   
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("charm3");
           }
@@ -657,20 +1769,241 @@ public class Battle_Mechanics : MonoBehaviour {
      }
 
      //bribe
-     void bribe(int a)
+     //----------------------check for bugs
+     IEnumerator bribe(int a)
      {
+          //lower enemy dex
+          //does NOT effect turn order....
+          int dex = currentTurn.dexterity;
+
           if (a == 1)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 1;
+               float percentChance = (dex / 5) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("dexterity was" + b.dexterity);
+                              b.dexterity = b.dexterity - damage;
+                              Debug.Log("dexterity is now" + b.dexterity);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.dexterity = enemy1.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.dexterity = enemy2.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.dexterity = enemy3.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.dexterity = enemy4.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
+                         }
+                    }
+                  
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("bribe1");
           }
           else if (a == 2)
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 2;
+               float percentChance = (dex / 10) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("dexterity was" + b.dexterity);
+                              b.dexterity = b.dexterity - damage;
+                              Debug.Log("dexterity is now" + b.dexterity);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.dexterity = enemy1.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.dexterity = enemy2.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.dexterity = enemy3.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.dexterity = enemy4.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
+                         }
+                    }
+                    
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("bribe2");
           }
           else//a = 3
           {
+               //have player select enemy
+               playerSelect(2);
+               while (charSelected == false)
+               {
+                    yield return null;
+               }
+
+               int damage = 3;
+               float percentChance = (dex / 25) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               //HIT!
+               if (success <= percentChance)
+               {
+                    Debug.Log("hit");
+                    //figure out who was hit
+
+                    //was it the boss?
+                    if (b != null)
+                    {
+                         if (b.name == selected.name)
+                         {
+                              Debug.Log("dexterity was" + b.dexterity);
+                              b.dexterity = b.dexterity - damage;
+                              Debug.Log("dexterity is now" + b.dexterity);
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy1 != null)
+                    {
+                         if (enemy1.name == selected.name)
+                         {
+                              enemy1.dexterity = enemy1.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy2 != null)
+                    {
+                         if (enemy2.name == selected.name)
+                         {
+                              enemy2.dexterity = enemy2.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy3 != null)
+                    {
+                         if (enemy3.name == selected.name)
+                         {
+                              enemy3.dexterity = enemy3.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
+                         }
+                    }
+                     if (enemy4 != null)
+                    {
+                         if (enemy4.name == selected.name)
+                         {
+                              enemy4.dexterity = enemy4.dexterity - damage;
+                              playerOtherText.enabled = true;
+                              playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
+                         }
+                    }
+                   
+               }
+               else
+               {
+                    //no dmg done
+                    Debug.Log("MISS");
+               }
                buttonClicked = true;
                Debug.Log("bribe3");
           }
@@ -678,10 +2011,425 @@ public class Battle_Mechanics : MonoBehaviour {
      }
 
      //runaway?
+     //------------------------
      void attemptRunaway()
      {
+          int dex = currentTurn.dexterity;
+          if (b == null)
+          {
+               float percentChance = (dex / 20) * 100;
+               float success = Random.Range(0.0f, 100.0f);
+
+               if(success <= percentChance)
+               {
+                    Debug.Log("got away!");
+                    battleOverText.enabled = true;
+                    battleOverText.text = "You Ran Away!";
+                    battleOver = true;
+               }
+               else
+               {
+                    playerOtherText.enabled = true;
+                    playerOtherText.text = "Failed to Run Away!";
+                    Debug.Log("fail run");
+               }
+
+          }
           buttonClicked = true;
           Debug.Log("attempted to runaway");
 
      }
+
+     // Updates Player_Select option texts
+     void playerSelect(int a)
+     {
+          option1.gameObject.SetActive(true);
+          if (a == 1)
+          {
+               option1.onClick.RemoveAllListeners();
+               option1.onClick.AddListener(delegate { option(1); });
+
+               option2.onClick.RemoveAllListeners();
+               option2.onClick.AddListener(delegate { option(2); });
+
+               option3.onClick.RemoveAllListeners();
+               option3.onClick.AddListener(delegate { option(3); });
+
+               option4.onClick.RemoveAllListeners();
+               option4.onClick.AddListener(delegate { option(4); });
+
+               option1.gameObject.SetActive(false);
+               option2.gameObject.SetActive(false);
+               option3.gameObject.SetActive(false);
+               option4.gameObject.SetActive(false);
+
+               Debug.Log("Heal Ally Player_Select");
+
+               if (currentTurn.name != hero.name)
+               {
+                    option1.gameObject.SetActive(true);
+                    option1text.text = hero.name;
+               }
+
+               //if there are party members
+               if (party1 != null)
+               {
+                    if (party1.name != currentTurn.name)
+                    {
+                         option2.gameObject.SetActive(true);
+                         option2text.text = party1.name;
+                    }
+               }
+               if (party2 != null)
+                    {
+                         if (party2.name != currentTurn.name)
+                         {
+                              option3.gameObject.SetActive(true);
+                              option3text.text = party2.name;
+                         }  
+                    }
+
+               if (party3 != null)
+                    {
+                    if (party3.name != currentTurn.name)
+                         {
+                              option4.gameObject.SetActive(true);
+                              option4text.text = party3.name;
+                         }
+                    }
+
+               //no party member
+               if (party1 == null && party2 == null && party3 == null)
+               {
+                    option2.gameObject.SetActive(true);
+                    option2text.text = "No ally members...";
+                    option3.gameObject.SetActive(false);
+                    option4.gameObject.SetActive(false);
+               }
+
+
+
+          }
+          else if (a == 2)
+          {
+               option1.onClick.RemoveAllListeners();
+               option1.onClick.AddListener(delegate { option(5); });
+
+               option2.onClick.RemoveAllListeners();
+               option2.onClick.AddListener(delegate { option(6); });
+
+               option3.onClick.RemoveAllListeners();
+               option3.onClick.AddListener(delegate { option(7); });
+
+               option4.onClick.RemoveAllListeners();
+               option4.onClick.AddListener(delegate { option(8); });
+
+               Debug.Log("Damage and Talk Player_Select");
+
+               option1.gameObject.SetActive(false);
+               option2.gameObject.SetActive(false);
+               option3.gameObject.SetActive(false);
+               option4.gameObject.SetActive(false);
+
+               //if boss then enemyparty[0] if boss
+               if (b != null)
+               {
+                    option1.gameObject.SetActive(true);
+                    option1text.text = b.name;
+                    
+                    //if there is also and enemy with the boss (ink pillar), CANNOT have a 4th in enemy party
+                    if(enemy1 != null)
+                    {
+                         option4.gameObject.SetActive(true);
+                         option4text.text = enemy1.name;
+
+                    }
+               }
+
+               //if NOT boss then enemyparty[0] is enemy
+               else if (enemy1!= null)
+               {
+                    option1.gameObject.SetActive(true);
+                    option1text.text = enemy1.name;
+               }
+               else
+               {
+                    Debug.Log("no enemy?");
+               }
+
+               if (enemy2 != null)
+               {
+                    option2.gameObject.SetActive(true);
+                    option2text.text = enemy2.name;
+               }
+
+               if (enemy3 != null)
+               {
+                    option3.gameObject.SetActive(true);
+                    option3text.text = enemy3.name;
+               }
+
+               if (enemy4 != null)
+               {
+                    option4.gameObject.SetActive(true);
+                    option4text.text = enemy4.name;
+               }
+          }
+          charSelected = false;
+     }
+
+     void option(int a)
+     {
+          if(a == 1)
+          {
+               selected = hero;
+               Debug.Log("option1");
+               charSelected = true;
+
+          }
+          else if (a == 2)
+          {
+               //no ally members
+               if(party1 == null)
+               {
+                    selected = hero;
+               }
+               else
+               {
+                    selected = party1;
+               }
+               Debug.Log("option2");
+               charSelected = true;
+
+          }
+          else if (a == 3)  
+          {
+               selected = party2;
+               Debug.Log("option3");
+               charSelected = true;
+
+          }
+          else if(a==4)
+          {
+               selected = party3;
+               Debug.Log("option4");
+               charSelected = true;
+
+          }
+          else if (a == 5)
+          {
+               if(b != null)
+               {
+                    selected = b;
+               }
+               else
+               {
+                    selected = enemy1;
+               }
+               Debug.Log("option5");
+               charSelected = true;
+
+          }
+          else if (a == 6) 
+          {
+               selected = enemy2;
+               Debug.Log("option6");
+               charSelected = true;
+
+          }
+          else if (a == 7)  
+          {
+               selected = enemy3;
+               Debug.Log("option7");
+               charSelected = true;
+
+          }
+          else if (a == 8)
+          {
+               if (b != null)
+               {
+                    selected = enemy1;
+               }
+               else
+               {
+                    selected = enemy4;
+               }
+               Debug.Log("option8");
+               charSelected = true;
+
+          }
+
+     }
+
+     void checkbattleOver(int a)
+     {
+          //was players turn
+          if(a == 1)
+          {
+               //boss health is < 0 then battle over
+               if (b != null)
+               {
+                    if (b.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "Victory!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               //check all other enemy chars
+               if (enemy1 != null)
+               {
+                    if (enemy1.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "Victory!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               if (enemy2 != null)
+               {
+                    if (enemy2.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "Victory!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               if (enemy3 != null)
+               {
+                    if (enemy3.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "Victory!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               if (enemy4 != null)
+               {
+                    if (enemy4.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "Victory!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+
+          }
+          else//was enemy turn 
+          {
+               //all party health under 0
+              if (hero.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "You Lose!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               //check all other enemy chars
+               if (party1 != null)
+               {
+                    if (party1.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "You Lose!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               if (party2 != null)
+               {
+                    if (party2.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "You Lose!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+               if (party3 != null)
+               {
+                    if (party3.currenthealth <= 0)
+                    {
+                         battleOverText.enabled = true;
+                         battleOverText.text = "You Lose!";
+                         battleOver = true;
+                    }
+                    else
+                    {
+                         battleOver = false;
+                    }
+               }
+
+          }
+     }
+
+     void Update()
+     {
+          heroText.text = "Health: " + (hero.currenthealth) + " / " + hero.maxhealth;
+          if(party1 != null)
+          {
+               party1Text.text = "Health: " + (party1.currenthealth) + " / " + party1.maxhealth;
+          }
+          if(party2 != null)
+          {
+               party2Text.text = "Health: " + (party2.currenthealth) + " / " + party2.maxhealth;
+          }
+          if(party3 != null)
+          {
+               party3Text.text = "Health: " + (party3.currenthealth) + " / " + party3.maxhealth;
+          }
+          
+          if(enemy1 != null)
+          {
+               enemy1Text.text = "Health: " + (enemy1.currenthealth) + " / " + enemy1.maxhealth;
+          }
+          if(enemy2 != null)
+          {
+               enemy2Text.text = "Health: " + (enemy2.currenthealth) + " / " + enemy2.maxhealth;
+          }
+          if(enemy3 != null)
+          {
+               enemy3Text.text = "Health: " + (enemy3.currenthealth) + " / " + enemy3.maxhealth;
+          }
+          if(enemy4 != null)
+          {
+               enemy4Text.text = "Health: " + (enemy4.currenthealth) + " / " + enemy4.maxhealth;
+          }
+          
+          if(b != null)
+          {
+               btext.text = "Health: " + (b.currenthealth) + " / " + b.maxhealth;
+          }
+          
+     }
 }
+
