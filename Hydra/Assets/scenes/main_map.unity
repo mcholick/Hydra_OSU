@@ -1016,6 +1016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73905677}
   - component: {fileID: 73905676}
+  - component: {fileID: 73905680}
   - component: {fileID: 73905678}
   - component: {fileID: 73905679}
   m_Layer: 0
@@ -1118,6 +1119,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &73905680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 73905675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c42eebb9ba14545b35792369d2ea3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhichBoss: 1
 --- !u!1 &77085973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +1768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 143197661}
   - component: {fileID: 143197660}
+  - component: {fileID: 143197662}
   - component: {fileID: 143197659}
   m_Layer: 0
   m_Name: InkBlost
@@ -1845,6 +1859,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 245
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &143197662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 143197658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c42eebb9ba14545b35792369d2ea3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhichBoss: 0
 --- !u!1 &143290813
 GameObject:
   m_ObjectHideFlags: 0
@@ -16246,6 +16272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1420920274}
   - component: {fileID: 1420920273}
+  - component: {fileID: 1420920277}
   - component: {fileID: 1420920275}
   - component: {fileID: 1420920276}
   m_Layer: 0
@@ -16348,6 +16375,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &1420920277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420920272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c42eebb9ba14545b35792369d2ea3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhichBoss: 2
 --- !u!1 &1424313555
 GameObject:
   m_ObjectHideFlags: 0

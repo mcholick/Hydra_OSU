@@ -1007,17 +1007,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 103910761}
-        m_MethodName: showSelect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &191740061
@@ -1842,17 +1831,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 103910761}
         m_MethodName: hideHeal
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 103910761}
-        m_MethodName: showSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3549,7 +3527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 223.5, y: 361.7}
+  m_AnchoredPosition: {x: 221, y: 666}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531709227
@@ -3584,7 +3562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &531709228
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5588,7 +5566,7 @@ GameObject:
   - component: {fileID: 910849632}
   m_Layer: 5
   m_Name: Run_Button
-  m_TagString: Battle_UI_Main
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5718,6 +5696,7 @@ RectTransform:
   m_Children:
   - {fileID: 591360840}
   - {fileID: 1201997109}
+  - {fileID: 2028268909}
   m_Father: {fileID: 1842515125}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6109,6 +6088,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiHandler: {fileID: 103910761}
+  heroText: {fileID: 1953385365}
+  party1Text: {fileID: 383050808}
+  party2Text: {fileID: 877182468}
+  party3Text: {fileID: 1618806576}
+  btext: {fileID: 1726520033}
+  enemy1Text: {fileID: 1735439644}
+  enemy2Text: {fileID: 1250286230}
+  enemy3Text: {fileID: 1011975211}
+  enemy4Text: {fileID: 726599961}
   turn_current: {fileID: 226224530}
   turn_1: {fileID: 2041446334}
   turn_2: {fileID: 1017504192}
@@ -6117,15 +6105,6 @@ MonoBehaviour:
   turn_5: {fileID: 510354633}
   turn_6: {fileID: 2113841067}
   turn_7: {fileID: 91737004}
-  health_player: {fileID: 1953385365}
-  health_party1: {fileID: 383050808}
-  health_party2: {fileID: 877182468}
-  health_party3: {fileID: 1618806576}
-  health_enemy1: {fileID: 1735439644}
-  health_enemy2: {fileID: 1250286230}
-  health_enemy3: {fileID: 1011975211}
-  health_enemy4: {fileID: 726599961}
-  health_b: {fileID: 1726520033}
   melee1: {fileID: 949940101}
   melee1chance: {fileID: 1150187621}
   melee2: {fileID: 1505266171}
@@ -6178,6 +6157,7 @@ MonoBehaviour:
   playerDamageText: {fileID: 531709227}
   playerHealText: {fileID: 1973061267}
   playerOtherText: {fileID: 1972974526}
+  battleOverText: {fileID: 2028268907}
 --- !u!4 &965847535
 Transform:
   m_ObjectHideFlags: 0
@@ -8100,7 +8080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237.99974, y: 361.70035}
+  m_AnchoredPosition: {x: -223, y: 672}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289503567
@@ -8135,7 +8115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1289503568
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9147,7 +9127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -238, y: 183}
+  m_AnchoredPosition: {x: -223.00026, y: 493.29965}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1511155029
@@ -9182,7 +9162,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1511155030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12161,7 +12141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 219.00002, y: -1.6496487}
+  m_AnchoredPosition: {x: 216.50002, y: 302.65036}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972974526
@@ -12196,7 +12176,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1972974527
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12235,7 +12215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 219, y: 183}
+  m_AnchoredPosition: {x: 216.5, y: 487.3}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973061267
@@ -12270,7 +12250,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1973061268
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12568,6 +12548,80 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2019001071}
+--- !u!1 &2028268906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2028268909}
+  - component: {fileID: 2028268908}
+  - component: {fileID: 2028268907}
+  m_Layer: 5
+  m_Name: BattleOverText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2028268907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028268906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 55
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 55
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &2028268908
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028268906}
+--- !u!224 &2028268909
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028268906}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 920784174}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 772}
+  m_SizeDelta: {x: 500.1, y: 185.1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2032739943
 GameObject:
   m_ObjectHideFlags: 0
@@ -13071,7 +13125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237.99998, y: -1.6496515}
+  m_AnchoredPosition: {x: -223.00024, y: 308.65}
   m_SizeDelta: {x: 429, y: 178.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2065554097
@@ -13106,7 +13160,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &2065554098
 CanvasRenderer:
   m_ObjectHideFlags: 0
