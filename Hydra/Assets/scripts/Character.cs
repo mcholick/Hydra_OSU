@@ -20,6 +20,8 @@ public class Character {
      public int wisdom;
      public int piety;
      public int resistance;
+     public int gold;
+     public int xp;
 
 
      public Character (string ct,string n , int h , int s, int d, int w, int p, int r)
@@ -33,6 +35,8 @@ public class Character {
           this.wisdom = w;
           this.piety = p;
           this.resistance = r;
+          this.gold = 0;
+          this.xp = 0;
 
      }
      //clone copy for battles

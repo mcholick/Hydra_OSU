@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class Battle_Mechanics : MonoBehaviour {
 
      public Battle_UI uiHandler;
+     public postBattleReset leaveBattleScene;
      bool buttonClicked;
      private bool battleOver;
+     private bool playerWon;
+     private bool playerFled;
      private bool charSelected;
      private Character selected;
 
@@ -303,9 +306,11 @@ public class Battle_Mechanics : MonoBehaviour {
                {
                     Debug.Log("EnemyTurn");
                     enemyTurn(currentTurn);
+                    Debug.Log("outofenemyturn");
                     //pause 2 seconds for enemy turn
-                    yield return new WaitForSeconds(2);
+                    yield return new WaitForSeconds(3);
                     checkbattleOver(2);
+                    Debug.Log("outofcheckbattleOver");
                }
 
                
@@ -373,17 +378,256 @@ public class Battle_Mechanics : MonoBehaviour {
                playerHealText.enabled = false;
                playerDamageText.enabled = false;
                playerOtherText.enabled = false;
+               enemyDamageText.enabled = false;
+               enemyHealText.enabled = false;
+               enemyOtherText.enabled = false;
           }
           Debug.Log("Battle OVER");
           yield return new WaitForSeconds(3);
-          //Load Map scene?
+          leaveBattle(playerWon,playerFled);
+          yield return new WaitForSeconds(3);
+          leaveBattleScene.leaveBattle();
+
      }
 
      //-----WIP ------------------------------------------
      public void enemyTurn(Character c)
      {
+          int damage;
+          int chance;
+          int success;
           uiHandler.hideBattleUI();
           //enemy does stuff...
+
+          //choose who to attack
+          chooseTarget();
+          Debug.Log("selected is again " + selected.name);
+
+          if(b != null)
+          {
+               //if the character is a boss
+               if(c.name == b.name)
+               {
+                    //do specific boss stuff
+                    if(Game.current.unicorn.name == c.name)
+                    {
+                         //Unicorn will either (0) taunt (wisdom -1), (1)Magic Attack, (2) or heal but only under half health
+                          damage = c.wisdom;
+                          chance = c.dexterity;
+                         int piety = c.piety;
+
+                         int rand = Random.Range(0, 3);
+                         if(rand == 0)
+                         {
+                              //taunt
+                              if(selected.wisdom != 0)
+                              {
+                                   selected.wisdom = selected.wisdom - 1;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " taunted " + selected.name + " for -1 wisdom";
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " failed to taunt " + selected.name + " because their wisdom is 0";
+                              }
+
+
+                         }
+                         else if(rand == 1)
+                         {
+                              //magic attack
+                              //small attack
+                              chance = chance * 15;
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   selected.currenthealth = selected.currenthealth - damage;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " Missed " + selected.name;
+                              }
+
+                         }
+                         else
+                         {
+                              //heal
+                              if(c.currenthealth < 25)
+                              {
+                                   c.currenthealth = c.currenthealth + piety;
+                                   enemyHealText.enabled = true;
+                                   enemyHealText.text = c.name + " healed for " + piety;
+                              }
+                              else
+                              {
+                                   selected.currenthealth = selected.currenthealth - 1;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " insulted "+ selected.name  +" for 1 damage";
+                              }
+                         }
+                    }
+                    else if (Game.current.goblin.name == c.name)
+                    {
+                         damage = c.strength;
+                         chance = c.dexterity;
+
+                         //will the heads agree or not
+                         int rand1 = Random.Range(0, 2);
+                         int rand2 = Random.Range(0, 2);
+
+                         if(rand1 == rand2)
+                         {
+                              //they agree!
+                              int rand = Random.Range(0, 2);
+                              if(rand == 0)
+                              {
+                                   enemyOtherText.enabled = true;
+                                   enemyOtherText.text = "The goblin twins agree to attack this time";
+                                   //attack
+                                   chance = chance * 25;
+                                   success = Random.Range(0, 100);
+                                   if (success <= chance)
+                                   {
+                                        selected.currenthealth = selected.currenthealth - damage;
+                                        enemyDamageText.enabled = true;
+                                        enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                                   }
+                                   else
+                                   {
+                                        enemyDamageText.enabled = true;
+                                        enemyDamageText.text = c.name + " Missed " + selected.name;
+                                   }
+                              }
+                              else
+                              {
+                                   //defend (defend and heal for 5)
+                                   enemyOtherText.enabled = true;
+                                   enemyOtherText.text = "The goblin twins agree to defend this time";
+                                   c.currenthealth = c.currenthealth + 5;
+                                   enemyHealText.enabled = true;
+                                   enemyHealText.text = c.name + " defended and healed for 5";
+
+                              }
+
+                         }
+                         else
+                         {
+                              //they dont agree
+                              enemyOtherText.enabled = true;
+                              enemyOtherText.text = "The goblin twins do NOT agree this time";
+                              
+                              //attack
+                              chance = 75;
+                              damage = 2;
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   selected.currenthealth = selected.currenthealth - damage;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " Missed " + selected.name;
+                              }
+                              //defend
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   c.currenthealth = c.currenthealth + 2;
+                                   enemyHealText.enabled = true;
+                                   enemyHealText.text = c.name + " defended and healed for 1";
+                              }
+                              else
+                              {
+                                   enemyHealText.enabled = true;
+                                   enemyHealText.text = c.name + " failed to defend.";
+                              }
+                         }
+
+                    }
+                    else //ink------------------------WIP-------------Currently just attacks
+                    {
+                         damage = c.strength;
+                         chance = c.dexterity;
+
+                         int rand = Random.Range(0, 2);
+
+                         if (rand == 0)
+                         {
+                              //small attack
+                              chance = chance * 20;
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   selected.currenthealth = selected.currenthealth - damage;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " Missed " + selected.name;
+                              }
+                         }
+                         else
+                         {
+                              enemyOtherText.enabled = true;
+                              enemyOtherText.text = "ink blot does nothing";
+                         }
+                    }
+               }
+          }
+          else //not a boss
+          {
+                damage = c.strength;
+                chance = c.dexterity;
+
+               int rand = Random.Range(0, 2);
+               
+               if(rand == 0)
+               {
+                    //small attack
+                    chance = chance * 20;
+                    success = Random.Range(0, 100);
+                    if(success <= chance)
+                    {
+                         selected.currenthealth = selected.currenthealth - damage;
+                         enemyDamageText.enabled = true;
+                         enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                    }
+                    else
+                    {
+                         enemyDamageText.enabled = true;
+                         enemyDamageText.text = c.name + " Missed " + selected.name;
+                    }
+               }
+               else
+               {
+                    //rand == 1, big attack
+                    damage = damage * 2;
+                    chance = chance * 5;
+                    success = Random.Range(0, 100);
+                    if (success <= chance)
+                    {
+                         selected.currenthealth = selected.currenthealth - damage;
+                         enemyDamageText.enabled = true;
+                         enemyDamageText.text = c.name + " did " + damage + " damage to " + selected.name;
+                    }
+                    else
+                    {
+                         enemyDamageText.enabled = true;
+                         enemyDamageText.text = c.name + " Missed " + selected.name;
+                    }
+               }
+
+
+          }
      }
 
      /*  playerTurn(Character c)
@@ -598,8 +842,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = str;
-               float percentChance = (dex / 5) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 20;
+               int success = Random.Range(0, 100);
                Debug.Log(success);
 
                //HIT!
@@ -679,8 +923,9 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = str * 2;
-               float percentChance = (dex / 10) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 10;
+               Debug.Log(percentChance);
+               int success = Random.Range(0, 100);
                Debug.Log(success);
 
                //HIT!
@@ -740,7 +985,8 @@ public class Battle_Mechanics : MonoBehaviour {
                else
                {
                     //no dmg done
-                    Debug.Log("MISS");
+                    Debug.Log("MISS " + percentChance + " % , success " + success );
+                    
                }
                buttonClicked = true;
                Debug.Log("melee2");
@@ -754,8 +1000,8 @@ public class Battle_Mechanics : MonoBehaviour {
                     yield return null;
                }
                int damage = str * 5;
-               float percentChance = (dex / 25) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 4;
+               int success = Random.Range(0, 100);
                Debug.Log(success);
 
                //HIT!
@@ -841,8 +1087,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = wis;
-               float percentChance = (dex / 5) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 20;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -915,8 +1161,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = wis * 2;
-               float percentChance = (dex / 10) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 10;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -989,8 +1235,8 @@ public class Battle_Mechanics : MonoBehaviour {
                     yield return null;
                }
                int damage = wis * 5;
-               float percentChance = (dex / 25) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 4;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1302,8 +1548,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 1;
-               float percentChance = (str / 5) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = str * 20;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1380,8 +1626,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 2;
-               float percentChance = (str / 10) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = str * 10;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1457,8 +1703,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 3;
-               float percentChance = (str / 25) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = str * 4;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1544,8 +1790,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 1;
-               float percentChance = (wis / 5) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = wis * 20;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1621,8 +1867,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 2;
-               float percentChance = (wis / 10) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = wis * 10;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1698,8 +1944,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 3;
-               float percentChance = (wis / 25) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = wis * 4;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1769,7 +2015,7 @@ public class Battle_Mechanics : MonoBehaviour {
      }
 
      //bribe
-     //----------------------check for bugs
+     //----------------------
      IEnumerator bribe(int a)
      {
           //lower enemy dex
@@ -1786,8 +2032,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 1;
-               float percentChance = (dex / 5) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 20;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1863,8 +2109,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 2;
-               float percentChance = (dex / 10) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 10;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -1940,8 +2186,8 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                int damage = 3;
-               float percentChance = (dex / 25) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 4;
+               int success = Random.Range(0, 100);
 
                //HIT!
                if (success <= percentChance)
@@ -2017,13 +2263,14 @@ public class Battle_Mechanics : MonoBehaviour {
           int dex = currentTurn.dexterity;
           if (b == null)
           {
-               float percentChance = (dex / 20) * 100;
-               float success = Random.Range(0.0f, 100.0f);
+               int percentChance = dex * 5;
+               int success = Random.Range(0, 100);
 
-               if(success <= percentChance)
+               if (success <= percentChance)
                {
                     Debug.Log("got away!");
                     battleOverText.enabled = true;
+                    playerFled = true;
                     battleOverText.text = "You Ran Away!";
                     battleOver = true;
                }
@@ -2333,6 +2580,10 @@ public class Battle_Mechanics : MonoBehaviour {
                          battleOver = false;
                     }
                }
+               if ( battleOver == true)
+               {
+                    playerWon = true;
+               }
 
           }
           else//was enemy turn 
@@ -2388,7 +2639,11 @@ public class Battle_Mechanics : MonoBehaviour {
                          battleOver = false;
                     }
                }
-
+               if (battleOver == true)
+               {
+                    playerWon = false;
+               }
+               Debug.Log("endofbattlecheckenemy");
           }
      }
 
@@ -2431,5 +2686,274 @@ public class Battle_Mechanics : MonoBehaviour {
           }
           
      }
+
+     void leaveBattle(bool win, bool f)
+     {
+          if (win==true)
+          {
+               int amount = 0;
+               int xp = 0;
+               //won battle
+               //award xp and gold
+               if (b != null)
+               {
+                    if (Game.current.boss.name == Game.current.unicorn.name)
+                    {
+                         amount = 5000;
+                         xp = 500;
+                    }
+                    else if (Game.current.boss.name == Game.current.goblin.name)
+                    {
+                         amount = 10000;
+                         xp = 500;
+                    }
+                    else if (Game.current.boss.name == Game.current.ink.name)
+                    {
+                         amount = 20000;
+                         xp = 1000;
+                    }
+               }
+               else
+               {
+                    amount = Random.Range(1, 1000);
+                    xp = xpcalc();
+               }
+               battleOverText.text = "You received " + amount + " gp. \n" + xp + " xp";
+               Game.current.player.gold = Game.current.player.gold + amount;
+
+               //modify player to hurt status?----------------Currently not on until healing out of combat mechanic added
+               
+               //partyHealth();
+
+
+
+          }
+          else if (f == true)
+          {
+               //ran away
+               //modify player to hurt status?
+
+               //partyHealth();
+
+               //no xp and gold
+               battleOverText.text = "You ran away. Receive no gp or xp.";
+          }
+          else if(win == false)
+          {
+               //lost battle
+               //player revives in town
+               //no xp and gold
+               battleOverText.text = "You lost. Receive no gp or xp.";
+          }
+          else
+          {
+               //idk what happened?
+               battleOverText.text = "Something broke...";
+          }
+     }
+
+     int xpcalc()
+     {
+          int xp = 0;
+
+          if (enemy1 != null)
+          {
+             if(enemy1.charactertype == "bear")
+               {
+                    xp = xp + 250;
+               }
+             else if(enemy1.charactertype == "rat")
+               {
+                    xp = xp + 50;
+               }
+             else if(enemy1.charactertype == "jelly")
+               {
+                    xp = xp + 100;
+               }
+             else
+               {
+                    //something else?
+                    xp = xp + 1;
+               }
+
+          }
+          if(enemy2 != null)
+          {
+               if (enemy2.charactertype == "bear")
+               {
+                    xp = xp + 250;
+               }
+               else if (enemy2.charactertype == "rat")
+               {
+                    xp = xp + 50;
+                 }
+               else if (enemy2.charactertype == "jelly")
+               {
+                    xp = xp + 100;
+               }
+               else
+               {
+                    //something else?
+                    xp = xp + 1;
+               }
+          }
+
+          if (enemy3 != null)
+          {
+               if (enemy3.charactertype == "bear")
+               {
+                    xp = xp + 250;
+               }
+               else if (enemy3.charactertype == "rat")
+               {
+                    xp = xp + 50;
+                 }
+               else if (enemy3.charactertype == "jelly")
+               {
+                    xp = xp + 100;
+               }
+               else
+               {
+                    //something else?
+                    xp = xp + 1;
+               }
+          }
+          if(enemy4 != null)
+          {
+               if (enemy4.charactertype == "bear")
+               {
+                    xp = xp + 250;
+               }
+               else if (enemy4.charactertype == "rat")
+               {
+                    xp = xp + 50;
+               }
+               else if (enemy4.charactertype == "jelly")
+               {
+                    xp = xp + 100;
+               }
+               else
+               {
+                    //something else?
+                    xp = xp + 1;
+               }
+          }
+
+          return xp;
+     }
+
+     //turn on if you want party to NOT be healed when leaving combat
+     void partyHealth()
+     {
+          Game.current.player.currenthealth = hero.currenthealth;
+          if(party1 != null)
+          {
+               Game.current.party[0].currenthealth = party1.currenthealth;
+          }
+          if(party2 != null)
+          {
+               Game.current.party[1].currenthealth = party1.currenthealth;
+          }
+          if(party3 != null)
+          {
+               Game.current.party[2].currenthealth = party1.currenthealth;
+          }
+     }
+
+     /*chooseTarget()
+      * 
+      * Picks a random number 0,1,2,3
+      * Checks to see if a party member exists at that number (0 is hero) (1->3) are the party members
+      * if no party member is avalible at number, set to previous partymember
+      */
+     void chooseTarget()
+     {
+          bool choosen = false;
+          int rand = Random.Range(0, 4);
+          Debug.Log(rand);
+          while (choosen == false)
+          {
+               if (rand == 0)
+               {
+
+                    if (hero.currenthealth > 0)
+                    {
+                         selected = hero;
+                         choosen = true;
+                    }
+                    else
+                    {
+                         rand = 1;
+                    }
+
+               }
+
+               if (rand == 1)
+               {
+                    //there is a party member
+                    if (party1 != null)
+                    {
+                         if (party1.currenthealth > 0)
+                         {
+                              selected = party1;
+                              choosen = true;
+                         }
+                         else
+                         {
+                              rand = 2;
+                         }
+                    }
+                    else //there is not a partymember
+                    {
+                         rand = 0;
+                    }
+               }
+
+               if (rand == 2)
+               {
+                    if (party2 != null)
+                    {
+                         if (party2.currenthealth > 0)
+                         {
+                              selected = party2;
+                              choosen = true;
+                         }
+                         else
+                         {
+                              rand = 3;
+                         }
+                    }
+                    else //there is not a partymember
+                    {
+                         rand = 1;
+                    }
+               }
+
+               if (rand == 3)
+               {
+                    if (party3 != null)
+                    {
+                         if (party3.currenthealth > 0)
+                         {
+                              selected = party3;
+                              choosen = true;
+                         }
+                         else
+                         {
+                              rand = 0;
+                         }
+                    }
+                    else //there is not a partymember
+                    {
+                         rand = 2;
+                    }
+               }
+          }
+          //selected = hero;
+          Debug.Log("selected is " + selected.name);
+
+     }
+
+     
 }
 

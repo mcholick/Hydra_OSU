@@ -2033,6 +2033,46 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 311326597}
+--- !u!1 &344175425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 344175427}
+  - component: {fileID: 344175426}
+  m_Layer: 0
+  m_Name: PostBattleScriptHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &344175426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 344175425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928674d74eb8b8043968c129dac76960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &344175427
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 344175425}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.36638662, y: -1.1730787, z: 0.12890625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &347290041
 GameObject:
   m_ObjectHideFlags: 0
@@ -6088,6 +6128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiHandler: {fileID: 103910761}
+  leaveBattleScene: {fileID: 344175426}
   heroText: {fileID: 1953385365}
   party1Text: {fileID: 383050808}
   party2Text: {fileID: 877182468}
@@ -7327,6 +7368,8 @@ MonoBehaviour:
     wisdom: 0
     piety: 0
     resistance: 0
+    gold: 0
+    xp: 0
 --- !u!1 &1154768113
 GameObject:
   m_ObjectHideFlags: 0
@@ -12707,7 +12750,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
