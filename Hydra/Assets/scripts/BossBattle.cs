@@ -6,7 +6,7 @@ public class BossBattle : MonoBehaviour {
 
      public int WhichBoss;
 
-     void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
      {
           Debug.Log("addBossToBattle");
 
@@ -14,14 +14,16 @@ public class BossBattle : MonoBehaviour {
           {
                //first boss unicorn
                Game.current.boss = Game.current.unicorn;
-          }
+               Game.current.player.unicorn = true;
+        }
           else if (WhichBoss == 2)
           {
                Debug.Log("boss is set?");
                //second boss goblin
                Game.current.boss = Game.current.goblin;
                Debug.Log(Game.current.boss);
-          }
+               Game.current.player.goblins = true;
+        }
           else
           {
                //third boss ink blot

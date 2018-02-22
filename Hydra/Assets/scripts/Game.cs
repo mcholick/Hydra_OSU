@@ -61,7 +61,7 @@ public class Game {
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
 
           unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
-          goblin = new Character("goblin","Goblin Twins",80,10,1,1,2,5);
+          goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",100,10,9,8,7,5);
 
           bear1 = new Character("bear","Bear",30,8,5,2,0,1);

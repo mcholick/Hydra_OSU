@@ -22,6 +22,16 @@ public class Character {
      public int resistance;
      public int gold;
      public int xp;
+     public float x;
+     public float y;
+     public float z;
+     public bool goblins;
+     public bool unicorn;
+    public bool milk;
+    public bool horn;
+    public bool heads;
+    public bool booze;
+    public bool door;
 
 
      public Character (string ct,string n , int h , int s, int d, int w, int p, int r)
@@ -37,8 +47,18 @@ public class Character {
           this.resistance = r;
           this.gold = 0;
           this.xp = 0;
+          this.x = 0;
+          this.y = 4;
+          this.z = 0;
+          this.goblins = false;
+          this.unicorn = false;
+          this.milk = false;
+          this.horn = false;
+          this.heads = false;
+          this.booze = false;
+          this.door = false;
 
-     }
+}
      //clone copy for battles
      public Character(Character c)
      {

@@ -13,6 +13,13 @@ public class HeroControl : MonoBehaviour {
     private CircleCollider2D hitbox;  //used for collecting and interacting with close objects
 
     private Animator anim;
+    public GameObject goblins;
+    public GameObject unicorn;
+    public GameObject heads;
+    public GameObject horn;
+    public GameObject milk;
+    public GameObject booze;
+
 
     //private Rigidbody2D rigbod;
 
@@ -22,6 +29,24 @@ public class HeroControl : MonoBehaviour {
     void Start() {
         anim = GetComponent<Animator>();
         //rigbod = GetComponent<Rigidbody2D>();
+        transform.position = new Vector3(Game.current.player.x, Game.current.player.y, 0);
+        if (Game.current.player.goblins == true && goblins!=null)
+        {
+            if (Game.current.player.heads == false && heads != null)
+            {
+                heads.transform.position = goblins.transform.position;
+            }
+            GameObject.Destroy(goblins);
+        }
+
+        if (Game.current.player.unicorn == true && unicorn != null)
+        {
+            if (Game.current.player.horn == false && horn != null)
+            {
+                horn.transform.position = unicorn.transform.position;
+            }
+            GameObject.Destroy(unicorn);
+        }
     }
 
     // Update is called once per frame
@@ -29,8 +54,9 @@ public class HeroControl : MonoBehaviour {
         float moveHori = Input.GetAxisRaw("Horizontal");
         float moveVert = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(moveHori, moveVert) * speed * Time.deltaTime);
-        
-        
+        Game.current.player.x = transform.position.x;
+        Game.current.player.y = transform.position.y;
+
 
 
         //vertical movement
