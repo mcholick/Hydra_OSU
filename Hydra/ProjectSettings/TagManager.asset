@@ -18,6 +18,7 @@ TagManager:
   - Bribe_Menu
   - Select_Menu
   - Effects_Text
+  - torch
   layers:
   - Default
   - TransparentFX
