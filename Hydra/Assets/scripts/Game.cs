@@ -49,6 +49,8 @@ public class Game {
      public Character[] party;
      public Character[] enemyParty;
 
+    public bool chestUnlocked;
+    public bool caveChestLooted;
 
 
      public Game()
@@ -59,8 +61,10 @@ public class Game {
           sheep = new Character("sheep","Shifty Sheep",15,2,8,9,1,3);
           cat = new Character("cat","Clumsy Cat",15,3,8,2,8,3);
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
+        chestUnlocked = false;
+        caveChestLooted = false;
 
-          unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
+        unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
           goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",100,10,9,8,7,5);
 
