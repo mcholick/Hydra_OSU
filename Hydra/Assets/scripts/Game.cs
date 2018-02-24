@@ -8,12 +8,12 @@ using UnityEngine.UI;
  * 
  * sub classes:
  *        Character
- *        WIP: Enem
+ *        
  */
 
 [System.Serializable]
 public class Game {
-//<<<<<<< HEAD
+
 
 
     public static Game current;
@@ -22,14 +22,7 @@ public class Game {
     public Character sheep;
     public Character cat;
     public Character drunkard;
-    public Character[] party;
-    public string[] inventory;  //dm
-//=======
-     
-     //public static Game current;
-//>>>>>>> 3e20d9b70074054df62a770b5f0b5c167448a892
-
-
+    public string[] inventory; 
 
      public Character unicorn;
      public Character goblin;
@@ -53,37 +46,26 @@ public class Game {
      public Character jelly4;
 
      public Character boss;
-     //public Character[] party;
+     public Character[] party;
      public Character[] enemyParty;
-//<<<<<<< HEAD
 
-//=======
-//>>>>>>> 3e20d9b70074054df62a770b5f0b5c167448a892
+    public bool chestUnlocked;
+    public bool caveChestLooted;
 
 
      public Game()
      {
-//<<<<<<< HEAD
-
-          //-------------IMPORTANT NOTE: if you change any of the character names, please update if statment names in Update_CharacterMenu!
-          /*player = new Character("Hero",20,5,5,5,5,0);
-          farmer = new Character("Farmer Frank", 25,10,6,1,1,2);
-          sheep = new Character("Shifty Sheep",15,2,8,9,1,3);
-          cat = new Character("Clumsy Cat",15,3,8,2,8,3);
-          drunkard = new Character("Drunkard Dan",30,10,4,1,0,5);
-          inventory = new string[4];  //dm*/
-
-//=======
-//>>>>>>> 3e20d9b70074054df62a770b5f0b5c167448a892
           //-------------IMPORTANT NOTE: if you change any of the charactertype names (first Character element), please update if statment names in Update_CharacterMenu.cs, and Battle_Mechanics.cs!----------------------
           player = new Character("heroine", "Hero",20,5,5,5,5,0);
           farmer = new Character("farmer","Farmer Frank", 25,10,6,1,1,2);
           sheep = new Character("sheep","Shifty Sheep",15,2,8,9,1,3);
           cat = new Character("cat","Clumsy Cat",15,3,8,2,8,3);
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
+        chestUnlocked = false;
+        caveChestLooted = false;
 
-          unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
-          goblin = new Character("goblin","Goblin Twins",80,10,1,1,2,5);
+        unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
+          goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",100,10,9,8,7,5);
 
           bear1 = new Character("bear","Bear",30,8,5,2,0,1);
@@ -125,6 +107,8 @@ public class Game {
           //init boss to null 
           //Set boss if fight has boss in it
           boss = null;
+
+          inventory = new string[4];
 
      }
 

@@ -1,14 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 92a47bde14085fd439e6a34747f70541
 folderAsset: yes
-timeCreated: 1516934198
-=======
-guid: d868c2f74445f9c4f9d0c9a4813d19bc
-folderAsset: yes
-timeCreated: 1517023736
->>>>>>> parent of dc88f88... deleted conflicting pull request files
-licenseType: Free
 DefaultImporter:
   externalObjects: {}
   userData: 

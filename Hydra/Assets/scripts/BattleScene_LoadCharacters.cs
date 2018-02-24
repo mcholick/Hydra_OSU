@@ -269,5 +269,7 @@ public class BattleScene_LoadCharacters : MonoBehaviour {
           }
 
      }//end start()
+
+
 }
 

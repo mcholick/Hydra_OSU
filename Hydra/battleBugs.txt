@@ -1,0 +1,6 @@
+Please write discovered bugs in battle mechanics here
+---------------------------------------------------------
+
+Bug1: Random number generation
+
+floats created by random.range are not compared to be less than chance correctly (22.67292 is <= 50) registers as miss
