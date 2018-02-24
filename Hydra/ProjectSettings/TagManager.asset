@@ -18,6 +18,8 @@ TagManager:
   - Bribe_Menu
   - Select_Menu
   - Effects_Text
+  - hero
+  - InkBlot
   layers:
   - Default
   - TransparentFX
