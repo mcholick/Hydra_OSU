@@ -3,23 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - ShowOnPause
-  - key
-  - characterMenu
-  - Physical_Attack_Menu
-  - Attack_Menu
-  - Magic_Attack_Menu
-  - Battle_UI_Main
-  - Heal_Menu
-  - Intimidate_Menu
-  - Talk_Menu
-  - Charm_Menu
-  - Bribe_Menu
-  - Select_Menu
-  - Effects_Text
-  - hero
-  - InkBlot
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -54,18 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BackGround
-    uniqueID: 1288937379
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Hero
-    uniqueID: 679314391
-    locked: 0
-  - name: worldStuff
-    uniqueID: 1582173807
-    locked: 0
-  - name: UI
-    uniqueID: 1341258741
     locked: 0
