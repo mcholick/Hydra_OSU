@@ -22,7 +22,9 @@ public class Game {
     public Character sheep;
     public Character cat;
     public Character drunkard;
-    public string[] inventory; 
+    public string[] inventory;
+    public float HeroX;
+    public float HeroY;
 
      public Character unicorn;
      public Character goblin;
@@ -109,6 +111,7 @@ public class Game {
           boss = null;
 
           inventory = new string[4];
+
 
      }
 

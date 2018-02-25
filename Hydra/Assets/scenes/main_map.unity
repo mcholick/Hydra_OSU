@@ -2418,7 +2418,7 @@ GameObject:
   - component: {fileID: 172667215}
   - component: {fileID: 172667214}
   m_Layer: 0
-  m_Name: Hero (1)
+  m_Name: Hero
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8231,8 +8231,9 @@ GameObject:
   m_Component:
   - component: {fileID: 526660805}
   - component: {fileID: 526660804}
+  - component: {fileID: 526660806}
   m_Layer: 0
-  m_Name: grass_large (1)
+  m_Name: Maze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8295,6 +8296,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 165
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526660806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 526660803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4e792cda5605f4fbfefb37129c5f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focus: {fileID: 172667213}
 --- !u!1 &532057309
 GameObject:
   m_ObjectHideFlags: 0
