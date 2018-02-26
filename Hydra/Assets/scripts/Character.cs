@@ -72,4 +72,16 @@ public class Character {
           this.piety = c.piety;
           this.resistance = c.resistance;
      }
+
+    public void CopyCharacter(Character source) {
+        this.charactertype = source.charactertype;
+        this.name = source.name;
+        this.maxhealth = source.maxhealth;
+        this.currenthealth = source.currenthealth;
+        this.strength = source.strength;
+        this.dexterity = source.dexterity;
+        this.wisdom = source.wisdom;
+        this.piety = source.piety;
+        this.resistance = source.resistance;
+    }
 }

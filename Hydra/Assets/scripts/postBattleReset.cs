@@ -9,6 +9,9 @@ public class postBattleReset : MonoBehaviour {
      {
           //change Load Scene Value to 2 for main_map
           SceneManager.LoadScene(2);
+        Vector3 HeroPos = new Vector3(Game.current.HeroX, Game.current.HeroY, 0);
+        Quaternion HeroRot = new Quaternion(0, 0, 0, 0);
+        GameObject.Find("Hero").transform.SetPositionAndRotation(HeroPos, HeroRot);  //place hero where she was
           Debug.Log("loading scene");
           postBattleUpdate();
      }

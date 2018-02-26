@@ -23,8 +23,9 @@ public class Game {
     public Character cat;
     public Character drunkard;
     public string[] inventory;
-    public float HeroX;
-    public float HeroY;
+    public float HeroX = 0;
+    public float HeroY = 0;
+
 
      public Character unicorn;
      public Character goblin;
@@ -32,20 +33,12 @@ public class Game {
 
      //---------Random Encounter Enemies-----
      //could have multiple in encounter, max enemy count in encounter is 4
-     public Character bear1;
-     public Character bear2;
-     public Character bear3;
-     public Character bear4;
+     public Character bear;
 
-     public Character rat1;
-     public Character rat2;
-     public Character rat3;
-     public Character rat4;
+     public Character rat;
 
-     public Character jelly1;
-     public Character jelly2;
-     public Character jelly3;
-     public Character jelly4;
+     public Character jelly;
+
 
      public Character boss;
      public Character[] party;
@@ -70,20 +63,20 @@ public class Game {
           goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",100,10,9,8,7,5);
 
-          bear1 = new Character("bear","Bear",30,8,5,2,0,1);
-          bear2 = new Character("bear", "Bear 2", 30, 8, 5, 2, 0, 1);
-          bear3 = new Character("bear", "Bear 3", 30, 8, 5, 2, 0, 1);
-          bear4 = new Character("bear", "Bear 4", 30, 8, 5, 2, 0, 1);
+          bear = new Character("bear","Bear",30,8,5,2,0,1);
+         // bear[1] = new Character("bear", "Bear 2", 30, 8, 5, 2, 0, 1);
+          //bear[2] = new Character("bear", "Bear 3", 30, 8, 5, 2, 0, 1);
+          //bear[3] = new Character("bear", "Bear 4", 30, 8, 5, 2, 0, 1);
 
-          rat1 = new Character("rat","Rat",10,2,7,1,1,0);
-          rat2 = new Character("rat", "Rat 2", 10, 2, 7, 1, 1, 0);
-          rat3 = new Character("rat", "Rat 3", 10, 2, 7, 1, 1, 0);
-          rat4 = new Character("rat", "Rat 4", 10, 2, 7, 1, 1, 0);
+          rat = new Character("rat","Rat",10,2,7,1,1,0);
+          //rat[1] = new Character("rat", "Rat 2", 10, 2, 7, 1, 1, 0);
+          //rat[2] = new Character("rat", "Rat 3", 10, 2, 7, 1, 1, 0);
+          //rat[3] = new Character("rat", "Rat 4", 10, 2, 7, 1, 1, 0);
 
-          jelly1 = new Character("jelly","Jelly",20,5,7,2,1,1);
-          jelly2 = new Character("jelly", "Jelly 2", 20, 5, 7, 2, 1, 1);
-          jelly3 = new Character("jelly", "Jelly 3", 20, 5, 7, 2, 1, 1);
-          jelly4 = new Character("jelly", "Jelly 4", 20, 5, 7, 2, 1, 1);
+          jelly = new Character("jelly","Jelly",20,5,7,2,1,1);
+          //jelly[1] = new Character("jelly", "Jelly 2", 20, 5, 7, 2, 1, 1);
+          //jelly[2] = new Character("jelly", "Jelly 3", 20, 5, 7, 2, 1, 1);
+          //jelly[3] = new Character("jelly", "Jelly 4", 20, 5, 7, 2, 1, 1);
 
 
           //-----------------------------------------------------------------------------SEE IMPORTANT NOTE about character names
@@ -111,6 +104,7 @@ public class Game {
           boss = null;
 
           inventory = new string[4];
+
 
 
      }

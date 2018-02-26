@@ -33,19 +33,19 @@ public class TestScript_AddPartyMember : MonoBehaviour {
      {
           if (enemy == 0)
           {
-               bob = Game.current.rat1;
+               bob = Game.current.rat;
           }
           else if (enemy == 1)
           {
-               bob = Game.current.bear1;
+               bob = Game.current.bear;
           }
           else if (enemy == 2)
           {
-               bob = Game.current.jelly1;
+               bob = Game.current.jelly;
           }
           //enemy == 3
           else
-               bob = Game.current.rat2;
+               bob = Game.current.rat;
 
           Game.current.enemyParty[enemy] = bob;
      }
