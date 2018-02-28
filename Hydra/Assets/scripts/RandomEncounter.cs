@@ -15,7 +15,7 @@ public class RandomEncounter : MonoBehaviour {
 	void Update () {
         //Game.current.HeroX = focus.transform.position.x;
         //Game.current.HeroY = focus.transform.position.y;
-        if (Mathf.Abs(focus.transform.position.x + focus.transform.position.y)*1123555%4000 > 3990) {
+        if (Mathf.Abs(focus.transform.position.x + focus.transform.position.y)*1123555%4000 > 3200) {
             //print("HeroX is " + Game.current.HeroX.ToString());
             //SceneManager.LoadScene("_BattleScene");
             int enemyCount = Random.Range(0, 3);    //random number of enemies
@@ -41,7 +41,7 @@ public class RandomEncounter : MonoBehaviour {
                         break;
                 }
             }
-            SceneManager.LoadScene("_BattleScene");
+            //SceneManager.LoadScene("_BattleScene");
         }
         
 	}
