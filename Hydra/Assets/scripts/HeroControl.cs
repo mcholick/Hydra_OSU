@@ -35,7 +35,8 @@ public class HeroControl : MonoBehaviour
         float moveHori = Input.GetAxisRaw("Horizontal");
         float moveVert = Input.GetAxisRaw("Vertical");
         transform.Translate(new Vector2(moveHori, moveVert) * speed * Time.deltaTime);
-
+        Game.current.player.x = transform.position.x;
+        Game.current.player.y = transform.position.y;
         //trying to make interactions with objects. not working atm
         Collider2D collider = Physics2D.OverlapCircle(transform.position, 1);
         if(collider.tag == "torch" && Input.GetKeyDown(KeyCode.Space))
