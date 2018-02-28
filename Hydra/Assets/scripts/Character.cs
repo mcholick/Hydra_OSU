@@ -32,6 +32,7 @@ public class Character {
     public bool heads;
     public bool booze;
     public bool door;
+     public int level;
 
 
      public Character (string ct,string n , int h , int s, int d, int w, int p, int r)
@@ -46,7 +47,7 @@ public class Character {
           this.piety = p;
           this.resistance = r;
           this.gold = 0;
-          this.xp = 0;
+          this.xp = 75;
           this.x = 0;
           this.y = 4;
           this.z = 0;
@@ -57,6 +58,7 @@ public class Character {
           this.heads = false;
           this.booze = false;
           this.door = false;
+          this.level = 1;
 
 }
      //clone copy for battles
@@ -71,6 +73,7 @@ public class Character {
           this.wisdom = c.wisdom;
           this.piety = c.piety;
           this.resistance = c.resistance;
+          this.level = c.level;
      }
 
     public void CopyCharacter(Character source) {
@@ -83,5 +86,6 @@ public class Character {
         this.wisdom = source.wisdom;
         this.piety = source.piety;
         this.resistance = source.resistance;
+          this.level = source.level;
     }
 }

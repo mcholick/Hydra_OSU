@@ -9,13 +9,20 @@ using UnityEngine;
 public class UIManager : MonoBehaviour {
      GameObject[] pauseObjects;
      GameObject[] characterMenu;
+     GameObject[] levelUp;
+     GameObject[] levelUpPanel;
 	// Use this for initialization
 	void Start () {
           Time.timeScale = 1;
           pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
           characterMenu = GameObject.FindGameObjectsWithTag("characterMenu");
+          levelUp = GameObject.FindGameObjectsWithTag("level_Up");
+          levelUpPanel = GameObject.FindGameObjectsWithTag("level_up_panel");
+
           hidePaused();
           hideCharacterMenuOnClick();
+          hideLevelUp();
+          hideLevelUpPanel();
      }
 	
 	// Update is called once per frame
@@ -60,6 +67,30 @@ public class UIManager : MonoBehaviour {
      public void hideCharacterMenuOnClick()
      {
           foreach (GameObject g in characterMenu)
+          {
+               g.SetActive(false);
+          }
+     }
+
+     public void hideLevelUp()
+     {
+          foreach (GameObject g in levelUp)
+          {
+               g.SetActive(false);
+          }
+     }
+
+     public void showLevelUpPanel()
+     {
+          foreach (GameObject g in levelUpPanel)
+          {
+               g.SetActive(true);
+          }
+     }
+
+     public void hideLevelUpPanel()
+     {
+          foreach (GameObject g in levelUpPanel)
           {
                g.SetActive(false);
           }

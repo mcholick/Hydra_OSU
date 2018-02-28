@@ -3,7 +3,24 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - characterMenu
+  - ShowOnPause
+  - Talk_Menu
+  - Battle_UI_Main
+  - Heal_Menu
+  - Magic_Attack_Menu
+  - Physical_Attack_Menu
+  - Select_Menu
+  - Attack_Menu
+  - Intimidate_Menu
+  - Effects_Text
+  - Bribe_Menu
+  - Charm_Menu
+  - key
+  - torch
+  - level_Up
+  - level_up_panel
   layers:
   - Default
   - TransparentFX
