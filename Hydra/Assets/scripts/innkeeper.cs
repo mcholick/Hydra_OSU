@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class innkeeper : MonoBehaviour {
 
     private bool inArea = false;
+    public GameObject booze;
+
+    private void Start()
+    {
+        if (Game.current.boozeOnGround)
+        {
+            booze.transform.position = new Vector3((float)-2.556, (float)-2.283, 0);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

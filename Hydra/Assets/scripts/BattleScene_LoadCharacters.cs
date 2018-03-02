@@ -152,6 +152,10 @@ public class BattleScene_LoadCharacters : MonoBehaviour {
                {
                    spr.sprite = Resources.Load("farmer", typeof(Sprite)) as Sprite;
                }
+            else if (char_type == "cow")
+            {
+                spr.sprite = Resources.Load("cow", typeof(Sprite)) as Sprite;
+            }
             //---------------------END OF IMPORTANT--------------------------------------------------------------------------------------------------
             health.text = "Health: " + (Game.current.boss.currenthealth).ToString() + " / " + (Game.current.boss.maxhealth).ToString();
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class caveChest : MonoBehaviour {
 
     public GameObject openedChest1;
+    private bool inArea = false;
 
     void Start()
     {
@@ -15,9 +16,25 @@ public class caveChest : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (coll.gameObject.tag == "Player" && Game.current.chestUnlocked==true && Game.current.caveChestLooted==false)
+        if (collision.gameObject.tag == "Player")
+        {
+            inArea = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            inArea = false;
+        }
+    }
+
+    void Update()
+    {
+        if (inArea && Input.GetKeyDown("space"))
         {
             Game.current.player.gold = Game.current.player.gold + 10000000;
             Game.current.caveChestLooted = true;

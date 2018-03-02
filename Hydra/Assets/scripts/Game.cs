@@ -20,6 +20,7 @@ public class Game {
     public Character player;
     public Character farmer;
     public Character sheep;
+    public Character cow;
     public Character cat;
     public Character drunkard;
     public string[] inventory;
@@ -56,6 +57,8 @@ public class Game {
     public bool sheepDead;
     public bool farmerDead;
     public bool milkOnGround;
+    public bool boozeOnGround;
+    public bool gotMilk;
 
 
     public Game()
@@ -66,6 +69,8 @@ public class Game {
           sheep = new Character("sheep","Shifty Sheep",15,2,8,9,1,3);
           cat = new Character("cat","Clumsy Cat",15,3,8,2,8,3);
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
+        cow = new Character("cow", "Heifer Cow", 5, 5, 5, 5, 5, 5);
+
         chestUnlocked = false;
         caveChestLooted = false;
         farmerInParty = false;
@@ -77,6 +82,8 @@ public class Game {
         farmerDead = false;
         milkOnGround = false;
         mazeChestLooted = false;
+        boozeOnGround = false;
+        gotMilk = false;
 
         unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
           goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);

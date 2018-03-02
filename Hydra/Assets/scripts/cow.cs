@@ -12,7 +12,7 @@ public class cow : MonoBehaviour {
     {
         if (Game.current.milkOnGround == true)
         {
-            milk.transform.position = transform.position;
+            milk.transform.position = new Vector3((float)3.292, (float)-2.152, 0);
         }
         if (Game.current.cowDead == true)
         {
@@ -38,7 +38,7 @@ public class cow : MonoBehaviour {
 
     void Update()
     {
-        if (inArea && Input.GetKeyDown("space") && !Game.current.player.milk)
+        if (inArea && Input.GetKeyDown("space"))
         {
             SceneManager.LoadScene("cowDialogue");
         }
