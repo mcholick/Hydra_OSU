@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/catDialogue.unity
     guid: 5b4957bdbadd00643af99239b2d6d65e
+  - enabled: 1
+    path: Assets/scenes/sheepDialogue.unity
+    guid: b1295749613debc44abec71d9e4a4362

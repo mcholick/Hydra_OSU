@@ -144,8 +144,16 @@ public class BattleScene_LoadCharacters : MonoBehaviour {
                {
                     spr.sprite = Resources.Load("ink", typeof(Sprite)) as Sprite;
                }
-               //---------------------END OF IMPORTANT--------------------------------------------------------------------------------------------------
-               health.text = "Health: " + (Game.current.boss.currenthealth).ToString() + " / " + (Game.current.boss.maxhealth).ToString();
+               else if (char_type == "sheep")
+               {
+                   spr.sprite = Resources.Load("sheep", typeof(Sprite)) as Sprite;
+               }
+               else if (char_type == "farmer")
+               {
+                   spr.sprite = Resources.Load("farmer", typeof(Sprite)) as Sprite;
+               }
+            //---------------------END OF IMPORTANT--------------------------------------------------------------------------------------------------
+            health.text = "Health: " + (Game.current.boss.currenthealth).ToString() + " / " + (Game.current.boss.maxhealth).ToString();
 
           }
           
