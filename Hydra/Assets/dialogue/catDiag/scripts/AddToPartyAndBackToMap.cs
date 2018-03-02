@@ -14,6 +14,7 @@ public class AddToPartyAndBackToMap : MonoBehaviour {
             {
                 Game.current.party[spot] = Game.current.cat;
                 Game.current.catInParty = true;
+                Game.current.player.milk = false;
                 break;
             }
             spot++;

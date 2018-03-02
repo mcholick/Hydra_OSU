@@ -7,6 +7,7 @@ public class cow : MonoBehaviour {
 
     private bool inArea = false;
     public GameObject milk;
+
     // Use this for initialization
     void Start()
     {

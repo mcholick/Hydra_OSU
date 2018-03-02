@@ -11,7 +11,7 @@ public class PickUpBooze : MonoBehaviour {
         {
             Game.current.boozeOnGround = false;
             Game.current.player.booze = true;
-            GameObject.Destroy(gameObject);
+            GameObject.Destroy(this.gameObject);
         }
     }
 }

@@ -37,18 +37,6 @@ public class HeroControl : MonoBehaviour
         transform.Translate(new Vector2(moveHori, moveVert) * speed * Time.deltaTime);
         Game.current.player.x = transform.position.x;
         Game.current.player.y = transform.position.y;
-        //trying to make interactions with objects. not working atm
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, 1);
-        if(collider.tag == "torch" && Input.GetKeyDown(KeyCode.Space))
-        {
-            Game.current.chestUnlocked = true;
-            if (blueTorch != null)
-            {
-                blueTorch.transform.position = transform.position;
-                GameObject.Destroy(this.gameObject);
-            }
-        }
-
 
         //vertical movement
         if (Input.GetAxisRaw("Vertical") != 0)
@@ -88,12 +76,15 @@ public class HeroControl : MonoBehaviour
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
 
         //this is added for simply a test
+        //This test caused cat to be deleted when milk was picked up. -Ethan
+        /*
         if (invCount >= 2)
         {
             Destroy(GameObject.Find("cat"));
             Destroy(GameObject.Find("drunkard"));
             Destroy(GameObject.Find("farmer"));
         }
+        */
     }
 
     void OnCollisionEnter2D(Collision2D other)

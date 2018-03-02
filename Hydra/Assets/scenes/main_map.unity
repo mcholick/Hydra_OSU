@@ -627,7 +627,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: cdcc049c7fd6e594188f0c2d75bfeed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15009,7 +15009,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 798878301}
-  - component: {fileID: 798878300}
   - component: {fileID: 798878302}
   - component: {fileID: 798878299}
   - component: {fileID: 798878298}
@@ -15130,18 +15129,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &798878300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 798878295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87bf36fb44ba35b4fa14d3f2683ad8a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyName: Milk
 --- !u!224 &798878301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34023,6 +34010,7 @@ GameObject:
   - component: {fileID: 2004945150}
   - component: {fileID: 2004945149}
   - component: {fileID: 2004945151}
+  - component: {fileID: 2004945152}
   m_Layer: 0
   m_Name: boose
   m_TagString: Untagged
@@ -34112,6 +34100,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13134551, y: 0.14222981}
   m_EdgeRadius: 0
+--- !u!114 &2004945152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2004945148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f24a0ff8136a0040bcf6858c03a76e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2008129587
 GameObject:
   m_ObjectHideFlags: 0
@@ -34335,7 +34334,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: cdcc049c7fd6e594188f0c2d75bfeed7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

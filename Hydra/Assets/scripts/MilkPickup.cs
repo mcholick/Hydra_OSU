@@ -11,7 +11,7 @@ public class MilkPickup : MonoBehaviour {
         {
             Game.current.milkOnGround = false;
             Game.current.player.milk = true;
-            GameObject.Destroy(gameObject);
+            GameObject.Destroy(this.gameObject);
         }
     }
 }

@@ -34,7 +34,7 @@ public class caveChest : MonoBehaviour {
 
     void Update()
     {
-        if (inArea && Input.GetKeyDown("space"))
+        if (inArea && Input.GetKeyDown("space") && Game.current.chestUnlocked)
         {
             Game.current.player.gold = Game.current.player.gold + 10000000;
             Game.current.caveChestLooted = true;

@@ -10,7 +10,7 @@ public class cat : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        if (Game.current.catInParty == true)
+        if (Game.current.catInParty && !Game.current.milkOnGround && Game.current.gotMilk && !Game.current.player.milk)
         {
             GameObject.Destroy(this.gameObject);
         }
