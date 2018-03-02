@@ -46,9 +46,19 @@ public class Game {
 
     public bool chestUnlocked;
     public bool caveChestLooted;
+    public bool mazeChestLooted;
+
+    public bool farmerInParty;
+    public bool sheepInParty;
+    public bool catInParty;
+    public bool drunkInParty;
+    public bool cowDead;
+    public bool sheepDead;
+    public bool farmerDead;
+    public bool milkOnGround;
 
 
-     public Game()
+    public Game()
      {
           //-------------IMPORTANT NOTE: if you change any of the charactertype names (first Character element), please update if statment names in Update_CharacterMenu.cs, and Battle_Mechanics.cs!----------------------
           player = new Character("heroine", "Hero",20,5,5,5,5,0);
@@ -58,6 +68,15 @@ public class Game {
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
         chestUnlocked = false;
         caveChestLooted = false;
+        farmerInParty = false;
+        sheepInParty = false;
+        catInParty = false;
+        drunkInParty = false;
+        cowDead = false;
+        sheepDead = false;
+        farmerDead = false;
+        milkOnGround = false;
+        mazeChestLooted = false;
 
         unicorn = new Character("unicorn","Sassy Unicorn",50,3,5,8,9,3);
           goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);

@@ -27,11 +27,12 @@ public class Character {
      public float z;
      public bool goblins;
      public bool unicorn;
-    public bool milk;
-    public bool horn;
-    public bool heads;
-    public bool booze;
-    public bool door;
+     public bool finalBoss;
+     public bool milk;
+     public bool horn;
+     public bool heads;
+     public bool booze;
+     public bool door;
      public int level;
 
 
@@ -59,6 +60,7 @@ public class Character {
           this.booze = false;
           this.door = false;
           this.level = 1;
+          this.finalBoss = false;
 
 }
      //clone copy for battles
@@ -86,6 +88,6 @@ public class Character {
         this.wisdom = source.wisdom;
         this.piety = source.piety;
         this.resistance = source.resistance;
-          this.level = source.level;
+        this.level = source.level;
     }
 }
