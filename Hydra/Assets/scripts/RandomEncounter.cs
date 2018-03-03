@@ -30,14 +30,14 @@ public class RandomEncounter : MonoBehaviour {
                 switch (enemyType)
                 {
                     case 0:
-                        Game.current.enemyParty[i] = new Character("rat", "Rat", 10, 2, 7, 1, 1, 0);
+                        Game.current.enemyParty[i] = new Character(Game.current.rat);
                         print("making a rat");
                         break;
                     case 1:
-                        Game.current.enemyParty[i] = new Character("bear", "Bear", 30, 8, 5, 2, 0, 1);
+                        Game.current.enemyParty[i] = new Character(Game.current.bear);
                         break;
                     default:
-                        Game.current.enemyParty[i]= new Character("jelly", "Jelly", 20, 5, 7, 2, 1, 1);
+                        Game.current.enemyParty[i]= new Character(Game.current.jelly);
                         break;
                 }
             }
