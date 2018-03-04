@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class HeroControl : MonoBehaviour
 {
-    public GameObject torch;
-    public GameObject blueTorch;
 
     public float speed; //controls hero's pace
 
@@ -75,16 +73,15 @@ public class HeroControl : MonoBehaviour
         anim.SetFloat("MovingX", Input.GetAxisRaw("Horizontal"));
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
 
-        //this is added for simply a test
-        //This test caused cat to be deleted when milk was picked up. -Ethan
-        /*
-        if (invCount >= 2)
+
+        if (Input.GetKeyDown("shift"))
         {
-            Destroy(GameObject.Find("cat"));
-            Destroy(GameObject.Find("drunkard"));
-            Destroy(GameObject.Find("farmer"));
+            speed = 1.8f;
         }
-        */
+        if (Input.GetKeyUp("shift"))
+        {
+            speed = 1.2f;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)

@@ -32,3 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/innkeeperDialogue.unity
     guid: 6aa64c609268465469af0f8aab6d83a8
+  - enabled: 1
+    path: Assets/scenes/drunkDialogue.unity
+    guid: 0d3db9ea2f5cbed45b553d9cff6d0dfa
+  - enabled: 1
+    path: Assets/scenes/farmerDialogue.unity
+    guid: e7bef569382070443888ec83f25d11d8
+  - enabled: 1
+    path: Assets/scenes/unicornDialogue.unity
+    guid: f571211e190123b4ea75ef10a37b4f80

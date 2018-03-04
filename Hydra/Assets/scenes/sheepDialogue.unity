@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 110796607}
   - component: {fileID: 110796606}
   - component: {fileID: 110796605}
+  - component: {fileID: 110796608}
   m_Layer: 0
   m_Name: SureThingButton
   m_TagString: Untagged
@@ -212,6 +213,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &110796608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 110796604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89198c2932824f468dbb4ed034ee12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &193220906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,9 +2598,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945820bda0f62c64b886894278b83498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera1: {fileID: 0}
-  camera2: {fileID: 0}
-  camera3: {fileID: 0}
+  camera1: {fileID: 1535411637}
+  camera2: {fileID: 1541886192}
+  camera3: {fileID: 1541886192}
 --- !u!1 &1438718578
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,5 @@ public class changeScenesUnicorn : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         SceneManager.LoadScene("unicornDialogue");
-        //Destroy(self.gameObject);
     }
 }

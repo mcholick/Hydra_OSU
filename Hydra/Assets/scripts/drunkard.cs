@@ -36,7 +36,7 @@ public class drunkard : MonoBehaviour {
     {
         if (inArea && Input.GetKeyDown("space"))
         {
-            SceneManager.LoadScene("drunkardDialogue");
+            SceneManager.LoadScene("drunkDialogue");
         }
     }
 }

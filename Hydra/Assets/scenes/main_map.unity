@@ -1429,7 +1429,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.34622812, y: -0.40259033}
@@ -3347,8 +3347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890b6e1f2f5be5744a745a3bf5c9869a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torch: {fileID: 1941060587}
-  blueTorch: {fileID: 1141142338}
   speed: 1.2
 --- !u!212 &172667219
 SpriteRenderer:
@@ -11782,6 +11780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605600548}
   - component: {fileID: 605600547}
+  - component: {fileID: 605600549}
   - component: {fileID: 605600546}
   - component: {fileID: 605600545}
   - component: {fileID: 605600544}
@@ -11931,6 +11930,17 @@ RectTransform:
   m_AnchoredPosition: {x: 33.172, y: 1.619}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &605600549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 605600542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4592bc868e6c2e44dbda781943f02a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622566718
 GameObject:
   m_ObjectHideFlags: 0
@@ -12249,6 +12259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632405246}
   - component: {fileID: 632405245}
+  - component: {fileID: 632405247}
   - component: {fileID: 632405244}
   - component: {fileID: 632405243}
   - component: {fileID: 632405242}
@@ -12398,6 +12409,17 @@ RectTransform:
   m_AnchoredPosition: {x: 33.174, y: 1.117}
   m_SizeDelta: {x: 0.8974, y: 1.0324}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &632405247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632405240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d688351edc8eb049b043edafe57fe4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &644513355
 GameObject:
   m_ObjectHideFlags: 0
@@ -13945,7 +13967,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: f31d6d5afd730ac45abbd7f1ec766c69, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.21
-  m_Pitch: 1
+  m_Pitch: 0.8
   Loop: 1
   Mute: 0
   Spatialize: 0
