@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Battle_Mechanics : MonoBehaviour {
+public class Battle_Mechanics : MonoBehaviour
+{
 
      public Battle_UI uiHandler;
      public postBattleReset leaveBattleScene;
@@ -24,6 +25,11 @@ public class Battle_Mechanics : MonoBehaviour {
      public Text party2Text;
      public Text party3Text;
 
+     private bool heroDead;
+     private bool party1Dead;
+     private bool party2Dead;
+     private bool party3Dead;
+
 
      private Character b;
      public Text btext;
@@ -37,6 +43,12 @@ public class Battle_Mechanics : MonoBehaviour {
      public Text enemy2Text;
      public Text enemy3Text;
      public Text enemy4Text;
+
+     private bool bDead;
+     private bool enemy1Dead;
+     private bool enemy2Dead;
+     private bool enemy3Dead;
+     private bool enemy4Dead;
 
      //----------LOGIC: based on D&D, turn order based on dexterity stat---------
      //List to store characters, to then sort by dext largest to smallest
@@ -130,7 +142,8 @@ public class Battle_Mechanics : MonoBehaviour {
      public Text battleOverText;
 
      // Use this for initialization
-     void Start () {
+     void Start()
+     {
           tempPic = null;
           battleOver = false;
           //init party , boss, and enemy party to null
@@ -148,6 +161,7 @@ public class Battle_Mechanics : MonoBehaviour {
           //init hero
           hero = new Character(Game.current.player);
           orderedChars.Add(hero);
+          heroDead = false;
 
 
           //check for player party members
@@ -155,58 +169,66 @@ public class Battle_Mechanics : MonoBehaviour {
           {
                party1 = new Character(Game.current.party[0]);
                orderedChars.Add(party1);
-               
+               party1Dead = false;
+
           }
 
           if (Game.current.party[1] != null)
           {
                party2 = new Character(Game.current.party[1]);
                orderedChars.Add(party2);
+               party2Dead = false;
           }
 
-          if(Game.current.party[2] != null)
+          if (Game.current.party[2] != null)
           {
                party3 = new Character(Game.current.party[2]);
                orderedChars.Add(party3);
+               party3Dead = false;
           }
 
           //check for boss
-          if(Game.current.boss != null)
+          if (Game.current.boss != null)
           {
                b = new Character(Game.current.boss);
                orderedChars.Add(b);
+               bDead = false;
           }
 
-          if(Game.current.enemyParty[0] != null)
+          if (Game.current.enemyParty[0] != null)
           {
                enemy1 = new Character(Game.current.enemyParty[0]);
                orderedChars.Add(enemy1);
+               enemy1Dead = false;
           }
           if (Game.current.enemyParty[1] != null)
           {
                enemy2 = new Character(Game.current.enemyParty[1]);
                orderedChars.Add(enemy2);
+               enemy2Dead = false;
           }
           if (Game.current.enemyParty[2] != null)
           {
                enemy3 = new Character(Game.current.enemyParty[2]);
                orderedChars.Add(enemy3);
+               enemy3Dead = false;
           }
           if (Game.current.enemyParty[3] != null)
           {
                enemy4 = new Character(Game.current.enemyParty[3]);
                orderedChars.Add(enemy4);
+               enemy4Dead = false;
           }
 
           //figure out who goes first, seconds.....
           Character key;
           int i;
           int size = orderedChars.Count;
-          for(int j = 1; j < size; j++)
+          for (int j = 1; j < size; j++)
           {
                key = orderedChars[j];
                i = j - 1;
-               while(i>=0 && orderedChars[i].dexterity < key.dexterity)
+               while (i >= 0 && orderedChars[i].dexterity < key.dexterity)
                {
                     orderedChars[i + 1] = orderedChars[i];
                     i = i - 1;
@@ -231,7 +253,7 @@ public class Battle_Mechanics : MonoBehaviour {
                turn_1.sprite = Resources.Load(orderedChars[1].charactertype, typeof(Sprite)) as Sprite;
                next1 = orderedChars[1];
           }
-          if(orderedChars.Count >= 3)
+          if (orderedChars.Count >= 3)
           {
                turn_2.enabled = true;
                turn_2.sprite = Resources.Load(orderedChars[2].charactertype, typeof(Sprite)) as Sprite;
@@ -272,9 +294,9 @@ public class Battle_Mechanics : MonoBehaviour {
 
           //Battle...START!
           StartCoroutine(battle());
-              
+
      }
-     
+
      //coroutine so it can be paused for player input
      IEnumerator battle()
      {
@@ -282,10 +304,10 @@ public class Battle_Mechanics : MonoBehaviour {
           while (battleOver == false)
           {
                Debug.Log("Battle Phase");
-              
+
                battleOverText.enabled = false;
                //is it the players turn or not---------------------------
-               if (currentTurn == hero || currentTurn == party1  || currentTurn == party2 || currentTurn == party3)
+               if (currentTurn == hero || currentTurn == party1 || currentTurn == party2 || currentTurn == party3)
                {
                     Debug.Log("PlayerTurn");
                     playerTurn(currentTurn);
@@ -300,7 +322,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     yield return new WaitForSeconds(1);
                     checkbattleOver(1);
                }
-               
+
                //enemy turn-----------------------------------------
                else
                {
@@ -313,7 +335,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     Debug.Log("outofcheckbattleOver");
                }
 
-               
+
 
 
                //------turn has been taken, update turn order-----------------
@@ -384,7 +406,7 @@ public class Battle_Mechanics : MonoBehaviour {
           }
           Debug.Log("Battle OVER");
           yield return new WaitForSeconds(3);
-          leaveBattle(playerWon,playerFled);
+          leaveBattle(playerWon, playerFled);
           yield return new WaitForSeconds(3);
           leaveBattleScene.leaveBattle();
 
@@ -403,24 +425,24 @@ public class Battle_Mechanics : MonoBehaviour {
           chooseTarget();
           Debug.Log("selected is again " + selected.name);
 
-          if(b != null)
+          if (b != null)
           {
                //if the character is a boss
-               if(c.name == b.name)
+               if (c.name == b.name)
                {
                     //do specific boss stuff
-                    if(Game.current.unicorn.name == c.name)
+                    if (Game.current.unicorn.name == c.name)
                     {
                          //Unicorn will either (0) taunt (wisdom -1), (1)Magic Attack, (2) or heal but only under half health
-                          damage = c.wisdom;
-                          chance = c.dexterity;
+                         damage = c.wisdom;
+                         chance = c.dexterity;
                          int piety = c.piety;
 
                          int rand = Random.Range(0, 3);
-                         if(rand == 0)
+                         if (rand == 0)
                          {
                               //taunt
-                              if(selected.wisdom != 0)
+                              if (selected.wisdom != 0)
                               {
                                    selected.wisdom = selected.wisdom - 1;
                                    enemyDamageText.enabled = true;
@@ -434,7 +456,7 @@ public class Battle_Mechanics : MonoBehaviour {
 
 
                          }
-                         else if(rand == 1)
+                         else if (rand == 1)
                          {
                               //magic attack
                               //small attack
@@ -456,7 +478,7 @@ public class Battle_Mechanics : MonoBehaviour {
                          else
                          {
                               //heal
-                              if(c.currenthealth < 25)
+                              if (c.currenthealth < 25)
                               {
                                    c.currenthealth = c.currenthealth + piety;
                                    enemyHealText.enabled = true;
@@ -466,7 +488,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               {
                                    selected.currenthealth = selected.currenthealth - 1;
                                    enemyDamageText.enabled = true;
-                                   enemyDamageText.text = c.name + " insulted "+ selected.name  +" for 1 damage";
+                                   enemyDamageText.text = c.name + " insulted " + selected.name + " for 1 damage";
                               }
                          }
                     }
@@ -479,11 +501,11 @@ public class Battle_Mechanics : MonoBehaviour {
                          int rand1 = Random.Range(0, 2);
                          int rand2 = Random.Range(0, 2);
 
-                         if(rand1 == rand2)
+                         if (rand1 == rand2)
                          {
                               //they agree!
                               int rand = Random.Range(0, 2);
-                              if(rand == 0)
+                              if (rand == 0)
                               {
                                    enemyOtherText.enabled = true;
                                    enemyOtherText.text = "The goblin twins agree to attack this time";
@@ -519,7 +541,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               //they dont agree
                               enemyOtherText.enabled = true;
                               enemyOtherText.text = "The goblin twins do NOT agree this time";
-                              
+
                               //attack
                               chance = 75;
                               damage = 2;
@@ -583,19 +605,19 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                }
           }
-          if(c != b) //not a boss
+          if (c != b) //not a boss
           {
-                damage = c.strength;
-                chance = c.dexterity;
+               damage = c.strength;
+               chance = c.dexterity;
 
                int rand = Random.Range(0, 2);
-               
-               if(rand == 0)
+
+               if (rand == 0)
                {
                     //small attack
                     chance = chance * 20;
                     success = Random.Range(0, 100);
-                    if(success <= chance)
+                    if (success <= chance)
                     {
                          selected.currenthealth = selected.currenthealth - damage;
                          enemyDamageText.enabled = true;
@@ -666,7 +688,7 @@ public class Battle_Mechanics : MonoBehaviour {
           float pie = c.piety;
 
           float damage = str;
-          float percentChance = (dex/5) * 100;
+          float percentChance = (dex / 5) * 100;
           melee1chance.text = "Damage: " + (damage) + " Chance: " + (percentChance) + "%";
 
           damage = str * 2;
@@ -684,7 +706,7 @@ public class Battle_Mechanics : MonoBehaviour {
           damage = wis;
           percentChance = (dex / 5) * 100;
           magic1chance.text = "Damage: " + (damage) + " Chance: " + (percentChance) + "%";
-                
+
           damage = wis * 2;
           percentChance = (dex / 10) * 100;
           magic2chance.text = "Damage: " + (damage) + " Chance: " + (percentChance) + "%";
@@ -699,11 +721,11 @@ public class Battle_Mechanics : MonoBehaviour {
 
           damage = pie;
           heal1amount.text = "Amount: " + (damage);
-                    
+
           damage = pie;
           heal2amount.text = "Amount: " + (damage);
-                   
-          damage = Mathf.Floor(pie/4) * 2;
+
+          damage = Mathf.Floor(pie / 4) * 2;
           heal3amount.text = "Amount: " + (damage);
 
 
@@ -741,7 +763,7 @@ public class Battle_Mechanics : MonoBehaviour {
 
           //Is it boss battle? If yes player CAN'T run
           //Dex based?
-          
+
           //not a boss fight player CAN run
           if (b == null)
           {
@@ -771,13 +793,13 @@ public class Battle_Mechanics : MonoBehaviour {
           melee3.onClick.RemoveAllListeners();
           melee3.onClick.AddListener(delegate { StartCoroutine(melee(3)); });
 
-     
+
           magic1.onClick.RemoveAllListeners();
           magic1.onClick.AddListener(delegate { StartCoroutine(magic(1)); });
-   
+
           magic2.onClick.RemoveAllListeners();
           magic2.onClick.AddListener(delegate { StartCoroutine(magic(2)); });
-   
+
           magic3.onClick.RemoveAllListeners();
           magic3.onClick.AddListener(delegate { StartCoroutine(magic(3)); });
 
@@ -801,24 +823,24 @@ public class Battle_Mechanics : MonoBehaviour {
 
           intimidate2.onClick.RemoveAllListeners();
           intimidate2.onClick.AddListener(delegate { StartCoroutine(intimidate(2)); });
- 
+
           intimidate3.onClick.RemoveAllListeners();
           intimidate3.onClick.AddListener(delegate { StartCoroutine(intimidate(3)); });
 
 
           charm1.onClick.RemoveAllListeners();
           charm1.onClick.AddListener(delegate { StartCoroutine(charm(1)); });
-   
+
           charm2.onClick.RemoveAllListeners();
           charm2.onClick.AddListener(delegate { StartCoroutine(charm(2)); });
-   
+
           charm3.onClick.RemoveAllListeners();
           charm3.onClick.AddListener(delegate { StartCoroutine(charm(3)); });
 
-     
+
           bribe1.onClick.RemoveAllListeners();
           bribe1.onClick.AddListener(delegate { StartCoroutine(bribe(1)); });
-    
+
           bribe2.onClick.RemoveAllListeners();
           bribe2.onClick.AddListener(delegate { StartCoroutine(bribe(2)); });
 
@@ -836,9 +858,9 @@ public class Battle_Mechanics : MonoBehaviour {
           {
                //have player select enemy
                playerSelect(2);
-               while(charSelected == false)
+               while (charSelected == false)
                {
-                    yield return null; 
+                    yield return null;
                }
 
                int damage = str;
@@ -847,15 +869,15 @@ public class Battle_Mechanics : MonoBehaviour {
                Debug.Log(success);
 
                //HIT!
-               if(success <= percentChance)
+               if (success <= percentChance)
                {
                     Debug.Log("hit");
                     //figure out who was hit
 
                     //was it the boss?
-                    if(b != null)
+                    if (b != null)
                     {
-                         if(b == selected)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -894,7 +916,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
                          }
                     }
-                   if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -941,7 +963,7 @@ public class Battle_Mechanics : MonoBehaviour {
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
-                              playerDamageText.text = currentTurn.name + " did " + damage +" damage to " + b.name;
+                              playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
                          }
                     }
                     if (enemy1 != null)
@@ -985,8 +1007,8 @@ public class Battle_Mechanics : MonoBehaviour {
                else
                {
                     //no dmg done
-                    Debug.Log("MISS " + percentChance + " % , success " + success );
-                    
+                    Debug.Log("MISS " + percentChance + " % , success " + success);
+
                }
                buttonClicked = true;
                Debug.Log("melee2");
@@ -1065,7 +1087,7 @@ public class Battle_Mechanics : MonoBehaviour {
                buttonClicked = true;
                Debug.Log("melee3");
           }
-               
+
      }
 
      //magic
@@ -1189,7 +1211,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
                          }
                     }
-                   if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1198,7 +1220,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1207,7 +1229,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1254,7 +1276,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + b.name;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1263,7 +1285,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy1.name;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1272,7 +1294,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy2.name;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1281,7 +1303,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerDamageText.text = currentTurn.name + " did " + damage + " damage to " + enemy3.name;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1315,8 +1337,8 @@ public class Battle_Mechanics : MonoBehaviour {
                int heal = pie;
                //figure out WHO is current turn
                if (hero.name == currentTurn.name)
-             {
-                    if((hero.currenthealth + heal) > hero.maxhealth)
+               {
+                    if ((hero.currenthealth + heal) > hero.maxhealth)
                     {
                          hero.currenthealth = hero.maxhealth;
                          playerHealText.enabled = true;
@@ -1330,12 +1352,12 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
 
                }
-               
+
                if (party1 != null)
                {
                     if (party1.name == currentTurn.name)
                     {
-                         if((party1.currenthealth + heal) > party1.maxhealth)
+                         if ((party1.currenthealth + heal) > party1.maxhealth)
                          {
                               party1.currenthealth = party1.maxhealth;
                               playerHealText.enabled = true;
@@ -1348,14 +1370,14 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerHealText.enabled = true;
                               playerHealText.text = currentTurn.name + " healed for " + heal;
                          }
-                        
+
                     }
                }
                if (party2 != null)
                {
                     if (party2.name == currentTurn.name)
                     {
-                         if((party2.currenthealth + heal) > party2.maxhealth)
+                         if ((party2.currenthealth + heal) > party2.maxhealth)
                          {
                               party2.currenthealth = party2.maxhealth;
                               playerHealText.enabled = true;
@@ -1367,7 +1389,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerHealText.enabled = true;
                               playerHealText.text = currentTurn.name + " healed for " + heal;
                          }
-                         
+
                     }
                }
                if (party3 != null)
@@ -1386,7 +1408,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerHealText.enabled = true;
                               playerHealText.text = currentTurn.name + " healed for " + heal;
                          }
-                       
+
                     }
                }
                buttonClicked = true;
@@ -1405,7 +1427,7 @@ public class Battle_Mechanics : MonoBehaviour {
                //figure out WHO is selected
                if (hero == selected)
                {
-                    if(hero.maxhealth < (hero.currenthealth + heal))
+                    if (hero.maxhealth < (hero.currenthealth + heal))
                     {
                          hero.currenthealth = hero.maxhealth;
                          playerHealText.enabled = true;
@@ -1417,7 +1439,7 @@ public class Battle_Mechanics : MonoBehaviour {
                          playerHealText.enabled = true;
                          playerHealText.text = currentTurn.name + " healed " + hero.name + "for" + heal;
                     }
-                    
+
                }
 
                if (party1 != null)
@@ -1436,7 +1458,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerHealText.enabled = true;
                               playerHealText.text = currentTurn.name + " healed " + party1.name + "for" + heal;
                          }
-                         
+
                     }
                }
                if (party2 != null)
@@ -1477,7 +1499,7 @@ public class Battle_Mechanics : MonoBehaviour {
           }
           else//a = 3
           {
-               
+
                int heal = (int)(Mathf.Floor(pie / 4) * 2);
                playerHealText.enabled = true;
                playerHealText.text = currentTurn.name + " healed each party member for" + heal;
@@ -1493,7 +1515,7 @@ public class Battle_Mechanics : MonoBehaviour {
 
                if (party1 != null)
                {
-                    if(party1.maxhealth < (party1.currenthealth + heal))
+                    if (party1.maxhealth < (party1.currenthealth + heal))
                     {
                          party1.currenthealth = party1.maxhealth;
                     }
@@ -1501,9 +1523,9 @@ public class Battle_Mechanics : MonoBehaviour {
                     {
                          party1.currenthealth = party1.currenthealth + heal;
                     }
-                   
+
                }
-             if (party2 != null)
+               if (party2 != null)
                {
                     if (party2.maxhealth < (party2.currenthealth + heal))
                     {
@@ -1588,7 +1610,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1597,7 +1619,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1606,7 +1628,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
                          }
                     }
-                    
+
                }
                else
                {
@@ -1647,7 +1669,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " strength by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1656,7 +1678,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " strength by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1665,7 +1687,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1674,7 +1696,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1683,7 +1705,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
                          }
                     }
-                   
+
                }
                else
                {
@@ -1724,7 +1746,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " strength by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1733,7 +1755,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " strength by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1742,7 +1764,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " strength by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1751,7 +1773,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " strength by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1760,7 +1782,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " strength by " + damage;
                          }
                     }
-                    
+
                }
                else
                {
@@ -1770,7 +1792,7 @@ public class Battle_Mechanics : MonoBehaviour {
                buttonClicked = true;
                Debug.Log("intimidate3");
           }
-          
+
      }
 
      //charm
@@ -1811,7 +1833,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1820,7 +1842,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1829,7 +1851,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1838,7 +1860,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1847,7 +1869,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
                          }
                     }
-                   
+
                }
                else
                {
@@ -1888,7 +1910,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1897,7 +1919,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1906,7 +1928,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1915,7 +1937,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -1924,7 +1946,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
                          }
                     }
-                    
+
                }
                else
                {
@@ -1959,13 +1981,13 @@ public class Battle_Mechanics : MonoBehaviour {
                          if (b == selected)
                          {
                               Debug.Log("Wisdom was" + b.wisdom);
-                              b.wisdom =b.wisdom - damage;
+                              b.wisdom = b.wisdom - damage;
                               Debug.Log("Wisdom is now" + b.wisdom);
                               playerOtherText.enabled = true;
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -1974,7 +1996,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -1983,7 +2005,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -1992,7 +2014,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " wisdom by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -2001,7 +2023,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " wisdom by " + damage;
                          }
                     }
-                   
+
                }
                else
                {
@@ -2053,7 +2075,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -2062,7 +2084,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -2071,7 +2093,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -2080,7 +2102,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -2089,7 +2111,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
                          }
                     }
-                  
+
                }
                else
                {
@@ -2130,7 +2152,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -2139,7 +2161,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -2148,7 +2170,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -2157,7 +2179,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -2166,7 +2188,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
                          }
                     }
-                    
+
                }
                else
                {
@@ -2207,7 +2229,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + b.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy1 != null)
+                    if (enemy1 != null)
                     {
                          if (enemy1 == selected)
                          {
@@ -2216,7 +2238,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy1.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy2 != null)
+                    if (enemy2 != null)
                     {
                          if (enemy2 == selected)
                          {
@@ -2225,7 +2247,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy2.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy3 != null)
+                    if (enemy3 != null)
                     {
                          if (enemy3 == selected)
                          {
@@ -2234,7 +2256,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy3.name + " dexterity by " + damage;
                          }
                     }
-                     if (enemy4 != null)
+                    if (enemy4 != null)
                     {
                          if (enemy4 == selected)
                          {
@@ -2243,7 +2265,7 @@ public class Battle_Mechanics : MonoBehaviour {
                               playerOtherText.text = currentTurn.name + " reduced " + enemy4.name + " dexterity by " + damage;
                          }
                     }
-                   
+
                }
                else
                {
@@ -2328,22 +2350,22 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                }
                if (party2 != null)
+               {
+                    if (party2.name != currentTurn.name)
                     {
-                         if (party2.name != currentTurn.name)
-                         {
-                              option3.gameObject.SetActive(true);
-                              option3text.text = party2.name;
-                         }  
+                         option3.gameObject.SetActive(true);
+                         option3text.text = party2.name;
                     }
+               }
 
                if (party3 != null)
-                    {
+               {
                     if (party3.name != currentTurn.name)
-                         {
-                              option4.gameObject.SetActive(true);
-                              option4text.text = party3.name;
-                         }
+                    {
+                         option4.gameObject.SetActive(true);
+                         option4text.text = party3.name;
                     }
+               }
 
                //no party member
                if (party1 == null && party2 == null && party3 == null)
@@ -2383,9 +2405,9 @@ public class Battle_Mechanics : MonoBehaviour {
                {
                     option1.gameObject.SetActive(true);
                     option1text.text = b.name;
-                    
+
                     //if there is also and enemy with the boss (ink pillar), CANNOT have a 4th in enemy party
-                    if(enemy1 != null)
+                    if (enemy1 != null)
                     {
                          option4.gameObject.SetActive(true);
                          option4text.text = enemy1.name;
@@ -2394,7 +2416,7 @@ public class Battle_Mechanics : MonoBehaviour {
                }
 
                //if NOT boss then enemyparty[0] is enemy
-               else if (enemy1!= null)
+               else if (enemy1 != null)
                {
                     option1.gameObject.SetActive(true);
                     option1text.text = enemy1.name;
@@ -2427,7 +2449,7 @@ public class Battle_Mechanics : MonoBehaviour {
 
      void option(int a)
      {
-          if(a == 1)
+          if (a == 1)
           {
                selected = hero;
                Debug.Log("option1");
@@ -2437,7 +2459,7 @@ public class Battle_Mechanics : MonoBehaviour {
           else if (a == 2)
           {
                //no ally members
-               if(party1 == null)
+               if (party1 == null)
                {
                     selected = hero;
                }
@@ -2449,14 +2471,14 @@ public class Battle_Mechanics : MonoBehaviour {
                charSelected = true;
 
           }
-          else if (a == 3)  
+          else if (a == 3)
           {
                selected = party2;
                Debug.Log("option3");
                charSelected = true;
 
           }
-          else if(a==4)
+          else if (a == 4)
           {
                selected = party3;
                Debug.Log("option4");
@@ -2465,7 +2487,7 @@ public class Battle_Mechanics : MonoBehaviour {
           }
           else if (a == 5)
           {
-               if(b != null)
+               if (b != null)
                {
                     selected = b;
                }
@@ -2477,14 +2499,14 @@ public class Battle_Mechanics : MonoBehaviour {
                charSelected = true;
 
           }
-          else if (a == 6) 
+          else if (a == 6)
           {
                selected = enemy2;
                Debug.Log("option6");
                charSelected = true;
 
           }
-          else if (a == 7)  
+          else if (a == 7)
           {
                selected = enemy3;
                Debug.Log("option7");
@@ -2511,76 +2533,63 @@ public class Battle_Mechanics : MonoBehaviour {
      void checkbattleOver(int a)
      {
           //was players turn
-          if(a == 1)
+          if (a == 1)
           {
                //boss health is < 0 then battle over
                if (b != null)
                {
-                    if (b.currenthealth <= 0)
+                    if (bDead == true)
                     {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "Victory!";
                          battleOver = true;
                     }
-                    else
-                    {
-                         battleOver = false;
-                    }
+
                }
                //check all other enemy chars
                if (enemy1 != null)
                {
-                    if (enemy1.currenthealth <= 0)
+                    if (enemy1Dead == true)
                     {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "Victory!";
-                         battleOver = true;
+                         if (enemy2 != null)
+                         {
+                              if (enemy2Dead == true)
+                              {
+                                   if (enemy3 != null)
+                                   {
+                                        if (enemy3Dead == true)
+                                        {
+                                             if (enemy4 != null)
+                                             {
+                                                  if (enemy4Dead == true)
+                                                  {
+                                                       battleOver = true;
+                                                  }
+                                             }
+                                             else
+                                             {
+                                                  //only 3 enemies
+                                                  battleOver = true;
+                                             }
+                                        }
+                                   }
+                                   else
+                                   {
+                                        //only 2 enemies
+                                        battleOver = true;
+                                   }
+                              }
+
+                         }
+                         else
+                         {
+                              //only 1 enemy
+                              battleOver = true;
+                         }
+
                     }
-                    else
-                    {
-                         battleOver = false;
-                    }
+
                }
-               if (enemy2 != null)
-               {
-                    if (enemy2.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "Victory!";
-                         battleOver = true;
-                    }
-                    else
-                    {
-                         battleOver = false;
-                    }
-               }
-               if (enemy3 != null)
-               {
-                    if (enemy3.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "Victory!";
-                         battleOver = true;
-                    }
-                    else
-                    {
-                         battleOver = false;
-                    }
-               }
-               if (enemy4 != null)
-               {
-                    if (enemy4.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "Victory!";
-                         battleOver = true;
-                    }
-                    else
-                    {
-                         battleOver = false;
-                    }
-               }
-               if ( battleOver == true)
+
+               if (battleOver == true)
                {
                     playerWon = true;
                }
@@ -2589,16 +2598,16 @@ public class Battle_Mechanics : MonoBehaviour {
           else//was enemy turn 
           {
                //all party health under 0
-              if (hero.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "You Lose!";
-                         battleOver = true;
-                    }
-                    else
-                    {
-                         battleOver = false;
-                    }
+               if (hero.currenthealth <= 0)
+               {
+                    battleOverText.enabled = true;
+                    battleOverText.text = "You Lose!";
+                    battleOver = true;
+               }
+               else
+               {
+                    battleOver = false;
+               }
                //check all other enemy chars
                if (party1 != null)
                {
@@ -2650,46 +2659,46 @@ public class Battle_Mechanics : MonoBehaviour {
      void Update()
      {
           heroText.text = "Health: " + (hero.currenthealth) + " / " + hero.maxhealth;
-          if(party1 != null)
+          if (party1 != null)
           {
                party1Text.text = "Health: " + (party1.currenthealth) + " / " + party1.maxhealth;
           }
-          if(party2 != null)
+          if (party2 != null)
           {
                party2Text.text = "Health: " + (party2.currenthealth) + " / " + party2.maxhealth;
           }
-          if(party3 != null)
+          if (party3 != null)
           {
                party3Text.text = "Health: " + (party3.currenthealth) + " / " + party3.maxhealth;
           }
-          
-          if(enemy1 != null)
+
+          if (enemy1 != null)
           {
                enemy1Text.text = "Health: " + (enemy1.currenthealth) + " / " + enemy1.maxhealth;
           }
-          if(enemy2 != null)
+          if (enemy2 != null)
           {
                enemy2Text.text = "Health: " + (enemy2.currenthealth) + " / " + enemy2.maxhealth;
           }
-          if(enemy3 != null)
+          if (enemy3 != null)
           {
                enemy3Text.text = "Health: " + (enemy3.currenthealth) + " / " + enemy3.maxhealth;
           }
-          if(enemy4 != null)
+          if (enemy4 != null)
           {
                enemy4Text.text = "Health: " + (enemy4.currenthealth) + " / " + enemy4.maxhealth;
           }
-          
-          if(b != null)
+
+          if (b != null)
           {
                btext.text = "Health: " + (b.currenthealth) + " / " + b.maxhealth;
           }
-          
+
      }
 
      void leaveBattle(bool win, bool f)
      {
-          if (win==true)
+          if (win == true)
           {
                int amount = 0;
                int xp = 0;
@@ -2722,7 +2731,7 @@ public class Battle_Mechanics : MonoBehaviour {
                Game.current.player.gold = Game.current.player.gold + amount;
 
                //modify player to hurt status?----------------Currently not on until healing out of combat mechanic added
-               
+
                //partyHealth();
 
 
@@ -2738,7 +2747,7 @@ public class Battle_Mechanics : MonoBehaviour {
                //no xp and gold
                battleOverText.text = "You ran away. Receive no gp or xp.";
           }
-          else if(win == false)
+          else if (win == false)
           {
                //lost battle
                //player revives in town
@@ -2758,26 +2767,26 @@ public class Battle_Mechanics : MonoBehaviour {
 
           if (enemy1 != null)
           {
-             if(enemy1.charactertype == "bear")
+               if (enemy1.charactertype == "bear")
                {
                     xp = xp + 250;
                }
-             else if(enemy1.charactertype == "rat")
+               else if (enemy1.charactertype == "rat")
                {
                     xp = xp + 50;
                }
-             else if(enemy1.charactertype == "jelly")
+               else if (enemy1.charactertype == "jelly")
                {
                     xp = xp + 100;
                }
-             else
+               else
                {
                     //something else?
                     xp = xp + 1;
                }
 
           }
-          if(enemy2 != null)
+          if (enemy2 != null)
           {
                if (enemy2.charactertype == "bear")
                {
@@ -2786,7 +2795,7 @@ public class Battle_Mechanics : MonoBehaviour {
                else if (enemy2.charactertype == "rat")
                {
                     xp = xp + 50;
-                 }
+               }
                else if (enemy2.charactertype == "jelly")
                {
                     xp = xp + 100;
@@ -2807,7 +2816,7 @@ public class Battle_Mechanics : MonoBehaviour {
                else if (enemy3.charactertype == "rat")
                {
                     xp = xp + 50;
-                 }
+               }
                else if (enemy3.charactertype == "jelly")
                {
                     xp = xp + 100;
@@ -2818,7 +2827,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     xp = xp + 1;
                }
           }
-          if(enemy4 != null)
+          if (enemy4 != null)
           {
                if (enemy4.charactertype == "bear")
                {
@@ -2846,15 +2855,15 @@ public class Battle_Mechanics : MonoBehaviour {
      void partyHealth()
      {
           Game.current.player.currenthealth = hero.currenthealth;
-          if(party1 != null)
+          if (party1 != null)
           {
                Game.current.party[0].currenthealth = party1.currenthealth;
           }
-          if(party2 != null)
+          if (party2 != null)
           {
                Game.current.party[1].currenthealth = party1.currenthealth;
           }
-          if(party3 != null)
+          if (party3 != null)
           {
                Game.current.party[2].currenthealth = party1.currenthealth;
           }
@@ -2954,6 +2963,59 @@ public class Battle_Mechanics : MonoBehaviour {
 
      }
 
-     
+     void isDead(Character c)
+     {
+          if (c.currenthealth <= 0)
+          {
+               if (hero == c)
+               {
+                    //hero dead
+                    heroDead = true;
+               }
+               else if (party1 == c)
+               {
+                    party1Dead = true;
+               }
+               else if (party2 == c)
+               {
+                    party2Dead = true;
+               }
+               else if (party3 == c)
+               {
+                    party3Dead = true;
+               }
+               else if (b == c)
+               {
+                    //boss dead
+                    bDead = true;
+               }
+               else if (enemy1 == c)
+               {
+                    enemy1Dead = true;
+               }
+               else if (enemy2 == c)
+               {
+                    enemy2Dead = true;
+               }
+               else if (enemy3 == c)
+               {
+                    enemy3Dead = true;
+               }
+               else if (enemy4 == c)
+               {
+                    enemy4Dead = true;
+               }
+               else
+               {
+                    //error
+                    Debug.Log("Error in isDead no match found");
+               }
+          }
+          else
+          {
+               Debug.Log("Selected char is not dead");
+          }
+     }
+
 }
 

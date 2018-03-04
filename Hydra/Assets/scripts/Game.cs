@@ -64,11 +64,11 @@ public class Game {
     public Game()
      {
           //-------------IMPORTANT NOTE: if you change any of the charactertype names (first Character element), please update if statment names in Update_CharacterMenu.cs, and Battle_Mechanics.cs!----------------------
-          player = new Character("heroine", "Hero",20,5,5,5,5,0);
-          farmer = new Character("farmer","Farmer Frank", 25,10,6,1,1,2);
-          sheep = new Character("sheep","Shifty Sheep",15,2,8,9,1,3);
-          cat = new Character("cat","Clumsy Cat",15,3,8,2,8,3);
-          drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
+          player = new Character("heroine", "Hero",30,5,5,5,5,0);
+          farmer = new Character("farmer","Farmer Frank", 35,10,6,1,1,2);
+          sheep = new Character("sheep","Shifty Sheep",25,2,8,9,1,3);
+          cat = new Character("cat","Clumsy Cat",25,3,8,2,8,3);
+          drunkard = new Character("drunkard","Drunkard Dan",40,10,4,1,0,5);
           cow = new Character("cow", "Heifer Cow", 5, 5, 5, 5, 5, 5);
 
         chestUnlocked = false;
@@ -89,17 +89,17 @@ public class Game {
           goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",100,10,9,8,7,5);
 
-          bear = new Character("bear","Bear",30,8,5,2,0,1);
+          bear = new Character("bear","Bear",20,8,5,2,0,1);
          // bear[1] = new Character("bear", "Bear 2", 30, 8, 5, 2, 0, 1);
           //bear[2] = new Character("bear", "Bear 3", 30, 8, 5, 2, 0, 1);
           //bear[3] = new Character("bear", "Bear 4", 30, 8, 5, 2, 0, 1);
 
-          rat = new Character("rat","Rat",10,2,7,1,1,0);
+          rat = new Character("rat","Rat",5,2,7,1,1,0);
           //rat[1] = new Character("rat", "Rat 2", 10, 2, 7, 1, 1, 0);
           //rat[2] = new Character("rat", "Rat 3", 10, 2, 7, 1, 1, 0);
           //rat[3] = new Character("rat", "Rat 4", 10, 2, 7, 1, 1, 0);
 
-          jelly = new Character("jelly","Jelly",20,5,7,2,1,1);
+          jelly = new Character("jelly","Jelly",10,5,7,2,1,1);
           //jelly[1] = new Character("jelly", "Jelly 2", 20, 5, 7, 2, 1, 1);
           //jelly[2] = new Character("jelly", "Jelly 3", 20, 5, 7, 2, 1, 1);
           //jelly[3] = new Character("jelly", "Jelly 4", 20, 5, 7, 2, 1, 1);
