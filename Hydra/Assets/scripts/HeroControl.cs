@@ -74,11 +74,11 @@ public class HeroControl : MonoBehaviour
         anim.SetFloat("MovingY", Input.GetAxisRaw("Vertical"));
 
 
-        if (Input.GetKeyDown("shift"))
+        if (Input.GetKeyDown("left shift"))
         {
             speed = 1.8f;
         }
-        if (Input.GetKeyUp("shift"))
+        if (Input.GetKeyUp("left shift"))
         {
             speed = 1.2f;
         }

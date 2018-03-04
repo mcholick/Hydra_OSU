@@ -855,7 +855,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if(b != null)
                     {
-                         if(b.name == selected.name)
+                         if(b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -866,7 +866,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     if (enemy1 != null)
                     {
                          Debug.Log("0");
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -876,7 +876,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     if (enemy2 != null)
                     {
                          Debug.Log("1");
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               Debug.Log("2");
 
@@ -887,7 +887,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -896,7 +896,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                    if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -937,7 +937,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -946,7 +946,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -955,7 +955,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.currenthealth = enemy2.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -964,7 +964,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -973,7 +973,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1013,7 +1013,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1022,7 +1022,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1031,7 +1031,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.currenthealth = enemy2.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1040,7 +1040,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1049,7 +1049,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1099,7 +1099,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1108,7 +1108,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1117,7 +1117,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.currenthealth = enemy2.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1126,7 +1126,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1135,7 +1135,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1173,7 +1173,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1182,7 +1182,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1191,7 +1191,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                    if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.currenthealth = enemy2.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1200,7 +1200,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1209,7 +1209,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1247,7 +1247,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               b.currenthealth = b.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1256,7 +1256,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.currenthealth = enemy1.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1265,7 +1265,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.currenthealth = enemy2.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1274,7 +1274,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.currenthealth = enemy3.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1283,7 +1283,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.currenthealth = enemy4.currenthealth - damage;
                               playerDamageText.enabled = true;
@@ -1403,7 +1403,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     yield return null;
                }
                //figure out WHO is selected
-               if (hero.name == selected.name)
+               if (hero == selected)
                {
                     if(hero.maxhealth < (hero.currenthealth + heal))
                     {
@@ -1422,7 +1422,7 @@ public class Battle_Mechanics : MonoBehaviour {
 
                if (party1 != null)
                {
-                    if (party1.name == selected.name)
+                    if (party1 == selected)
                     {
                          if (party1.maxhealth < (party1.currenthealth + heal))
                          {
@@ -1441,7 +1441,7 @@ public class Battle_Mechanics : MonoBehaviour {
                }
                if (party2 != null)
                {
-                    if (party2.name == selected.name)
+                    if (party2 == selected)
                     {
                          if (party2.maxhealth < (party2.currenthealth + heal))
                          {
@@ -1560,7 +1560,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Strength was" + b.strength);
                               b.strength = b.strength - damage;
@@ -1572,7 +1572,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.strength = enemy1.strength - damage;
                               playerOtherText.enabled = true;
@@ -1581,7 +1581,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                     if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.strength = enemy2.strength - damage;
                               playerOtherText.enabled = true;
@@ -1590,7 +1590,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.strength = enemy3.strength - damage;
                               playerOtherText.enabled = true;
@@ -1599,7 +1599,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.strength = enemy4.strength - damage;
                               playerOtherText.enabled = true;
@@ -1638,7 +1638,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Strength was" + b.strength);
                               b.strength = b.strength - damage;
@@ -1649,7 +1649,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.strength = enemy1.strength - damage;
                               playerOtherText.enabled = true;
@@ -1658,7 +1658,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.strength = enemy2.strength - damage;
                               playerOtherText.enabled = true;
@@ -1667,7 +1667,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.strength = enemy3.strength - damage;
                               playerOtherText.enabled = true;
@@ -1676,7 +1676,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.strength = enemy4.strength - damage;
                               playerOtherText.enabled = true;
@@ -1715,7 +1715,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Strength was" + b.strength);
                               b.strength = b.strength - damage;
@@ -1726,7 +1726,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.strength = enemy1.strength - damage;
                               playerOtherText.enabled = true;
@@ -1735,7 +1735,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.strength = enemy2.strength - damage;
                               playerOtherText.enabled = true;
@@ -1744,7 +1744,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.strength = enemy3.strength - damage;
                               playerOtherText.enabled = true;
@@ -1753,7 +1753,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.strength = enemy4.strength - damage;
                               playerOtherText.enabled = true;
@@ -1802,7 +1802,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Wisdom was" + b.wisdom);
                               b.wisdom = b.wisdom - damage;
@@ -1813,7 +1813,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.wisdom = enemy1.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1822,7 +1822,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.wisdom = enemy2.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1831,7 +1831,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.wisdom = enemy3.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1840,7 +1840,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.wisdom = enemy4.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1879,7 +1879,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Wisdom was" + b.wisdom);
                               b.wisdom = b.wisdom - damage;
@@ -1890,7 +1890,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.wisdom = enemy1.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1899,7 +1899,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.wisdom = enemy2.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1908,7 +1908,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.wisdom = enemy3.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1917,7 +1917,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.wisdom = enemy4.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1956,7 +1956,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("Wisdom was" + b.wisdom);
                               b.wisdom =b.wisdom - damage;
@@ -1967,7 +1967,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.wisdom = enemy1.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1976,7 +1976,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.wisdom = enemy2.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1985,7 +1985,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.wisdom = enemy3.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -1994,7 +1994,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.wisdom = enemy4.wisdom - damage;
                               playerOtherText.enabled = true;
@@ -2044,7 +2044,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("dexterity was" + b.dexterity);
                               b.dexterity = b.dexterity - damage;
@@ -2055,7 +2055,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.dexterity = enemy1.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2064,7 +2064,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.dexterity = enemy2.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2073,7 +2073,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.dexterity = enemy3.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2082,7 +2082,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.dexterity = enemy4.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2121,7 +2121,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("dexterity was" + b.dexterity);
                               b.dexterity = b.dexterity - damage;
@@ -2132,7 +2132,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.dexterity = enemy1.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2141,7 +2141,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.dexterity = enemy2.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2150,7 +2150,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.dexterity = enemy3.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2159,7 +2159,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.dexterity = enemy4.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2198,7 +2198,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     //was it the boss?
                     if (b != null)
                     {
-                         if (b.name == selected.name)
+                         if (b == selected)
                          {
                               Debug.Log("dexterity was" + b.dexterity);
                               b.dexterity = b.dexterity - damage;
@@ -2209,7 +2209,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy1 != null)
                     {
-                         if (enemy1.name == selected.name)
+                         if (enemy1 == selected)
                          {
                               enemy1.dexterity = enemy1.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2218,7 +2218,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy2 != null)
                     {
-                         if (enemy2.name == selected.name)
+                         if (enemy2 == selected)
                          {
                               enemy2.dexterity = enemy2.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2227,7 +2227,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy3 != null)
                     {
-                         if (enemy3.name == selected.name)
+                         if (enemy3 == selected)
                          {
                               enemy3.dexterity = enemy3.dexterity - damage;
                               playerOtherText.enabled = true;
@@ -2236,7 +2236,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                      if (enemy4 != null)
                     {
-                         if (enemy4.name == selected.name)
+                         if (enemy4 == selected)
                          {
                               enemy4.dexterity = enemy4.dexterity - damage;
                               playerOtherText.enabled = true;
