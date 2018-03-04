@@ -69,7 +69,7 @@ public class Game {
           sheep = new Character("sheep","Shifty Sheep",15,2,8,9,1,3);
           cat = new Character("cat","Clumsy Cat",15,3,8,2,8,3);
           drunkard = new Character("drunkard","Drunkard Dan",30,10,4,1,0,5);
-        cow = new Character("cow", "Heifer Cow", 5, 5, 5, 5, 5, 5);
+          cow = new Character("cow", "Heifer Cow", 5, 5, 5, 5, 5, 5);
 
         chestUnlocked = false;
         caveChestLooted = false;

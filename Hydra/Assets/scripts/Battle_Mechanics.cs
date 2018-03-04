@@ -285,7 +285,7 @@ public class Battle_Mechanics : MonoBehaviour {
               
                battleOverText.enabled = false;
                //is it the players turn or not---------------------------
-               if (currentTurn.charactertype == "heroine" || currentTurn.charactertype == "farmer" || currentTurn.charactertype == "sheep" || currentTurn.charactertype == "cat" || currentTurn.charactertype == "drunkard")
+               if (currentTurn == hero || currentTurn == party1  || currentTurn == party2 || currentTurn == party3)
                {
                     Debug.Log("PlayerTurn");
                     playerTurn(currentTurn);
