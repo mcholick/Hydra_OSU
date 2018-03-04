@@ -583,7 +583,7 @@ public class Battle_Mechanics : MonoBehaviour {
                     }
                }
           }
-          else //not a boss
+          if(c != b) //not a boss
           {
                 damage = c.strength;
                 chance = c.dexterity;
