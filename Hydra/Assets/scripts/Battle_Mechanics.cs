@@ -320,6 +320,8 @@ public class Battle_Mechanics : MonoBehaviour
                     }
                     //Debug.Log("did player turn happen?");
                     yield return new WaitForSeconds(1);
+                    Debug.Log("selected is before is dead " + selected.name);
+                    isDead(selected);
                     checkbattleOver(1);
                }
 
@@ -331,11 +333,14 @@ public class Battle_Mechanics : MonoBehaviour
                     Debug.Log("outofenemyturn");
                     //pause 2 seconds for enemy turn
                     yield return new WaitForSeconds(3);
+                    Debug.Log("selected is before is dead " + selected.name);
+                    isDead(selected);
                     checkbattleOver(2);
                     Debug.Log("outofcheckbattleOver");
                }
 
-
+               //turn is over, now check to see if whoever was attacked is dead
+               
 
 
                //------turn has been taken, update turn order-----------------
@@ -2965,6 +2970,7 @@ public class Battle_Mechanics : MonoBehaviour
 
      void isDead(Character c)
      {
+          Debug.Log("is Dead?");
           if (c.currenthealth <= 0)
           {
                if (hero == c)
@@ -2992,6 +2998,7 @@ public class Battle_Mechanics : MonoBehaviour
                else if (enemy1 == c)
                {
                     enemy1Dead = true;
+                    Debug.Log("enemy1dead");
                }
                else if (enemy2 == c)
                {
