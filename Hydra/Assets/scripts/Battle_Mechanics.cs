@@ -2534,62 +2534,50 @@ public class Battle_Mechanics : MonoBehaviour
           }
           else//was enemy turn 
           {
-               //all party health under 0
-               if (hero.currenthealth <= 0)
+               //check to see if player party is ALL dead
+               if (heroDead == true)
                {
-                    battleOverText.enabled = true;
-                    battleOverText.text = "You Lose!";
-                    battleOver = true;
-               }
-               else
-               {
-                    battleOver = false;
-               }
-               //check all other enemy chars
-               if (party1 != null)
-               {
-                    if (party1.currenthealth <= 0)
+                    if (party1 != null)
                     {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "You Lose!";
-                         battleOver = true;
+                         if (party1Dead == true)
+                         {
+                              if (party2 != null)
+                              {
+                                   if (party2Dead == true)
+                                   {
+                                        if (party3 != null)
+                                        {
+                                             if (party3Dead == true)
+                                             {
+                                                  battleOver = true;
+                                                  playerWon = false;
+                                             }
+                                        }
+                                        else
+                                        {
+                                             //only 2 party members
+                                             battleOver = true;
+                                             playerWon = false;
+                                        }
+                                   }
+                              }
+                              else
+                              {
+                                   //only 1 party member
+                                   battleOver = true;
+                                   playerWon = false;
+                              }
+                         }
+
                     }
                     else
                     {
-                         battleOver = false;
-                    }
-               }
-               if (party2 != null)
-               {
-                    if (party2.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "You Lose!";
+                         //only hero
                          battleOver = true;
+                         playerWon = false;
                     }
-                    else
-                    {
-                         battleOver = false;
-                    }
+
                }
-               if (party3 != null)
-               {
-                    if (party3.currenthealth <= 0)
-                    {
-                         battleOverText.enabled = true;
-                         battleOverText.text = "You Lose!";
-                         battleOver = true;
-                    }
-                    else
-                    {
-                         battleOver = false;
-                    }
-               }
-               if (battleOver == true)
-               {
-                    playerWon = false;
-               }
-               Debug.Log("endofbattlecheckenemy");
           }
      }
 
