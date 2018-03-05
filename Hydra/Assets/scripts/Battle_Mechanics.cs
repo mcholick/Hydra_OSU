@@ -49,8 +49,6 @@ public class Battle_Mechanics : MonoBehaviour
      private Character enemy3;
      private Character enemy4;
 
-     private List<Character> enemyParty;
-
      public Text enemy1Text;
      public Text enemy2Text;
      public Text enemy3Text;
@@ -73,13 +71,6 @@ public class Battle_Mechanics : MonoBehaviour
      //To keep track of whose turn it is-------------------------------
      //max number of characters in play is 8 (4 player, 4 enemy)
      private Character currentTurn;
-     private Character next1;
-     private Character next2;
-     private Character next3;
-     private Character next4;
-     private Character next5;
-     private Character next6;
-     private Character next7;
      private Character temp;
 
      //update visual turn tracker----------------
@@ -171,8 +162,7 @@ public class Battle_Mechanics : MonoBehaviour
           enemy2 = null;
           enemy3 = null;
           enemy4 = null;
-          orderedChars = new List<Character>();
-          enemyParty = new List<Character>();        
+          orderedChars = new List<Character>();    
 
 
           //init hero
@@ -2274,7 +2264,7 @@ public class Battle_Mechanics : MonoBehaviour
                //if there are party members
                if (party1 != null)
                {
-                    if (party1.name != currentTurn.name)
+                    if (party1.name != currentTurn.name && party1Dead == false)
                     {
                          option2.gameObject.SetActive(true);
                          option2text.text = party1.name;
@@ -2282,7 +2272,7 @@ public class Battle_Mechanics : MonoBehaviour
                }
                if (party2 != null)
                {
-                    if (party2.name != currentTurn.name)
+                    if (party2.name != currentTurn.name && party2Dead == false)
                     {
                          option3.gameObject.SetActive(true);
                          option3text.text = party2.name;
@@ -2291,7 +2281,7 @@ public class Battle_Mechanics : MonoBehaviour
 
                if (party3 != null)
                {
-                    if (party3.name != currentTurn.name)
+                    if (party3.name != currentTurn.name && party3Dead == false)
                     {
                          option4.gameObject.SetActive(true);
                          option4text.text = party3.name;
@@ -2334,23 +2324,31 @@ public class Battle_Mechanics : MonoBehaviour
                //if boss then enemyparty[0] if boss
                if (b != null)
                {
-                    option1.gameObject.SetActive(true);
-                    option1text.text = b.name;
+                    if (bDead == false) {
+                         option1.gameObject.SetActive(true);
+                         option1text.text = b.name;
 
-                    //if there is also and enemy with the boss (ink pillar), CANNOT have a 4th in enemy party
-                    if (enemy1 != null)
-                    {
-                         option4.gameObject.SetActive(true);
-                         option4text.text = enemy1.name;
+                         //if there is also and enemy with the boss (ink pillar), CANNOT have a 4th in enemy party
+                         if (enemy1 != null)
+                         {
+                              if (enemy1Dead == false)
+                              {
+                                   option4.gameObject.SetActive(true);
+                                   option4text.text = enemy1.name;
+                              }
 
+                         }
                     }
                }
 
                //if NOT boss then enemyparty[0] is enemy
                else if (enemy1 != null)
                {
-                    option1.gameObject.SetActive(true);
-                    option1text.text = enemy1.name;
+                    if (enemy1Dead == false)
+                    {
+                         option1.gameObject.SetActive(true);
+                         option1text.text = enemy1.name;
+                    }
                }
                else
                {
@@ -2359,20 +2357,29 @@ public class Battle_Mechanics : MonoBehaviour
 
                if (enemy2 != null)
                {
-                    option2.gameObject.SetActive(true);
-                    option2text.text = enemy2.name;
+                    if (enemy2Dead == false)
+                    {
+                         option2.gameObject.SetActive(true);
+                         option2text.text = enemy2.name;
+                    }
                }
 
                if (enemy3 != null)
                {
-                    option3.gameObject.SetActive(true);
-                    option3text.text = enemy3.name;
+                    if (enemy3Dead == false)
+                    {
+                         option3.gameObject.SetActive(true);
+                         option3text.text = enemy3.name;
+                    }
                }
 
                if (enemy4 != null)
                {
-                    option4.gameObject.SetActive(true);
-                    option4text.text = enemy4.name;
+                    if (enemy4Dead == false)
+                    {
+                         option4.gameObject.SetActive(true);
+                         option4text.text = enemy4.name;
+                    }
                }
           }
           charSelected = false;
