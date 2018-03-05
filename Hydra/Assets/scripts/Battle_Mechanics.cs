@@ -2479,6 +2479,7 @@ public class Battle_Mechanics : MonoBehaviour
                     if (bDead == true)
                     {
                          battleOver = true;
+                         playerWon = true;
                     }
 
                }
