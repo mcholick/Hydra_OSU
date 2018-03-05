@@ -6242,11 +6242,20 @@ MonoBehaviour:
   party1Text: {fileID: 383050808}
   party2Text: {fileID: 877182468}
   party3Text: {fileID: 1618806576}
+  heroSprite: {fileID: 1676901890}
+  party1Sprite: {fileID: 1744696785}
+  party2Sprite: {fileID: 1461667676}
+  party3Sprite: {fileID: 1201405621}
   btext: {fileID: 1726520033}
+  bSprite: {fileID: 2107772849}
   enemy1Text: {fileID: 1735439644}
   enemy2Text: {fileID: 1250286230}
   enemy3Text: {fileID: 1011975211}
   enemy4Text: {fileID: 726599961}
+  enemy1Sprite: {fileID: 1872335997}
+  enemy2Sprite: {fileID: 1599677303}
+  enemy3Sprite: {fileID: 433155850}
+  enemy4Sprite: {fileID: 1040546186}
   turn_current: {fileID: 226224530}
   turn_1: {fileID: 2041446334}
   turn_2: {fileID: 1017504192}
@@ -12741,7 +12750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.928}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12750,18 +12759,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 55
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 55
+    m_FontSize: 100
+    m_FontStyle: 3
+    m_BestFit: 1
+    m_MinSize: 50
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: BATTLE OVER TEXT
 --- !u!222 &2028268908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12783,8 +12792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 772}
-  m_SizeDelta: {x: 500.1, y: 185.1}
+  m_AnchoredPosition: {x: -36, y: 774}
+  m_SizeDelta: {x: 1127.6, y: 223.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2032739943
 GameObject:

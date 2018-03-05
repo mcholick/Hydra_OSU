@@ -14,16 +14,24 @@ public class Battle_Mechanics : MonoBehaviour
      private bool playerFled;
      private bool charSelected;
      private Character selected;
+     private bool dead;
 
      //Characters-------------------------------
      private Character hero;
      private Character party1;
      private Character party2;
      private Character party3;
+
+
      public Text heroText;
      public Text party1Text;
      public Text party2Text;
      public Text party3Text;
+
+     public Image heroSprite;
+     public Image party1Sprite;
+     public Image party2Sprite;
+     public Image party3Sprite;
 
      private bool heroDead;
      private bool party1Dead;
@@ -33,18 +41,26 @@ public class Battle_Mechanics : MonoBehaviour
 
      private Character b;
      public Text btext;
-
+     public Image bSprite;
+     private bool bDead;
 
      private Character enemy1;
      private Character enemy2;
      private Character enemy3;
      private Character enemy4;
+
+     private List<Character> enemyParty;
+
      public Text enemy1Text;
      public Text enemy2Text;
      public Text enemy3Text;
      public Text enemy4Text;
 
-     private bool bDead;
+     public Image enemy1Sprite;
+     public Image enemy2Sprite;
+     public Image enemy3Sprite;
+     public Image enemy4Sprite;
+
      private bool enemy1Dead;
      private bool enemy2Dead;
      private bool enemy3Dead;
@@ -75,7 +91,6 @@ public class Battle_Mechanics : MonoBehaviour
      public Image turn_5;
      public Image turn_6;
      public Image turn_7;
-     private Sprite tempPic;
 
      //buttons to get player input---------------
      public Button melee1;
@@ -144,8 +159,9 @@ public class Battle_Mechanics : MonoBehaviour
      // Use this for initialization
      void Start()
      {
-          tempPic = null;
           battleOver = false;
+          playerWon = false;
+          playerFled = false;
           //init party , boss, and enemy party to null
           party1 = null;
           party2 = null;
@@ -156,6 +172,7 @@ public class Battle_Mechanics : MonoBehaviour
           enemy3 = null;
           enemy4 = null;
           orderedChars = new List<Character>();
+          enemyParty = new List<Character>();        
 
 
           //init hero
@@ -219,7 +236,6 @@ public class Battle_Mechanics : MonoBehaviour
                orderedChars.Add(enemy4);
                enemy4Dead = false;
           }
-
           //figure out who goes first, seconds.....
           Character key;
           int i;
@@ -237,61 +253,11 @@ public class Battle_Mechanics : MonoBehaviour
           }
 
           //---------------------------------------Turn Order display-----------------------------------
-          turn_2.enabled = false;
-          turn_3.enabled = false;
-          turn_4.enabled = false;
-          turn_5.enabled = false;
-          turn_6.enabled = false;
-          turn_7.enabled = false;
 
+          //load sprites for turn order
+          loadSprites();
 
-          turn_current.sprite = Resources.Load(orderedChars[0].charactertype, typeof(Sprite)) as Sprite;
-          currentTurn = orderedChars[0];
-
-          if (orderedChars.Count >= 2)
-          {
-               turn_1.sprite = Resources.Load(orderedChars[1].charactertype, typeof(Sprite)) as Sprite;
-               next1 = orderedChars[1];
-          }
-          if (orderedChars.Count >= 3)
-          {
-               turn_2.enabled = true;
-               turn_2.sprite = Resources.Load(orderedChars[2].charactertype, typeof(Sprite)) as Sprite;
-               next2 = orderedChars[2];
-
-          }
-          if (orderedChars.Count >= 4)
-          {
-               turn_3.enabled = true;
-               turn_3.sprite = Resources.Load(orderedChars[3].charactertype, typeof(Sprite)) as Sprite;
-               next3 = orderedChars[3];
-          }
-          if (orderedChars.Count >= 5)
-          {
-               turn_4.enabled = true;
-               turn_4.sprite = Resources.Load(orderedChars[4].charactertype, typeof(Sprite)) as Sprite;
-               next4 = orderedChars[4];
-          }
-          if (orderedChars.Count >= 6)
-          {
-               turn_5.enabled = true;
-               turn_5.sprite = Resources.Load(orderedChars[5].charactertype, typeof(Sprite)) as Sprite;
-               next5 = orderedChars[5];
-          }
-          if (orderedChars.Count >= 7)
-          {
-               turn_6.enabled = true;
-               turn_6.sprite = Resources.Load(orderedChars[6].charactertype, typeof(Sprite)) as Sprite;
-               next6 = orderedChars[6];
-          }
-          if (orderedChars.Count >= 8)
-          {
-               turn_7.enabled = true;
-               turn_7.sprite = Resources.Load(orderedChars[7].charactertype, typeof(Sprite)) as Sprite;
-               next7 = orderedChars[7];
-          }
           //-----------------------------------Turn order displayed-----------------------------------------
-
           //Battle...START!
           StartCoroutine(battle());
 
@@ -304,6 +270,7 @@ public class Battle_Mechanics : MonoBehaviour
           while (battleOver == false)
           {
                Debug.Log("Battle Phase");
+               dead = false;
 
                battleOverText.enabled = false;
                //is it the players turn or not---------------------------
@@ -321,7 +288,7 @@ public class Battle_Mechanics : MonoBehaviour
                     //Debug.Log("did player turn happen?");
                     yield return new WaitForSeconds(1);
                     Debug.Log("selected is before is dead " + selected.name);
-                    isDead(selected);
+                    dead = isDead(selected);
                     checkbattleOver(1);
                }
 
@@ -334,73 +301,32 @@ public class Battle_Mechanics : MonoBehaviour
                     //pause 2 seconds for enemy turn
                     yield return new WaitForSeconds(3);
                     Debug.Log("selected is before is dead " + selected.name);
-                    isDead(selected);
+                    dead = isDead(selected);
                     checkbattleOver(2);
                     Debug.Log("outofcheckbattleOver");
                }
 
-               //turn is over, now check to see if whoever was attacked is dead
-               
+               //turn is over, now check to see if selected is dead and needs to be removed
+               removeDead(dead);
+
 
 
                //------turn has been taken, update turn order-----------------
                temp = currentTurn;
-               tempPic = turn_current.sprite;
 
-               currentTurn = next1;
-               turn_current.sprite = turn_1.sprite;
+               //remove currentTurn char from list
+               //the rest of the chars should now shift up in idx [1-0>0, 2->1....]
+               orderedChars.RemoveAt(0);
 
-               next1 = temp;
-               turn_1.sprite = tempPic;
+               //add currentTurn char to end of list
+               orderedChars.Add(temp);
 
-               if (next2 != null)
-               {
-                    next1 = next2;
-                    turn_1.sprite = turn_2.sprite;
+               //update sprites
+               loadSprites();
 
-                    next2 = temp;
-                    turn_2.sprite = tempPic;
-               }
-               if (next3 != null)
-               {
-                    next2 = next3;
-                    turn_2.sprite = turn_3.sprite;
+               //update currentTurn
+               currentTurn = orderedChars[0];
 
-                    next3 = temp;
-                    turn_3.sprite = tempPic;
-               }
-               if (next4 != null)
-               {
-                    next3 = next4;
-                    turn_3.sprite = turn_4.sprite;
-
-                    next4 = temp;
-                    turn_4.sprite = tempPic;
-               }
-               if (next5 != null)
-               {
-                    next4 = next5;
-                    turn_4.sprite = turn_5.sprite;
-
-                    next5 = temp;
-                    turn_5.sprite = tempPic;
-               }
-               if (next6 != null)
-               {
-                    next5 = next6;
-                    turn_5.sprite = turn_6.sprite;
-
-                    next6 = temp;
-                    turn_6.sprite = tempPic;
-               }
-               if (next7 != null)
-               {
-                    next6 = next7;
-                    turn_6.sprite = turn_7.sprite;
-
-                    next7 = temp;
-                    turn_7.sprite = tempPic;
-               }
                //----------------------------- turn order has been updated-----
                playerHealText.enabled = false;
                playerDamageText.enabled = false;
@@ -2567,12 +2493,14 @@ public class Battle_Mechanics : MonoBehaviour
                                                   if (enemy4Dead == true)
                                                   {
                                                        battleOver = true;
+                                                       playerWon = true;
                                                   }
                                              }
                                              else
                                              {
                                                   //only 3 enemies
                                                   battleOver = true;
+                                                  playerWon = true;
                                              }
                                         }
                                    }
@@ -2580,6 +2508,7 @@ public class Battle_Mechanics : MonoBehaviour
                                    {
                                         //only 2 enemies
                                         battleOver = true;
+                                        playerWon = true;
                                    }
                               }
 
@@ -2588,15 +2517,11 @@ public class Battle_Mechanics : MonoBehaviour
                          {
                               //only 1 enemy
                               battleOver = true;
+                              playerWon = true;
                          }
 
                     }
 
-               }
-
-               if (battleOver == true)
-               {
-                    playerWon = true;
                }
 
           }
@@ -2703,8 +2628,11 @@ public class Battle_Mechanics : MonoBehaviour
 
      void leaveBattle(bool win, bool f)
      {
+          battleOverText.enabled = true;
+          Debug.Log("leave battle");
           if (win == true)
           {
+               Debug.Log("leave battle win");
                int amount = 0;
                int xp = 0;
                //won battle
@@ -2729,10 +2657,13 @@ public class Battle_Mechanics : MonoBehaviour
                }
                else
                {
+                    //Debug.Log("in win == true, but no boss");
                     amount = Random.Range(1, 1000);
                     xp = xpcalc();
                }
-               battleOverText.text = "You received " + amount + " gp. \n" + xp + " xp";
+               //Debug.Log("xp is " + xp);
+               // Debug.Log("amount is " + amount);'
+               battleOverText.text = "You received " + amount.ToString() + " gp. \n" + xp.ToString() + " xp";
                Game.current.player.gold = Game.current.player.gold + amount;
 
                //modify player to hurt status?----------------Currently not on until healing out of combat mechanic added
@@ -2744,6 +2675,7 @@ public class Battle_Mechanics : MonoBehaviour
           }
           else if (f == true)
           {
+               Debug.Log("leave battle fled");
                //ran away
                //modify player to hurt status?
 
@@ -2754,6 +2686,7 @@ public class Battle_Mechanics : MonoBehaviour
           }
           else if (win == false)
           {
+               Debug.Log("leave battle lost");
                //lost battle
                //player revives in town
                //no xp and gold
@@ -2761,6 +2694,7 @@ public class Battle_Mechanics : MonoBehaviour
           }
           else
           {
+               Debug.Log("leave battle broken");
                //idk what happened?
                battleOverText.text = "Something broke...";
           }
@@ -2768,6 +2702,7 @@ public class Battle_Mechanics : MonoBehaviour
 
      int xpcalc()
      {
+          //Debug.Log("in xpcalc");
           int xp = 0;
 
           if (enemy1 != null)
@@ -2968,7 +2903,7 @@ public class Battle_Mechanics : MonoBehaviour
 
      }
 
-     void isDead(Character c)
+     bool isDead(Character c)
      {
           Debug.Log("is Dead?");
           if (c.currenthealth <= 0)
@@ -2977,52 +2912,189 @@ public class Battle_Mechanics : MonoBehaviour
                {
                     //hero dead
                     heroDead = true;
+                    return true;
                }
                else if (party1 == c)
                {
                     party1Dead = true;
+                    return true;
                }
                else if (party2 == c)
                {
                     party2Dead = true;
+                    return true;
                }
                else if (party3 == c)
                {
                     party3Dead = true;
+                    return true;
                }
                else if (b == c)
                {
                     //boss dead
                     bDead = true;
+                    return true;
                }
                else if (enemy1 == c)
                {
                     enemy1Dead = true;
                     Debug.Log("enemy1dead");
+                    return true;
                }
                else if (enemy2 == c)
                {
                     enemy2Dead = true;
+                    return true;
                }
                else if (enemy3 == c)
                {
                     enemy3Dead = true;
+                    return true;
                }
                else if (enemy4 == c)
                {
                     enemy4Dead = true;
+                    return true;
                }
                else
                {
                     //error
                     Debug.Log("Error in isDead no match found");
+                    return false;
                }
           }
           else
           {
                Debug.Log("Selected char is not dead");
+               return false;
           }
      }
 
+     void removeDead(bool chardead)
+     {
+          if (chardead == true)
+          {
+               //the selected char is dead
+
+               //figure out which turn was char (next1..2..3..)
+               for(int i = 0; i < orderedChars.Count; i++)
+               {
+                    if(selected == orderedChars[i])
+                    {
+                         //remove character from orderedChars
+                         orderedChars.RemoveAt(i);
+                    }
+               }
+
+               //figure out who was char (enemy1...party1...)
+               if(selected == hero)
+               {
+                    heroSprite.enabled = false;
+                    heroText.enabled = false;
+               }
+               else if (selected == party1)
+               {
+                    party1Sprite.enabled = false;
+                    party1Text.enabled = false;
+               }
+               else if (selected == party2)
+               {
+                    party2Sprite.enabled = false;
+                    party2Text.enabled = false;
+               }
+               else if (selected == party3)
+               {
+                    party3Sprite.enabled = false;
+                    party3Text.enabled = false;
+               }
+               else if (selected == b)
+               {
+                    bSprite.enabled= false;
+                    btext.enabled = false;
+               }
+               else if (selected == enemy1)
+               {
+                    enemy1Sprite.enabled = false;
+                    enemy1Text.enabled = false;
+               }
+               else if (selected == enemy2)
+               {
+                    enemy2Sprite.enabled = false;
+                    enemy2Text.enabled = false;
+               }
+               else if (selected == enemy3)
+               {
+                    enemy3Sprite.enabled = false;
+                    enemy3Text.enabled = false;
+               }
+               else if (selected == enemy4)
+               {
+                    enemy4Sprite.enabled = false;
+                    enemy4Text.enabled = false;
+               }
+               else
+               {
+                    //error has occured
+                    Debug.Log("REMOVE DEAD ERROR: not seleced char match made");
+               }
+               
+               
+          }
+
+     }
+
+     void loadSprites()
+     {
+          turn_2.enabled = false;
+          turn_3.enabled = false;
+          turn_4.enabled = false;
+          turn_5.enabled = false;
+          turn_6.enabled = false;
+          turn_7.enabled = false;
+
+          for (int i = 0; i < orderedChars.Count; i++)
+          {
+               if (i == 0)
+               {
+                    turn_current.sprite = Resources.Load(orderedChars[0].charactertype, typeof(Sprite)) as Sprite;
+                    currentTurn = orderedChars[0];
+               }
+               else if (i == 1)
+               {
+                    turn_1.sprite = Resources.Load(orderedChars[1].charactertype, typeof(Sprite)) as Sprite;
+
+               }
+               else if (i == 2)
+               {
+                    turn_2.enabled = true;
+                    turn_2.sprite = Resources.Load(orderedChars[2].charactertype, typeof(Sprite)) as Sprite;
+               }
+               else if (i == 3)
+               {
+                    turn_3.enabled = true;
+                    turn_3.sprite = Resources.Load(orderedChars[3].charactertype, typeof(Sprite)) as Sprite;
+               }
+               else if (i == 4)
+               {
+                    turn_4.enabled = true;
+                    turn_4.sprite = Resources.Load(orderedChars[4].charactertype, typeof(Sprite)) as Sprite;
+               }
+               else if (i == 5)
+               {
+                    turn_5.enabled = true;
+                    turn_5.sprite = Resources.Load(orderedChars[5].charactertype, typeof(Sprite)) as Sprite;
+               }
+               else if (i == 6)
+               {
+                    turn_6.enabled = true;
+                    turn_6.sprite = Resources.Load(orderedChars[6].charactertype, typeof(Sprite)) as Sprite;
+               }
+               else if (i == 7)
+               {
+                    turn_7.enabled = true;
+                    turn_7.sprite = Resources.Load(orderedChars[7].charactertype, typeof(Sprite)) as Sprite;
+               }
+          }
+     }
 }
 
