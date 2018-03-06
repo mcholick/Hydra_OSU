@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Battle_Mechanics : MonoBehaviour
 {
+
     public Battle_UI uiHandler;
     public postBattleReset leaveBattleScene;
     bool buttonClicked;
