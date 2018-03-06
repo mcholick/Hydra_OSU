@@ -14,7 +14,6 @@ public class BossBattle : MonoBehaviour {
           {
                //first boss unicorn
                Game.current.boss = Game.current.unicorn;
-               Game.current.player.unicorn = true;
         }
           else if (WhichBoss == 2)
           {
@@ -22,7 +21,6 @@ public class BossBattle : MonoBehaviour {
                //second boss goblin
                Game.current.boss = Game.current.goblin;
                Debug.Log(Game.current.boss);
-               Game.current.player.goblins = true;
         }
           else
           {

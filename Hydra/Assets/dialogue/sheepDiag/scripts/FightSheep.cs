@@ -8,7 +8,6 @@ public class FightSheep : MonoBehaviour {
     void OnMouseDown()
     {
         Game.current.boss = Game.current.sheep;
-        Game.current.sheepDead = true;
         SceneManager.LoadScene("_BattleScene");
     }
 }

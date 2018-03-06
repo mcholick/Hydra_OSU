@@ -7500,6 +7500,8 @@ MonoBehaviour:
     booze: 0
     door: 0
     level: 0
+    skillPoints: 0
+    xpToLvl: 0
 --- !u!1 &1154768113
 GameObject:
   m_ObjectHideFlags: 0
@@ -12750,7 +12752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.928}
+  m_Color: {r: 1, g: 0, b: 0.75, a: 0.928}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

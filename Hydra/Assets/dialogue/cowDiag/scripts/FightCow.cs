@@ -9,7 +9,6 @@ public class FightCow : MonoBehaviour
     void OnMouseDown()
     {
         Game.current.boss = Game.current.cow;
-        Game.current.cowDead = true;
         SceneManager.LoadScene("_BattleScene");
     }
 }

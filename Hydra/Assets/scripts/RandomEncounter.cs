@@ -13,12 +13,13 @@ public class RandomEncounter : MonoBehaviour {
     int encounterChance = 0; //as this increases, fight probability does too.
 	// Use this for initialization
 	void Start () {
-        HeroX = focus.transform.position.x;
-        HeroY = focus.transform.position.y;
-	}
+        random = Random.Range(350, 600);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        HeroX = focus.transform.position.x;
+        HeroY = focus.transform.position.y;
         activateEncounters = true;
         print("Encounters can now occur");
     }
@@ -26,12 +27,12 @@ public class RandomEncounter : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision)
     {
         activateEncounters = false;
+        encounterChance = 0;
         print("Encounters can no longer occur");
     }
 
     // Update is called once per frame
     void Update () {
-        random = Random.Range(1, 3500);
         //Game.current.HeroX = focus.transform.position.x;
         //Game.current.HeroY = focus.transform.position.y;
         if (activateEncounters == true)

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class sheep : MonoBehaviour {
 
     private bool inArea = false;
+    public Text interactText;
 
     // Use this for initialization
     void Start()
@@ -21,6 +23,7 @@ public class sheep : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = true;
+            interactText.text = "Press 'space' to interact with the sheep.";
         }
     }
 
@@ -29,8 +32,10 @@ public class sheep : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = false;
+            interactText.text = "";
         }
     }
+
 
     void Update()
     {

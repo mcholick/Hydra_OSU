@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class drunkard : MonoBehaviour {
 
     private bool inArea = false;
+    public Text interactText;
 
     // Use this for initialization
     void Start()
@@ -21,6 +23,7 @@ public class drunkard : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = true;
+            interactText.text = "Press 'space' to interact with the drunkard.";
         }
     }
 
@@ -29,6 +32,7 @@ public class drunkard : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = false;
+            interactText.text = "";
         }
     }
 

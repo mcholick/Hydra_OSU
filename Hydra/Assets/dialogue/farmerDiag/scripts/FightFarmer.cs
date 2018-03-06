@@ -8,7 +8,6 @@ public class FightFarmer : MonoBehaviour {
     void OnMouseDown()
     {
         Game.current.boss = Game.current.farmer;
-        Game.current.farmerDead = true;
         SceneManager.LoadScene("_BattleScene");
     }
 }

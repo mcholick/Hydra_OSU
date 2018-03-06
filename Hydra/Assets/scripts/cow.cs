@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class cow : MonoBehaviour {
 
     private bool inArea = false;
     public GameObject milk;
+    public Text interactText;
 
     // Use this for initialization
     void Start()
@@ -26,6 +28,7 @@ public class cow : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = true;
+            interactText.text = "Press 'space' to interact with the cow.";
         }
     }
 
@@ -34,6 +37,7 @@ public class cow : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = false;
+            interactText.text = "";
         }
     }
 

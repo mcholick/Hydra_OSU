@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class innkeeper : MonoBehaviour {
 
     private bool inArea = false;
     public GameObject booze;
+    public Text interactText;
 
     private void Start()
     {
@@ -21,6 +23,7 @@ public class innkeeper : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = true;
+            interactText.text = "Press 'space' to interact with the innkeeper.";
         }
     }
 
@@ -29,6 +32,7 @@ public class innkeeper : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = false;
+            interactText.text = "";
         }
     }
 

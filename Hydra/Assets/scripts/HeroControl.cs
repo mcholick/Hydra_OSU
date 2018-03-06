@@ -8,16 +8,11 @@ public class HeroControl : MonoBehaviour
 
     public float speed; //controls hero's pace
 
-    private string[] Inventory = new string[10];//holds hero's stuff
-    int invCount = 0;
-
     private CircleCollider2D hitbox;  //used for collecting and interacting with close objects
 
     private Animator anim;
 
     //private Rigidbody2D rigbod;
-
-    private string invText = "Inventory:"; //display inventory on screen;
 
     // Use this for initialization
     void Start()
@@ -82,38 +77,6 @@ public class HeroControl : MonoBehaviour
         {
             speed = 1.2f;
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        string keyname;
-
-
-        if (other.gameObject.CompareTag("key"))
-        {
-            keyname = other.gameObject.GetComponent<Text>().text;
-            print("Collectible Activated");
-            //print(keyname);
-            invText = invText + "\n" + keyname;
-            //inventory[invCount] = keyname;
-            invCount++;
-            print("Inventory contains:");
-            for (int i = 0; i < invCount; i++)
-            {
-                print(Inventory[i]);
-
-            }
-
-            Destroy(other.gameObject);
-
-        }
-    }
-
-    private void OnGUI()
-    {
-        Rect pos = new Rect(10, 10, 200, 3000);
-        GUI.Label(pos, invText);
-
     }
 
 }
