@@ -17,6 +17,15 @@ public class BattleScene_LoadCharacters : MonoBehaviour {
      // Use this for initialization
      void Start () {
 
+          if(Game.current.boss != null)
+          {
+               //boss no other party members
+               Game.current.enemyParty[0] = null;
+               Game.current.enemyParty[1] = null;
+               Game.current.enemyParty[2] = null;
+               Game.current.enemyParty[3] = null;
+          }
+
           //-----------------Begin init of player party------------------------
           if (partyMember == 0)
           {
