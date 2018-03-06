@@ -492,12 +492,81 @@ public class Battle_Mechanics : MonoBehaviour
                     }
 
                 }
-                else //ink------------------------WIP-------------Currently just attacks
-                {
-                    damage = c.strength;
-                    chance = c.dexterity;
+                    else if (Game.current.ink.name == c.name)
+                    {
+                         //Unicorn will either (0) Melee Attack, (1)Magic Attack, (2) or heal but only under 25%
+                         int mdamage;
+                         int pdamage;
+                         mdamage = c.wisdom;
+                         pdamage = c.strength;
+                         chance = c.dexterity;
+                         int piety = c.piety;
 
-                    int rand = Random.Range(0, 2);
+                         int rand = Random.Range(0, 3);
+                         if (rand == 0)
+                         {
+                              //MeleeAttack
+                              //magic attack
+                              //small attack
+                              chance = chance * 8;
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   selected.currenthealth = selected.currenthealth - pdamage;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " did " + pdamage + " damage to " + selected.name;
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " Missed " + selected.name;
+                              }
+
+
+                         }
+                         else if (rand == 1)
+                         {
+                              //magic attack
+                              //small attack
+                              chance = chance * 10;
+                              success = Random.Range(0, 100);
+                              if (success <= chance)
+                              {
+                                   selected.currenthealth = selected.currenthealth - mdamage;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " did " + mdamage + " damage to " + selected.name;
+                              }
+                              else
+                              {
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " Missed " + selected.name;
+                              }
+
+                         }
+                         else
+                         {
+                              //heal
+                              if (c.currenthealth < (c.maxhealth / 4))
+                              {
+                                   c.currenthealth = c.currenthealth + piety;
+                                   enemyHealText.enabled = true;
+                                   enemyHealText.text = c.name + " healed for " + piety;
+                              }
+                              else
+                              {
+                                   selected.currenthealth = selected.currenthealth - 1;
+                                   enemyDamageText.enabled = true;
+                                   enemyDamageText.text = c.name + " tried to absorb " + selected.name + " for 5 damage";
+                              }
+                         }
+                    }
+
+                    else //rat,bear,jelly, farmer, cow-----------------------WIP-------------Currently just attacks
+                    {
+                         damage = c.strength;
+                         chance = c.dexterity;
+
+                         int rand = Random.Range(0, 2);
 
                     if (rand == 0)
                     {
@@ -519,7 +588,7 @@ public class Battle_Mechanics : MonoBehaviour
                     else
                     {
                         enemyOtherText.enabled = true;
-                        enemyOtherText.text = "ink blot does nothing";
+                        enemyOtherText.text = c.name + " does nothing";
                     }
                 }
             }
