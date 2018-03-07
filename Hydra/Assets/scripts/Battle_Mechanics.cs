@@ -2735,19 +2735,19 @@ public class Battle_Mechanics : MonoBehaviour
                {
                     if (Game.current.boss.name == Game.current.unicorn.name)
                     {
-                         amount = 1092381342312;
+                         amount = 10921342312;
                          Game.current.player.unicorn = true;
                          xp = 500;
                     }
                     else if (Game.current.boss.name == Game.current.goblin.name)
                     {
-                         amount = 127632232341276;
+                         amount = 1276323276;
                          Game.current.player.goblins = true;
                          xp = 500;
                     }
                     else if (Game.current.boss.name == Game.current.ink.name)
                     {
-                         amount = 4798174146871673123;
+                         amount = 127632241276;
                          Game.current.player.finalBoss = true;
                          xp = 1000;
                     }
@@ -2774,7 +2774,7 @@ public class Battle_Mechanics : MonoBehaviour
                else
                {
                     //Debug.Log("in win == true, but no boss");
-                    amount = Random.Range(1000000, 90000000);
+                    amount = Random.Range(1, 900000);
                     xp = xpcalc();
                }
                //Debug.Log("xp is " + xp);

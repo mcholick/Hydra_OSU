@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HeroControl : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class HeroControl : MonoBehaviour
         anim = GetComponent<Animator>();
         //rigbod = GetComponent<Rigidbody2D>();
         transform.position = new Vector3(Game.current.player.x, Game.current.player.y, 0);
+        if (Game.current.player.finalBoss)
+        {
+            SceneManager.LoadScene("endGame");
+        }
     }
 
     // Update is called once per frame

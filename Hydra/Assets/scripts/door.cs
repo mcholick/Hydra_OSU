@@ -21,7 +21,7 @@ public class door : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             inArea = true;
-            interactText.text = "Press 'space' to interact with the door.";
+            interactText.text = "You need the heads of conjoined goblins and a unicorn horn to open this door. \nPress 'space' to interact with the door.";
         }
     }
 
@@ -39,6 +39,8 @@ public class door : MonoBehaviour {
         if (inArea && Input.GetKeyDown("space") && Game.current.player.heads && Game.current.player.horn)
         {
             Game.current.player.door = true;
+            Game.current.player.heads = false;
+            Game.current.player.horn = false;
             GameObject.Destroy(this.gameObject);
         }else if (inArea && Input.GetKeyDown("space"))
         {

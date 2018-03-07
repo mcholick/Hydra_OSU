@@ -13,7 +13,7 @@ public class RandomEncounter : MonoBehaviour {
     int encounterChance = 0; //as this increases, fight probability does too.
 	// Use this for initialization
 	void Start () {
-        random = Random.Range(350, 600);
+        random = Random.Range(350, 1000);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

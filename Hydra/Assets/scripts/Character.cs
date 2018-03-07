@@ -53,7 +53,7 @@ public class Character
         this.gold = 0;
         this.xp = 0;
         this.x = 0;
-        this.y = 4;
+        this.y = 3;
         this.z = 0;
         this.goblins = false;
         this.unicorn = false;
@@ -104,6 +104,7 @@ public class Character
         while(this.xp >= this.xpToLvl)
         {
             this.skillPoints++;
+            this.level++;
             this.xpToLvl = this.xpToLvl + this.xpToLvl;
             leveled = true;
         }
