@@ -86,9 +86,9 @@ public class Game {
         gotMilk = false;
 
           //-----IMPORTANT: HEALTH IS CHANGED FOR DEBUGING...INCREASE HEALTH FOR SUBMISSON!!!-----------
-        unicorn = new Character("unicorn","Sassy Unicorn",5,3,5,8,9,3);
-          goblin = new Character("goblin","Goblin Twins",2,10,1,1,2,5);
-          ink = new Character("ink","Amorphous Ink Blot",10,10,9,8,7,5);
+        unicorn = new Character("unicorn","Sassy Unicorn",100,3,5,8,9,3);
+          goblin = new Character("goblin","Goblin Twins",500,10,1,1,2,5);
+          ink = new Character("ink","Amorphous Ink Blot",1000,10,9,8,7,5);
 
           bear = new Character("bear","Bear",20,8,5,2,0,1);
          // bear[1] = new Character("bear", "Bear 2", 30, 8, 5, 2, 0, 1);
