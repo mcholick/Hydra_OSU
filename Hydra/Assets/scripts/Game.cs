@@ -90,7 +90,7 @@ public class Game {
           goblin = new Character("goblin","Goblin Twins",500,10,1,1,2,5);
           ink = new Character("ink","Amorphous Ink Blot",1000,10,9,8,7,5);
 
-          bear = new Character("bear","Bear",20,8,5,2,0,1);
+          bear = new Character("bear","Bear",15,6,5,2,0,1);
          // bear[1] = new Character("bear", "Bear 2", 30, 8, 5, 2, 0, 1);
           //bear[2] = new Character("bear", "Bear 3", 30, 8, 5, 2, 0, 1);
           //bear[3] = new Character("bear", "Bear 4", 30, 8, 5, 2, 0, 1);
@@ -100,7 +100,7 @@ public class Game {
           //rat[2] = new Character("rat", "Rat 3", 10, 2, 7, 1, 1, 0);
           //rat[3] = new Character("rat", "Rat 4", 10, 2, 7, 1, 1, 0);
 
-          jelly = new Character("jelly","Jelly",10,5,7,2,1,1);
+          jelly = new Character("jelly","Jelly",10,4,7,2,1,1);
           //jelly[1] = new Character("jelly", "Jelly 2", 20, 5, 7, 2, 1, 1);
           //jelly[2] = new Character("jelly", "Jelly 3", 20, 5, 7, 2, 1, 1);
           //jelly[3] = new Character("jelly", "Jelly 4", 20, 5, 7, 2, 1, 1);
