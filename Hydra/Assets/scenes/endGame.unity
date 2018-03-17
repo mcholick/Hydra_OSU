@@ -1254,6 +1254,7 @@ GameObject:
   - component: {fileID: 1677474791}
   - component: {fileID: 1677474790}
   - component: {fileID: 1677474789}
+  - component: {fileID: 1677474793}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1351,6 +1352,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1677474793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1677474788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aefcc1dba5bd5b44eab3412524707906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1883342680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,12 +1725,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 116168455}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1677474793}
+        m_MethodName: LoadScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
