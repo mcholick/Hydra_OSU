@@ -59,7 +59,7 @@ public class RandomEncounter : MonoBehaviour {
 
                 for (int i = 0; i <= enemyCount; i++)
                 {
-                    int enemyType = Random.Range(0, 2);  //dictates enemy type
+                    int enemyType = Random.Range(0, 3);  //dictates enemy type
                     if (Debug)
                         enemyType = 0;
 
