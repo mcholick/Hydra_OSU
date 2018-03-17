@@ -764,8 +764,8 @@ public class Battle_Mechanics : MonoBehaviour
           if (b == null)
           {
                runaway.gameObject.SetActive(true);
-               percentChance = (dex / 20) * 100;
-               runawaychance.text = " Chance: " + (percentChance) + "%";
+               //percentChance = (dex / 20) * 100;
+               runawaychance.text = " Chance: 100%";
           }
           else
           {
@@ -2303,23 +2303,11 @@ public class Battle_Mechanics : MonoBehaviour
           int dex = currentTurn.dexterity;
           if (b == null)
           {
-               int percentChance = dex * 5;
-               int success = Random.Range(0, 100);
-
-               if (success <= percentChance)
-               {
-                    Debug.Log("got away!");
-                    battleOverText.enabled = true;
-                    playerFled = true;
-                    battleOverText.text = "You Ran Away!";
-                    battleOver = true;
-               }
-               else
-               {
-                    playerOtherText.enabled = true;
-                    playerOtherText.text = "Failed to Run Away!";
-                    Debug.Log("fail run");
-               }
+               Debug.Log("got away!");
+               battleOverText.enabled = true;
+               playerFled = true;
+               battleOverText.text = "You Ran Away!";
+               battleOver = true;
 
           }
           buttonClicked = true;
