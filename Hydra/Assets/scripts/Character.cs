@@ -63,7 +63,7 @@ public class Character
         this.booze = false;
         this.door = false;
         this.level = 1;
-        this.finalBoss = true;
+        this.finalBoss = false;
         this.skillPoints = 0;
         this.xpToLvl = 100;
 
