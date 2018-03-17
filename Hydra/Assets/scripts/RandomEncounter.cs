@@ -13,7 +13,7 @@ public class RandomEncounter : MonoBehaviour {
     int encounterChance = 0; //as this increases, fight probability does too.
 	// Use this for initialization
 	void Start () {
-        random = Random.Range(350, 1000);
+        random = Random.Range(1000, 5000);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,9 +69,9 @@ public class RandomEncounter : MonoBehaviour {
                             Game.current.enemyParty[i] = new Character(Game.current.rat);
                             //print("making a rat");
                             break;
-                        //case 1:
-                          //  Game.current.enemyParty[i] = new Character(Game.current.bear);
-                          //  break;
+                        case 1:
+                            Game.current.enemyParty[i] = new Character(Game.current.bear);
+                            break;
                         default:
                             Game.current.enemyParty[i] = new Character(Game.current.jelly);
                             break;
