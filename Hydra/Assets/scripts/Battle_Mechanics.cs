@@ -284,8 +284,10 @@ public class Battle_Mechanics : MonoBehaviour
                     }
                     //Debug.Log("did player turn happen?");
                     yield return new WaitForSeconds(1);
-                    Debug.Log("selected is before is dead " + selected.name);
-                    dead = isDead(selected);
+                    if(playerFled == false)
+                    {
+                         dead = isDead(selected);
+                    }
                     checkbattleOver(1);
                }
 
@@ -2308,11 +2310,9 @@ public class Battle_Mechanics : MonoBehaviour
                playerFled = true;
                battleOverText.text = "You Ran Away!";
                battleOver = true;
+               buttonClicked = true;
 
           }
-          buttonClicked = true;
-          Debug.Log("attempted to runaway");
-
      }
 
      // Updates Player_Select option texts
