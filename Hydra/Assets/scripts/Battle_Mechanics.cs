@@ -1501,17 +1501,20 @@ public class Battle_Mechanics : MonoBehaviour
                }
                if (party3 != null)
                {
-                    if (party3.maxhealth < (party3.currenthealth + heal))
+                    if (party3 == selected)
                     {
-                         party3.currenthealth = party3.maxhealth;
-                         playerHealText.enabled = true;
-                         playerHealText.text = party3.name + " is at max health";
-                    }
-                    else
-                    {
-                         party3.currenthealth = party3.currenthealth + heal;
-                         playerHealText.enabled = true;
-                         playerHealText.text = currentTurn.name + " healed " + party3.name + "for" + heal;
+                         if (party3.maxhealth < (party3.currenthealth + heal))
+                         {
+                              party3.currenthealth = party3.maxhealth;
+                              playerHealText.enabled = true;
+                              playerHealText.text = party3.name + " is at max health";
+                         }
+                         else
+                         {
+                              party3.currenthealth = party3.currenthealth + heal;
+                              playerHealText.enabled = true;
+                              playerHealText.text = currentTurn.name + " healed " + party3.name + "for" + heal;
+                         }
                     }
                }
                buttonClicked = true;
